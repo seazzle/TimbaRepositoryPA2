@@ -1,0 +1,20 @@
+<meta charset="ISO-8859-1"> 
+ <div class="jumbotron" ng-init="getAllAuftraege()">
+ 
+ 	<h2>Alle Aufträge</h2>
+
+	<p>hier siehst du alle Aufträge auf denen du buchungsberechtigt bist</p>
+ 
+  	<accordion close-others="true">
+    	<accordion-group ng-repeat="auftrag in auftraege">
+    		<accordion-heading>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right glyphicon glyphicon-plus"></i>
+    		</accordion-heading>
+    		<p>{{auftrag.beschreibung}}</p>
+    		<ul class="list-group">
+				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
+			</ul>
+   		</accordion-group>
+  	</accordion>
+ </div>
+ 

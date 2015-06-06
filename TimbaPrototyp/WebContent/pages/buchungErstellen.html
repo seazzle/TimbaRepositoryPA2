@@ -1,0 +1,113 @@
+<meta charset="ISO-8859-1"> 
+
+<div class="jumbotron" ng-init="initBuchungErstellen()"">
+	<h2>Buchung erstellen</h2>
+	<p class="bot-buffer">hier kannst du eine neue Buchung erstellen</p>
+
+	<div style="display: none" id="meldung" class="alert alert-danger"
+		role="alert">{{message}}</div>
+
+	<!-- ng-init holt die Projekte und deren AP fuer die dropDownliste -->
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label for="auftraege" class="col-sm-3 control-label">Auftrag</label>
+			<div class="col-sm-8">
+ 				<select id="auftraege" class="form-control" ng-model="selectedAuftrag" name="auftrag"
+					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege">
+					<option id="chooseAuftrag" style="display: none" value="">waehle einen Auftrag</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="arbeitspakete" class="col-sm-3 control-label">Arbeitspakete</label>
+			<div class="col-sm-8">
+				<select id="arbeitspakete" ng-disabled="!selectedAuftrag" class="form-control" name="arbeitspaket"
+					ng-model="selectedArbeitspaket"
+					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete">
+					<option id="chooseArbeitspaket" style="display: none" value="">waehle einen Arbeitspaket</option>	
+				</select>
+			</div>
+		</div>
+ 		<div class="form-group">
+			<label for="istAufwand" class="col-sm-3 control-label">IST-Aufwand</label>
+			<div class="col-sm-8">
+				<div class="input-group">
+					<input ng-model="istAufwand" type="text" class="form-control"
+						placeholder="IstAufwand in Stunden"> <span class="input-group-btn">
+						<button class="btn btn-default" type="button" data-toggle="modal"
+							data-target="#stoppuhrModal">Stop deine Zeit</button>
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="kommentar" class="col-sm-3 control-label">Kommentar</label>
+			<div class="col-sm-8">
+				<textarea ng-model="kommentar" class="form-control" rows="3"
+					placeholder="Kommentar"></textarea>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<button style="display: block" id="buchenButton" ng-click="buchen()"
+					type="submit" class="btn btn-default">Buchen</button>
+				<button style="display: none" id="confirmButton"
+					ng-click="confirmBuchen()" type="submit" class="btn btn-default">ja
+					ich will buchen</button>
+			</div>
+		</div>
+	</form>
+
+	<!-- Stoppuhr Modal -->
+	<div class="modal fade" id="stoppuhrModal" tabindex="-1" role="dialog"
+		aria-labelledby="stoppuhrModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Schließen">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="stoppuhrModalLabel">Stop deine
+						Zeit</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<label for="stopuhr" class="col-sm-2 control-label">Stoppuhr</label>
+						</div>
+						<div class="col-md-6">
+							<div class="form-control">
+								<span id="h">0</span>:<span id="m">00</span>:<span id="s">00</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<label for="industrieStunde" class="col-sm-2 control-label">Industriestunden</label>
+						</div>
+						<div class="col-md-6">
+							<div id="zeit" class="form-control-static"></div>
+						</div>
+					</div>
+					<div>
+						<small>*Die Stoppuhr laeuft auch trotz schliessen des Modals weiter.
+							Beim Neuladen der Seite gehen die Daten jedoch verloren (neue Javascript Instanz).
+						</small>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button id="a1" style="display: inline" onclick="startwatch()" type="button" class="btn btn-primary">Start</button>
+					<button id="a2" style="display: none" onclick="stop()" ng-click="updateISTAufwand()" type="button" class="btn btn-primary" >Stop</button><!-- data-dismiss="modal" -->
+					<button id="a3" style="display: none" onclick="conton()" type="button" class="btn btn-default">Weiter ohne Pause</button>
+					<button id="a4" style="display: none" onclick="cont()" type="button" class="btn btn-primary">Weiter mit Pause</button>
+					<button id="a5" style="display: none" onclick="newstart()" type="button" class="btn btn-default">Neustart</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>			
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

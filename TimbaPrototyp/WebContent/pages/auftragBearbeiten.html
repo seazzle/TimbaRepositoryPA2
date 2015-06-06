@@ -1,0 +1,144 @@
+<meta charset="ISO-8859-1"> 
+<div class="jumbotron" ng-init="initAuftragBearbeiten()">
+	<h2>Auftrag bearbeiten</h2>
+	<p class="bot-buffer">{{message}}</p>
+
+	<form class="form-horizontal">
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Name</label>
+			<div class="col-sm-8">
+				<input class="form-control" id="name" type="text" ng-model="name" readonly>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">Kurzbeschreibung</label>
+			<div class="col-sm-8">
+				<input class="form-control" id="kurzbeschreibung" type="text"
+					placeholder="Auftrag-Name" ng-model="kurzbeschreibung">
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-3 control-label">PLAN Beginn</label>
+			<div class="col-sm-8">
+				<input class="form-control" id="planBeginn" type="text"
+					placeholder="Plan-Beginn" ng-model="planBeginn" readonly>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label class="col-sm-3 control-label">PLAN Ende</label>
+			<div class="col-sm-8">
+				<input class="form-control" id="planEnde" type="text"
+					placeholder="Plan-Ende" ng-model="planEnde" readonly>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="beschreibung" class="col-sm-3 control-label">Beschreibung</label>
+			<div class="col-sm-8">
+				<textarea ng-model="beschreibung" class="form-control" rows="3"
+					placeholder="Auftrag-Beschreibung"></textarea>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<label for="status" class="col-sm-3 control-label">Status</label>
+			<div class="col-sm-8">
+				<select id="auftragStatus" class="form-control"
+					 name="auftragStatus" ng-model='selected.status' required ng-options='option.value as option.name for option in statusOptions'>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<button type="button" class="btn btn-default" data-toggle="modal"
+					data-target=".bs-example-modal-lg">Mitarbeiter oder
+					Organisationseinheit hinzufügen</button>
+			</div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<button ng-click="editAuftrag()" type="submit" class="btn btn-primary">Auftrag
+					bearbeiten</button>
+			</div>
+		</div>
+	</form>
+
+<!-- Mitarbeiter hinzufuegen Modal -->
+ 
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Mitarbeiter oder OE hinzufügen</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row bot-buffer">
+						<div class="input-group input-group-lg">
+							<div class="input-group-addon">
+								<i class="fa fa-search"></i>
+							<input type="text" class="form-control" placeholder="Suche Mitarbeiter" ng-model="searchMitarbeiter">
+						</div>
+					</div>
+				
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<td>
+								</td>
+								
+								<td>
+									<a ng-click="sortType = 'name'; sortReverse = !sortReverse">
+            							SbNr
+         							   <span ng-show="sortType == 'name' && !sortReverse" class="fa fa-caret-down"></span>
+       						     	   <span ng-show="sortType == 'name' && sortReverse" class="fa fa-caret-up"></span>
+        						  	</a>
+								</td>
+								<td><a ng-click="sortType = 'kurzbeschreibung'; sortReverse = !sortReverse">
+										Mitarbeiter oder Organisationseinheit
+										<span ng-show="sortType == 'kurzbeschreibung' && !sortReverse" class="fa fa-caret-down"></span>
+										<span ng-show="sortType == 'kurzbeschreibung' && sortReverse" class="fa fa-caret-up"></span>
+								</a>
+								</td>
+							<tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="buchungsberechtigter in buchungsberechtigte | orderBy:sortType:sortReverse | filter:searchMitarbeiter" ng-model="buchungsberechtigter">
+								<td><input type="checkbox" ng-init="buchungsberechtigteCheckbox=true" ng-checked="true" ng-change="change(buchungsberechtigter, buchungsberechtigteCheckbox)" ng-model="buchungsberechtigteCheckbox"></td>
+								<td>{{buchungsberechtigter.name}}</td>
+								<td>{{buchungsberechtigter.kurzbeschreibung}}</td>
+								<!--  
+								<td>{{buchungsberechtigteCheckbox}}</td>
+								<td>{{buchungsberechtigter}}</td>
+								-->
+							</tr>
+							
+							<tr ng-repeat="nichtBuchungsberechtigter in nichtBuchungsberechtigte | orderBy:sortType:sortReverse | filter:searchMitarbeiter" ng-model="nichtBuchungsberechtigter">
+								<td><input type="checkbox" ng-init="nichtBuchungsberechtigteCheckbox=false" ng-checked="false" ng-change="change(nichtBuchungsberechtigter, nichtBuchungsberechtigteCheckbox)" ng-model="nichtBuchungsberechtigteCheckbox"></td>
+								<td>{{nichtBuchungsberechtigter.name}}</td>
+								<td>{{nichtBuchungsberechtigter.kurzbeschreibung}}</td>
+								<!-- 
+								<td>{{nichtBuchungsberechtigteCheckbox}}</td>
+								<td>{{nichtBuchungsberechtigter}}</td>
+							 -->
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Fertig</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

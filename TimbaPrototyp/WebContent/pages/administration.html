@@ -1,0 +1,39 @@
+<meta charset="ISO-8859-1"> 
+<div class="jumbotron" ng-init="ermittleAdminBerechtigteAuftraege()">
+	<h2>Administration</h2>
+	<p class="bot-buffer">hier siehst du die Auftraege und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
+	<!-- 
+	   	<accordion close-others="true">
+    	<accordion-group ng-repeat="auftrag in auftraege">
+    		<accordion-heading>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<span class="pull-right glyphicon glyphicon-plus"></span>
+    		</accordion-heading>
+    		<p>{{auftrag.beschreibung}}</p>
+    		<ul class="list-group">
+				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
+			</ul>
+   		</accordion-group>
+  	</accordion>
+  	 -->
+  	 <accordion close-others="true">
+    	<accordion-group ng-repeat="auftrag in auftraege">
+    		<accordion-heading>
+    			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="glyphicon glyphicon-pencil"></span></a>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
+    			<span class="pull-right glyphicon glyphicon-plus"></span>
+    		</accordion-heading>
+    		<p>{{auftrag.beschreibung}}</p>
+    		<ul class="list-group">
+    			<li class="list-group-item">
+    				<a ng-click="openCreateArbeitspaket(auftrag)" href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>
+    			</li>
+				<li class="list-group-item" ng-repeat="arbeitspaket in auftrag.arbeitspakete">
+					<a ng-click="openEditArbeitspaket(arbeitspaket, auftrag)" href="#arbeitspaketBearbeiten">
+						<span class="glyphicon glyphicon-pencil"></span>
+						{{arbeitspaket.kurzbeschreibung}}
+					</a>
+				</li>
+			</ul>
+   		</accordion-group>
+  	</accordion>
+ </div>
