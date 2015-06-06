@@ -61,3 +61,8 @@ http://stackoverflow.com/questions/11872832/how-to-respond-to-clicks-on-a-checkb
 http://stackoverflow.com/questions/19590063/get-specific-json-object-by-id-from-json-array-in-angularjs
 http://stackoverflow.com/questions/18884840/adding-a-new-array-element-to-a-json-object
 http://stackoverflow.com/questions/6310623/remove-item-from-json-array-using-its-name-value
+
+Clickable table row fuer mitarbeiter
+
+Loading bar http 
+https://github.com/chieffancypants/angular-loading-bar

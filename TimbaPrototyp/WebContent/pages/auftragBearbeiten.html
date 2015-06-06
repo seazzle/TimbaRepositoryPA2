@@ -113,7 +113,7 @@
 							<tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="buchungsberechtigter in buchungsberechtigte | orderBy:sortType:sortReverse | filter:searchMitarbeiter" ng-model="buchungsberechtigter">
+							<tr ng-repeat="buchungsberechtigter in buchungsberechtigte | orderBy:sortType:sortReverse | filter:searchMitarbeiter" ng-model="buchungsberechtigter" data-ng-click="abwaehlen()" class="clickableRow" title="click">
 								<td><input type="checkbox" ng-init="buchungsberechtigteCheckbox=true" ng-checked="true" ng-change="change(buchungsberechtigter, buchungsberechtigteCheckbox)" ng-model="buchungsberechtigteCheckbox"></td>
 								<td>{{buchungsberechtigter.name}}</td>
 								<td>{{buchungsberechtigter.kurzbeschreibung}}</td>
