@@ -375,6 +375,9 @@ timba.config(function($sceProvider) {
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.auftraege = data.content;
+				if(data.content.length==0){
+					$scope.showInfoBox=true;
+				}
 			} else {
 				$scope.showErrorBox = true;
 				console.log($scope.showErrorBox);
