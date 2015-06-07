@@ -1,39 +1,44 @@
-<meta charset="ISO-8859-1"> 
+<meta charset="ISO-8859-1">
 
 <div class="jumbotron" ng-init="initBuchungErstellen()"">
 	<h2>Buchung erstellen</h2>
 	<p class="bot-buffer">hier kannst du eine neue Buchung erstellen</p>
-
-	<div style="display: none" id="meldung" class="alert alert-danger"
-		role="alert">{{message}}</div>
+	
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
 
 	<!-- ng-init holt die Projekte und deren AP fuer die dropDownliste -->
-	<form class="form-horizontal">
+	<form class="form-horizontal" name="buchungErstellenFormular">
 		<div class="form-group">
 			<label for="auftraege" class="col-sm-3 control-label">Auftrag</label>
 			<div class="col-sm-8">
- 				<select id="auftraege" class="form-control" ng-model="selectedAuftrag" name="auftrag"
-					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege">
-					<option id="chooseAuftrag" style="display: none" value="">waehle einen Auftrag</option>
+				<select id="auftraege" class="form-control"
+					ng-model="selectedAuftrag" name="auftrag"
+					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege" required">
+					<option id="chooseAuftrag" style="display: none" value="">waehle
+						einen Auftrag</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="arbeitspakete" class="col-sm-3 control-label">Arbeitspakete</label>
 			<div class="col-sm-8">
-				<select id="arbeitspakete" ng-disabled="!selectedAuftrag" class="form-control" name="arbeitspaket"
+				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
+					class="form-control" name="arbeitspaket"
 					ng-model="selectedArbeitspaket"
-					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete">
-					<option id="chooseArbeitspaket" style="display: none" value="">waehle einen Arbeitspaket</option>	
+					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete" required">
+					<option id="chooseArbeitspaket" style="display: none" value="">waehle
+						einen Arbeitspaket</option>
 				</select>
 			</div>
 		</div>
- 		<div class="form-group">
+		<div class="form-group">
 			<label for="istAufwand" class="col-sm-3 control-label">IST-Aufwand</label>
 			<div class="col-sm-8">
 				<div class="input-group">
 					<input ng-model="istAufwand" type="text" class="form-control"
-						placeholder="IstAufwand in Stunden"> <span class="input-group-btn">
+						placeholder="IstAufwand in Stunden" required> <span
+						class="input-group-btn">
 						<button class="btn btn-default" type="button" data-toggle="modal"
 							data-target="#stoppuhrModal">Stop deine Zeit</button>
 					</span>
@@ -51,11 +56,8 @@
 
 		<div class="form-group">
 			<div class="col-sm-offset-3 col-sm-8">
-				<button style="display: block" id="buchenButton" ng-click="buchen()"
+				<button ng-disabled="buchungErstellenFormular.$invalid" id="buchenButton" ng-click="buchen()"
 					type="submit" class="btn btn-default">Buchen</button>
-				<button style="display: none" id="confirmButton"
-					ng-click="confirmBuchen()" type="submit" class="btn btn-default">ja
-					ich will buchen</button>
 			</div>
 		</div>
 	</form>
@@ -93,19 +95,26 @@
 						</div>
 					</div>
 					<div>
-						<small>*Die Stoppuhr laeuft auch trotz schliessen des Modals weiter.
-							Beim Neuladen der Seite gehen die Daten jedoch verloren (neue Javascript Instanz).
-						</small>
+						<small>*Die Stoppuhr laeuft auch trotz schliessen des
+							Modals weiter. Beim Neuladen der Seite gehen die Daten jedoch
+							verloren (neue Javascript Instanz). </small>
 					</div>
 				</div>
 
 				<div class="modal-footer">
-					<button id="a1" style="display: inline" onclick="startwatch()" type="button" class="btn btn-primary">Start</button>
-					<button id="a2" style="display: none" onclick="stop()" ng-click="updateISTAufwand()" type="button" class="btn btn-primary" >Stop</button><!-- data-dismiss="modal" -->
-					<button id="a3" style="display: none" onclick="conton()" type="button" class="btn btn-default">Weiter ohne Pause</button>
-					<button id="a4" style="display: none" onclick="cont()" type="button" class="btn btn-primary">Weiter mit Pause</button>
-					<button id="a5" style="display: none" onclick="newstart()" type="button" class="btn btn-default">Neustart</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>			
+					<button id="a1" style="display: inline" onclick="startwatch()"
+						type="button" class="btn btn-primary">Start</button>
+					<button id="a2" style="display: none" onclick="stop()"
+						ng-click="updateISTAufwand()" type="button"
+						class="btn btn-primary">Stop</button>
+					<!-- data-dismiss="modal" -->
+					<button id="a3" style="display: none" onclick="conton()"
+						type="button" class="btn btn-default">Weiter ohne Pause</button>
+					<button id="a4" style="display: none" onclick="cont()"
+						type="button" class="btn btn-primary">Weiter mit Pause</button>
+					<button id="a5" style="display: none" onclick="newstart()"
+						type="button" class="btn btn-default">Neustart</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Schliessen</button>
 				</div>
 			</div>
 		</div>

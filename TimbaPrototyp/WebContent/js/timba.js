@@ -526,17 +526,9 @@ timba.config(function($sceProvider) {
 	}
 
 	// TODO use Angular here
-	$scope.confirmBuchen = function() {
-		meldung.setAttribute("class", "alert alert-success");
-		$(meldung).css("display", "block");
-		$scope.message = 'dein Buchung wurde uebermittelt';
-		var jsonAuftrag = angular.fromJson($scope.selectedAuftrag);
-		$scope.selectedAuftrag = jsonAuftrag.name;
-		var jsonArbeitspaket = angular.fromJson($scope.selectedArbeitspaket);
-		$scope.selectedArbeitspaket = jsonArbeitspaket.name;
-
+	$scope.buchen = function() {
 		var buchung = {
-			"arbeitsPaket" : $scope.selectedArbeitspaket,
+			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
 			"aufwand" : parseFloat($scope.istAufwand.replace(',', '.').replace(' ', '')),
 			"kommentar" : $scope.kommentar,
 			"buchungsErsteller" : user
@@ -549,38 +541,21 @@ timba.config(function($sceProvider) {
 			method : "POST",
 			data : buchung,
 		}).success(function(data) {
-			$scope.istAufwand = "";
-			$scope.kommentar = "";
-			document.getElementById("buchenButton").setAttribute("style", "display: block");
-			document.getElementById("confirmButton").setAttribute("style", "display: none");
-			$rootScope.getUserInfo();
-			alert("die Buchung wurde hinzugefuegt");
+			if (data.success == true) {
+				alert("Buchung wurde erfolgreich geändert");
+				$scope.istAufwand = "";
+				$scope.kommentar = "";
+				$rootScope.getUserInfo();
+				
+				
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
-		// setTimeout("location.reload(true);",2000);
-	}
-
-	$scope.buchen = function() {
-		var meldung = document.getElementById("meldung");
-		if (angular.isUndefined($scope.selectedAuftrag)) {
-			$(meldung).css("display", "block");
-			$scope.message = 'waehle einen Auftrag';
-		} else if (angular.isUndefined($scope.selectedArbeitspaket)) {
-			$(meldung).css("display", "block");
-			$scope.message = 'waehle ein Arbeitspaket';
-		} else if (angular.isUndefined($scope.istAufwand)) {
-			$(meldung).css("display", "block");
-			$scope.message = 'gib deinen IST Aufwand in Stunden an';
-		} else if ($scope.istAufwand > 30) {
-			var confirmButton = document.getElementById("confirmButton");
-			var buchenButton = document.getElementById("buchenButton");
-			meldung.setAttribute("class", "alert alert-info");
-			$(meldung).css("display", "block");
-			$scope.message = 'willst du wirklich ' + $scope.istAufwand + ' Stunden erfassen';
-			$(confirmButton).css("display", "block");
-			$(buchenButton).css("display", "none");
-		} else {
-			$scope.confirmBuchen();
-		}
 	}
 } ]);
 
@@ -866,8 +841,6 @@ timba.config(function($sceProvider) {
 		$scope.beschreibung = $rootScope.rsArbeitspaket.beschreibung;
 		$scope.planAufwand = $rootScope.rsArbeitspaket.planAufwand;
 	}
-
-	// $status=arbeitspaketStatus.name;
 
 	$scope.arbeitspaketBearbeiten = function() {
 		var arbeitspaket = {
