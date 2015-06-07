@@ -2,6 +2,8 @@
 <div class="jumbotron" ng-init="initBuchungenAnzeigen()">
 	<h2>Meine Buchungen</h2>
 	<p>hier siehst du deine Buchungen der letzten 7 Tage</p>
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
 	
 	<div class="row">
 		<div class="col-md-4">

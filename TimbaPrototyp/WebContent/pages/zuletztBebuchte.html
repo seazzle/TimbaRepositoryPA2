@@ -3,7 +3,9 @@
 	<h2>Meine zuletzt bebuchten Aufträge</h2>
 	<p>hier siehst du deine zuletzt bebuchten Aufträge</p>
 	
-	   	<accordion close-others="true">
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	
+	<accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
     			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right glyphicon glyphicon-plus"></i>

@@ -2,19 +2,8 @@
 <div class="jumbotron" ng-init="ermittleAdminBerechtigteAuftraege()">
 	<h2>Administration</h2>
 	<p class="bot-buffer">hier siehst du die Auftraege und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
-	<!-- 
-	   	<accordion close-others="true">
-    	<accordion-group ng-repeat="auftrag in auftraege">
-    		<accordion-heading>
-    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<span class="pull-right glyphicon glyphicon-plus"></span>
-    		</accordion-heading>
-    		<p>{{auftrag.beschreibung}}</p>
-    		<ul class="list-group">
-				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
-			</ul>
-   		</accordion-group>
-  	</accordion>
-  	 -->
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	
   	 <accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>

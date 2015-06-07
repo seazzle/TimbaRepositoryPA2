@@ -104,7 +104,6 @@ timba.controller('loginController', function($scope) {
 });
 
 timba.controller('zuletztBebuchteController', function($scope) {
-	// create a message to display in our view
 	$scope.message = 'hier siehst du deine zuletzt bebuchten Auftraege';
 });
 
@@ -378,6 +377,7 @@ timba.config(function($sceProvider) {
 				$scope.auftraege = data.content;
 			} else {
 				$scope.showErrorBox = true;
+				console.log($scope.showErrorBox);
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
 			}
 		}).error(function(data, status) {
@@ -589,14 +589,21 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller(
-		'buchungenAnzeigenController',
-		[
-				'$scope',
-				'$http',
-				'$rootScope',
+}).controller('buchungenAnzeigenController', ['$scope','$http','$rootScope',
 				function($scope, $http, $rootScope) {
 
+	/**
+	 * steuert die Sichtbarkeit der Error Box
+	 */
+	$scope.showErrorBox = false;
+
+	/**
+	 * steuert die Sichtbarkeit der Success Box diese wird nur aufgerufen, wenn
+	 * es sich bei der function um eine POST Methode handelt Bei GET wird nur
+	 * ueber Error benachrichtig, erfolg zeigt das Ergebnis
+	 */
+	$scope.showSuccessBox = false;
+	
 					/**
 					 * initialiesiert die Datumsfelder
 					 */
@@ -618,24 +625,23 @@ timba.config(function($sceProvider) {
 					 * <code>initBuchungenAnzeigen()</code> durch
 					 */
 					$scope.buchungenAnzeigen = function() {
-						// console.log(dateFormatter($scope.beginnDatum.value));
-						// console.log(dateFormatter($scope.endDatum.value));
 						$http(
 								{
-									url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value)
-											+ '/' + dateFormatter($scope.endDatum.value) + '',
+									url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
+											+ dateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
-							$scope.buchungen = data.content;
-						});
+									if (data.success == true) {
+										$scope.buchungen = data.content;
+									} else {
+										$scope.showErrorBox = true;
+										$scope.errorMessage = "Rochade Antwortet: " + data.message;
+									}
+								}).error(function(data, status) {
+									$scope.showErrorBox = true;
+									$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+								});
 					}
-
-					// $scope.openBuchungErstellen =
-					// function(arbeitspaket, auftrag){
-					// $rootScope.rsAuftrag=auftrag;
-					// $rootScope.rsArbeitspaket=arbeitspaket;
-					// $rootScope.rsStorno=false;
-					// }
 
 					/**
 					 * variablen zum sortieren und suchen in der Tabelle
@@ -667,7 +673,6 @@ timba.config(function($sceProvider) {
 						if (typeof $scope.dayDataCollapse === 'undefined') {
 							$scope.dayDataCollapseFn();
 						}
-
 						if ($scope.tableRowExpanded === false && $scope.tableRowIndexExpandedCurr === "" && $scope.storeIdExpanded === "") {
 							$scope.tableRowIndexExpandedPrev = "";
 							$scope.tableRowExpanded = true;
@@ -711,11 +716,19 @@ timba.config(function($sceProvider) {
 								method : "POST",
 								data : buchung,
 							}).success(function(data) {
-								$rootScope.getUserInfo();
-								alert("die Buchung wurde storniert");
+								if (data.success == true) {
+									$rootScope.getUserInfo();
+									$scope.buchungenAnzeigen();
+									$scope.showSuccessBox = true;
+									$scope.successMessage="die Buchung wurde storniert";
+								} else {
+									$scope.showErrorBox = true;
+									$scope.errorMessage = "Rochade Antwortet: " + data.message;
+								}
+							}).error(function(data, status) {
+								$scope.showErrorBox = true;
+								$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 							});
-							// location.reload();
-							$scope.buchungenAnzeigen();
 						}
 					}
 				} ]);
@@ -784,6 +797,8 @@ timba.config(function($sceProvider) {
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('arbeitspaketAnlegenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+	$scope.showErrorBox=false;
+	$scope.showSuccessBox=false;
 	$scope.initArbeitspaketAnlegen = function() {
 		$scope.auftrag = $rootScope.rsAuftrag;
 		$scope.auftragKurzbeschreibung = $scope.auftrag.kurzbeschreibung;
@@ -804,10 +819,21 @@ timba.config(function($sceProvider) {
 			method : "POST",
 			data : arbeitspaket,
 		}).success(function(data) {
-			$scope.kurzbeschreibung = "";
-			$scope.beschreibung = "";
-			$scope.planAufwand = "";
-			alert("das Arbeitspaket wurde hinzugefuegt");
+			if (data.success == true) {
+				$scope.showSuccessBox = true;
+				$scope.successMessage="das Arbeitspaket wurde erfolgreich angelegt";
+				$scope.kurzbeschreibung="";
+				$scope.beschreibung=""
+				$scope.planAufwand="";
+				
+//				location.href = "#administration";
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -852,14 +878,22 @@ timba.config(function($sceProvider) {
 		}
 
 		console.log(arbeitspaket);
+		
 		$http({
 			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
 			data : arbeitspaket,
 		}).success(function(data) {
-			$scope.beschreibung = "";
-			$rootScope.getUserInfo();
-			alert("das Arbeitspaket wurde geändert");
+			if (data.success == true) {
+				alert("Arbeitspaket wurde erfolgreich geändert");
+				location.href = "#administration";
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 } ]);
@@ -870,7 +904,8 @@ timba.config(function($sceProvider) {
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
-
+	$scope.showErrorBox=false;
+	
 	$scope.statusOptions = [ {
 		name : 'Offen',
 		value : 'offen'
@@ -897,13 +932,9 @@ timba.config(function($sceProvider) {
 	/**
 	 * variablen zum sortieren und suchen in der Tabelle
 	 */
-	$scope.sortType = 'name'; // set the default sort
-	// type
-	$scope.sortReverse = false; // set the default sort
-	// order
-	$scope.searchMitarbeiter = ''; // set the default
-	// search/filter
-	// term
+	$scope.sortType = 'name'; // set the default sort type
+	$scope.sortReverse = false; // set the default sort order
+	$scope.searchMitarbeiter = ''; // set the default search/filter term
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
 		$http({
@@ -915,11 +946,16 @@ timba.config(function($sceProvider) {
 		// 'Content-Type': application/json
 		// }
 		}).success(function(data) {
-			if (data.success == false) {
-				$scope.error = data.message;
-			} else {
+			if (data.success == true) {
+				$scope.showErrorBox = false;
 				$scope.nichtBuchungsberechtigte = data.content;
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
 			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -932,7 +968,6 @@ timba.config(function($sceProvider) {
 		} else {
 			$scope.removeFromBuchungsberechtige(mitarbeiter);
 		}
-
 	}
 
 	/**
@@ -940,12 +975,11 @@ timba.config(function($sceProvider) {
 	 * buchungsberechtigten zu den buchungsberechtigten hinzu
 	 */
 	$scope.addToBuchungsberechtigte = function(mitarbeiter) {
-		console.log(JSON.stringify(mitarbeiter));
+		console.log(JSON.stringify("angeklickter mitarbeiter: \n"+mitarbeiter));
 		removeItem($scope.nichtBuchungsberechtigte, 'id', mitarbeiter.id);
 		// console.log(JSON.stringify($scope.nichtBuchungsberechtigte));
 		$scope.buchungsberechtigte.push(mitarbeiter);
-		console.log(JSON.stringify($scope.buchungsberechtigte));
-		// alert("bin hier add to ");
+		console.log(JSON.stringify("neue Buchungsberechtigte \n"+$scope.buchungsberechtigte));
 	}
 
 	/**
@@ -953,12 +987,10 @@ timba.config(function($sceProvider) {
 	 * in die Menge der nicht Buchungsberechtigten hinzu
 	 */
 	$scope.removeFromBuchungsberechtige = function(mitarbeiter) {
-		console.log(JSON.stringify(mitarbeiter));
-		// findAndRemove($scope.buchungsberechtigte, 'name', mitarbeiter.name);
+		console.log(JSON.stringify("angeklickter mitarbeiter: \n"+mitarbeiter));
 		removeItem($scope.buchungsberechtigte, 'id', mitarbeiter.id);
-		console.log(JSON.stringify($scope.buchungsberechtigte));
+		console.log(JSON.stringify("neue Buchungsberechtigte \n"+$scope.buchungsberechtigte));
 		$scope.nichtBuchungsberechtigte.push(mitarbeiter);
-		// alert("bin hier remove from ");
 		// console.log(JSON.stringify($scope.nichtBuchungsberechtigte));
 	}
 
@@ -968,28 +1000,11 @@ timba.config(function($sceProvider) {
 	$scope.editAuftrag = function() {
 		var auftrag = {
 			"kurzbeschreibung" : $scope.kurzbeschreibung,
-			// "name" : "20150138",
 			"bescshreibung" : $scope.beschreibung,
-			// "planBeginn" : "",
-			// "planEnde" : "",
 			"buchungsberechtigte" : JSON.stringify($scope.buchungsberechtigte),
-			// [ {
-			// "kurzbeschreibung" : "Roman Richter",
-			// "name" : "0851",
-			// "id" : 18013
-			// }, {
-			// "kurzbeschreibung" : "Volker Sengler",
-			// "name" : "0964",
-			// "id" : 18074
-			// }, {
-			// "kurzbeschreibung" : "Oliver Kühn",
-			// "name" : "0980",
-			// "id" : 18087
-			// } ],
-			// "type" : "PROJEKT",
-			// "editPermission" : true,
 			"status" : $scope.selected.status
 		}
+		
 		console.log(auftrag);
 
 		$http({
@@ -997,9 +1012,16 @@ timba.config(function($sceProvider) {
 			method : "POST",
 			data : auftrag,
 		}).success(function(data) {
-			$scope.beschreibung = "";
-			$rootScope.getUserInfo();
-			alert("der Auftrag wurde geändert");
+			if (data.success == true) {
+				alert("auftrag wurde bearbeitet");
+				location.href = "#administration";
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 } ]);

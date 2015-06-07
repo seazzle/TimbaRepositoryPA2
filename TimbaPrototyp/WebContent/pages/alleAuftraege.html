@@ -2,8 +2,9 @@
  <div class="jumbotron" ng-init="getAllAuftraege()">
  
  	<h2>Alle Aufträge</h2>
-
 	<p>hier siehst du alle Aufträge auf denen du buchungsberechtigt bist</p>
+	
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
  
   	<accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
