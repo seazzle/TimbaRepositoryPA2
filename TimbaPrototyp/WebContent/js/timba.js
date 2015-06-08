@@ -888,7 +888,7 @@ timba.config(function($sceProvider) {
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geändert";
+				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geaendert";
 				$rootScope.rsShowSuccessBox = true;
 				console.log($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
