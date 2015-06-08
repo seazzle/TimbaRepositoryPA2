@@ -327,6 +327,8 @@ timba.config(function($sceProvider) {
 	$rootScope.clearRootScope = function() {
 		delete $rootScope.rsAuftrag;
 		delete $rootScope.rsArbeitspaket;
+		delete $rootScope.rsSuccessMessage;
+		delete $rootScope.rsShowSuccessBox;
 	}
 
 	/**
@@ -528,7 +530,9 @@ timba.config(function($sceProvider) {
 		}
 	}
 
-	// TODO use Angular here
+	/**
+	 * erstellt eine Buchung
+	 */
 	$scope.buchen = function() {
 		var buchung = {
 			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
@@ -545,12 +549,18 @@ timba.config(function($sceProvider) {
 			data : buchung,
 		}).success(function(data) {
 			if (data.success == true) {
-				alert("Buchung wurde erfolgreich geändert");
+				$scope.showSuccessBox = true;
+				$scope.successMessage="Buchung wurde erfolgreich erstellt";
 				$scope.istAufwand = "";
 				$scope.kommentar = "";
 				$rootScope.getUserInfo();
 				
-				
+				/**
+				 * stoppuhr zuruecksetzten
+				 */
+				document.getElementById("h").innerHTML = 0;
+				document.getElementById("m").innerHTML = 00;
+				document.getElementById("s").innerHTML = 00;
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
@@ -692,7 +702,7 @@ timba.config(function($sceProvider) {
 							$http({
 								url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/buchen',
 								method : "POST",
-								data : buchung,
+								data : angular.toJson(buchung),
 							}).success(function(data) {
 								if (data.success == true) {
 									$rootScope.getUserInfo();
@@ -722,6 +732,18 @@ timba.config(function($sceProvider) {
 	 * steuert die Sichtbarkeit der Error Box
 	 */
 	$scope.showErrorBox = false;
+	
+	/**
+	 * steuert die Sichtbarkeit der Success Box diese wird nur aufgerufen, wenn
+	 * es sich bei der function um eine POST Methode handelt Bei GET wird nur
+	 * ueber Error benachrichtig, erfolg zeigt das Ergebnis
+	 */
+	$scope.showSuccessBox = false;
+	
+	$scope.initAdministration = function(){
+		$scope.getSuccessMessages();
+		$scope.ermittleAdminBerechtigteAuftraege();
+	}
 
 	/**
 	 * ermittelt Auftraege auf denen der User ein bearbeitungsrecht hat
@@ -767,6 +789,13 @@ timba.config(function($sceProvider) {
 	$scope.openEditAuftrag = function(auftrag) {
 		$rootScope.rsAuftrag = auftrag;
 	}
+	
+	$scope.getSuccessMessages = function(){
+		$scope.successMessage = $rootScope.rsSuccessMessage;
+		$scope.showSuccessBox = $rootScope.rsShowSuccessBox;
+		console.log($scope.showSuccessBox);
+		$rootScope.clearRootScope();
+	}
 } ]);
 
 /**
@@ -790,12 +819,12 @@ timba.config(function($sceProvider) {
 			"planAufwand" : $scope.planAufwand
 		}
 
-		console.log(arbeitspaket);
+		console.log(angular.toJson(arbeitspaket));
 
 		$http({
 			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
 			method : "POST",
-			data : arbeitspaket,
+			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.showSuccessBox = true;
@@ -803,8 +832,6 @@ timba.config(function($sceProvider) {
 				$scope.kurzbeschreibung="";
 				$scope.beschreibung=""
 				$scope.planAufwand="";
-				
-//				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
@@ -858,10 +885,12 @@ timba.config(function($sceProvider) {
 		$http({
 			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
-			data : arbeitspaket,
+			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				alert("Arbeitspaket wurde erfolgreich geändert");
+				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geändert";
+				$rootScope.rsShowSuccessBox = true;
+				console.log($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
@@ -951,11 +980,11 @@ timba.config(function($sceProvider) {
 	 * buchungsberechtigten zu den buchungsberechtigten hinzu
 	 */
 	$scope.addToBuchungsberechtigte = function(mitarbeiter) {
-		console.log(JSON.stringify("angeklickter mitarbeiter: \n"+mitarbeiter));
+		console.log("angeklickter mitarbeiter: \n"+(mitarbeiter));
 		removeItem($scope.nichtBuchungsberechtigte, 'id', mitarbeiter.id);
-		// console.log(JSON.stringify($scope.nichtBuchungsberechtigte));
+		// console.log(angular.toJson($scope.nichtBuchungsberechtigte));
 		$scope.buchungsberechtigte.push(mitarbeiter);
-		console.log(JSON.stringify("neue Buchungsberechtigte \n"+$scope.buchungsberechtigte));
+		console.log("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
 	}
 
 	/**
@@ -963,11 +992,11 @@ timba.config(function($sceProvider) {
 	 * in die Menge der nicht Buchungsberechtigten hinzu
 	 */
 	$scope.removeFromBuchungsberechtige = function(mitarbeiter) {
-		console.log(JSON.stringify("angeklickter mitarbeiter: \n"+mitarbeiter));
+		console.log("angeklickter mitarbeiter: \n"+(mitarbeiter));
 		removeItem($scope.buchungsberechtigte, 'id', mitarbeiter.id);
-		console.log(JSON.stringify("neue Buchungsberechtigte \n"+$scope.buchungsberechtigte));
+		console.log("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
 		$scope.nichtBuchungsberechtigte.push(mitarbeiter);
-		// console.log(JSON.stringify($scope.nichtBuchungsberechtigte));
+		// console.log(angular.toJson($scope.nichtBuchungsberechtigte));
 	}
 
 	/**
@@ -976,20 +1005,21 @@ timba.config(function($sceProvider) {
 	$scope.editAuftrag = function() {
 		var auftrag = {
 			"kurzbeschreibung" : $scope.kurzbeschreibung,
-			"bescshreibung" : $scope.beschreibung,
-			"buchungsberechtigte" : JSON.stringify($scope.buchungsberechtigte),
+			"beschreibung" : $scope.beschreibung,
+			"buchungsberechtigte" : ($scope.buchungsberechtigte),
 			"status" : $scope.selected.status
 		}
-		
-		console.log(auftrag);
+		console.log(angular.toJson(auftrag));
 
 		$http({
 			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
-			data : auftrag,
+			data : angular.toJson(auftrag),
 		}).success(function(data) {
 			if (data.success == true) {
-				alert("auftrag wurde bearbeitet");
+				$rootScope.rsSuccessMessage = "Auftrag "+data.content.kurzbeschreibung+" wurde bearbeitet";
+				$rootScope.rsShowSuccessBox = true;
+				console.log($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
@@ -1001,6 +1031,16 @@ timba.config(function($sceProvider) {
 		});
 	}
 } ]);
+
+
+function removeNulls(obj){
+	  var isArray = obj instanceof Array;
+	  for (var k in obj){
+	    if (obj[k]===null) isArray ? obj.splice(k,1) : delete obj[k];
+	    else if (typeof obj[k]=="object") removeNulls(obj[k]);
+	  }
+	}
+
 
 /**
  * @param obj
@@ -1022,7 +1062,8 @@ function removeItem(obj, prop, val) {
 		}
 	}
 	if (found) {
-		delete obj[c];
+//		delete obj[c];
+		obj.splice(c,1);
 	}
 }
 
@@ -1186,4 +1227,6 @@ function conton() {
 /**
  * Stoppuhr Funktion ENDE
  */
+
+
 

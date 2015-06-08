@@ -1,8 +1,9 @@
 <meta charset="ISO-8859-1"> 
-<div class="jumbotron" ng-init="ermittleAdminBerechtigteAuftraege()">
+<div class="jumbotron" ng-init="initAdministration()">
 	<h2>Administration</h2>
 	<p class="bot-buffer">hier siehst du die Auftraege und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
 	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
 	
   	 <accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
