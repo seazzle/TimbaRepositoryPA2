@@ -314,15 +314,15 @@ timba.config(function($sceProvider) {
 	
 //	$scope.deviceDetector=deviceDetector;
 	
-	if(deviceDetector.raw.browser.ie){
+	if(deviceDetector.raw.browser.chrome){
 		url=badLocalDevURL;
 	}
 	
-	console.log("windows:" +deviceDetector.raw.os.windows);
-	console.log("linux:" +deviceDetector.raw.os.linux);
-	console.log("chrome:" +deviceDetector.raw.browser.chrome);
-	console.log("ie:" +deviceDetector.raw.browser.ie);
-	console.log("mac:" +deviceDetector.raw.os.mac);
+//	console.log("windows:" +deviceDetector.raw.os.windows);
+//	console.log("linux:" +deviceDetector.raw.os.linux);
+//	console.log("chrome:" +deviceDetector.raw.browser.chrome);
+//	console.log("ie:" +deviceDetector.raw.browser.ie);
+//	console.log("mac:" +deviceDetector.raw.os.mac);
 	
 	
 	/**
@@ -378,7 +378,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -404,7 +405,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status.getText() + " Response Data " + data.getText() || "Request failed";
 		});
 	}
 
@@ -452,7 +454,8 @@ timba.config(function($sceProvider, $httpProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -533,7 +536,9 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -584,7 +589,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
 		});
 	}
 } ]);
@@ -644,7 +650,8 @@ timba.config(function($sceProvider) {
 									}
 								}).error(function(data, status) {
 									$scope.showErrorBox = true;
-									$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+									$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//									$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 								});
 					}
 
@@ -732,7 +739,8 @@ timba.config(function($sceProvider) {
 								}
 							}).error(function(data, status) {
 								$scope.showErrorBox = true;
-								$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+								$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//								$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 							});
 						}
 					}
@@ -781,7 +789,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -855,7 +864,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -915,7 +925,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 } ]);
@@ -977,7 +988,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 
@@ -1044,7 +1056,8 @@ timba.config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
 } ]);
