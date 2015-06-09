@@ -1,4 +1,4 @@
-@CHARSET "ISO-8859-1";
+@CHARSET "utf-8";
 
 .top-buffer { margin-top:20px; }
 
@@ -8,4 +8,9 @@
 	height: 400px !important;
     overflow: scroll;
 }
-
+/*
+.btn-primary { 
+    background-color: #b00202; 
+    border-color: #b00202; 
+} 
+*/

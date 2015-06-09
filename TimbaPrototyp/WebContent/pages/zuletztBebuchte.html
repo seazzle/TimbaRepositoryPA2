@@ -1,4 +1,4 @@
-<meta charset="ISO-8859-1"> 
+<meta charset="utf-8"> 
 <div class="jumbotron" ng-init="initZuletztBebucht()">
 	<h2>Meine zuletzt bebuchten Arbeitspakete</h2>
 	<p>hier siehst du deine zuletzt bebuchten Arbeitspakete</p>
@@ -13,7 +13,7 @@
 	<accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right glyphicon glyphicon-plus"></i>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right fa fa-plus"></i>
     		</accordion-heading>
     		<p>{{auftrag.beschreibung}}</p>
     		<ul class="list-group">

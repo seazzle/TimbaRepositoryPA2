@@ -1,4 +1,4 @@
-<meta charset="ISO-8859-1"> 
+<meta charset="utf-8"> 
 <div class="jumbotron" ng-init="initBuchungenAnzeigen()">
 	<h2>Meine Buchungen</h2>
 	<p>hier siehst du deine Buchungen der letzten 7 Tage</p>
@@ -9,7 +9,7 @@
 		<div class="col-md-4">
 			<div class="input-group input-group-lg">
 				<div class="input-group-addon">
-					<i class="glyphicon glyphicon-calendar"></i>
+					<i class="fa fa-calendar"></i>
 				</div>
 				<input name="input" id="beginnDatum" name="input" type="date" class="form-control" placeholder="yyyy-MM-dd" ng-model="beginnDatum.value" required> 
 			</div>
@@ -17,14 +17,14 @@
 		<div class="col-md-4">
 			<div class="input-group input-group-lg">
 				<div class="input-group-addon">
-					<i class="glyphicon glyphicon-calendar"></i>
+					<i class="fa fa-calendar"></i>
 				</div>
 				<input type="date" class="form-control" placeholder="yyyy-MM-dd" ng-model="endDatum.value" required>
 			</div>
 		</div>
 		
 		<div class="col-md-4">
-			<button class="btn btn-default"	ng-click="buchungenAnzeigen()">Übernehmen</button>
+			<button class="btn btn-default"	ng-click="buchungenAnzeigen()">&Uuml;bernehmen</button>
 		</div>
 		
 	</div>
@@ -80,7 +80,7 @@
 				<td>
 				<button
 						type="button" class="btn btn-default" aria-label="Left Align">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+						<span class="fa fa-plus" aria-hidden="true"></span>
 					</button>
 				
 				
@@ -94,7 +94,7 @@
 					<button
 						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)"
 						type="button" class="btn btn-default" aria-label="Left Align">
-						<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+						<span class="fa fa-trash-o" aria-hidden="true"></span>
 					</button>
 				</td>
 			</tr>

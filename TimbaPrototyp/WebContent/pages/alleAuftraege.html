@@ -1,15 +1,15 @@
-<meta charset="ISO-8859-1"> 
+<meta charset="utf-8"> 
  <div class="jumbotron" ng-init="getAllAuftraege()">
  
- 	<h2>Alle Aufträge</h2>
-	<p>hier siehst du alle Aufträge auf denen du buchungsberechtigt bist</p>
+ 	<h2>Alle Auftr&auml;ge</h2>
+	<p>hier siehst du alle Auftr&auml;ge auf denen du buchungsberechtigt bist</p>
 	
 	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
  
   	<accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right glyphicon glyphicon-plus"></i>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right fa fa-plus"></i>
     		</accordion-heading>
     		<p>{{auftrag.beschreibung}}</p>
     		<ul class="list-group">

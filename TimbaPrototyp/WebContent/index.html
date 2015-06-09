@@ -2,8 +2,10 @@
 <html ng-app="timba">
 <head>
 <title>Timba - TimeSheets Badenia</title>
-<meta charset="ISO-8859-1">
+<link href="img/favicon.png" rel="icon" type="image/x-icon" /> 
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
 <!-- user kann dann nicht mehr zoomen
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
  -->
@@ -39,7 +41,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#zuletztBebuchte"><!-- <img src="img/BootstrapIcon.png">  -->Timba</a>
+					<a class="navbar-brand" href="#zuletztBebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>Timba</a> 
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,8 +49,8 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 					<!-- ng-show="location != '/login'" -->
-						<li ng-hide="hideNavbarIcon"><a href="#zuletztBebuchte">zuletzt bebuchte Aufträge <!-- <span class="sr-only">(current)</span>  --></a></li>
-						<li ng-hide="hideNavbarIcon"><a href="#alleAuftraege">alle Aufträge</a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#zuletztBebuchte">zuletzt bebuchte Auftr&auml;ge <!-- <span class="sr-only">(current)</span>  --></a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#alleAuftraege">alle Auftr&auml;ge</a></li>
 						<li ng-hide="hideNavbarIcon"><a href="#buchungErstellen">Buchung erstellen</a></li>
 						<li ng-hide="hideNavbarIcon"><a href="#buchungenAnzeigen">Buchungen anzeigen</a></li>
 					</ul>

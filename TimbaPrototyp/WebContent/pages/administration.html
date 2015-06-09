@@ -1,16 +1,16 @@
-<meta charset="ISO-8859-1"> 
+<meta charset="utf-8"> 
 <div class="jumbotron" ng-init="initAdministration()">
 	<h2>Administration</h2>
-	<p class="bot-buffer">hier siehst du die Auftraege und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
+	<p class="bot-buffer">hier siehst du die Auftr&auml;ge und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
 	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
 	
   	 <accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="glyphicon glyphicon-pencil"></span></a>
+    			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
     			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
-    			<span class="pull-right glyphicon glyphicon-plus"></span>
+    			<span class="pull-right fa fa-plus"></span>
     		</accordion-heading>
     		<p>{{auftrag.beschreibung}}</p>
     		<ul class="list-group">
@@ -19,7 +19,7 @@
     			</li>
 				<li class="list-group-item" ng-repeat="arbeitspaket in auftrag.arbeitspakete">
 					<a ng-click="openEditArbeitspaket(arbeitspaket, auftrag)" href="#arbeitspaketBearbeiten">
-						<span class="glyphicon glyphicon-pencil"></span>
+						<span class="fa fa-pencil"></span>
 						{{arbeitspaket.kurzbeschreibung}}
 					</a>
 				</li>
