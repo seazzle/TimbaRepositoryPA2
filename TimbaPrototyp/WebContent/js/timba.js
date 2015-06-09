@@ -8,8 +8,12 @@
  * Angular modul welches in der index.html hinterlegt ist wird hier als objekt
  * in einer Variabe gehalten. <code>ng-app="timba"</code>
  */
-var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar']);
+var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar', 'ng.deviceDetector']);
 var user = "1270";
+
+var url = 'https://webservices-test.badenia.de:8085';
+var badLocalDevURL = 'http://dbtlx09.entw.badenia.de:8086';
+var externalURL ='https://webservices-test.badenia.de:8085';
 
 /**
  * Routing um die Pages zu injecten
@@ -139,7 +143,6 @@ timba.controller('auftragBearbeitenController', function($scope) {
  * prueft den Service redirected auf zuletzt bebuchte
  */
 timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location', 'AuthenticationService', function($scope, $rootScope, $http, $location, AuthenticationService) {
-
 	/**
 	 * prueft ob es die login seite ist
 	 */
@@ -307,7 +310,21 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', 'deviceDetector', function($scope, $http, $rootScope, deviceDetector) {
+	
+//	$scope.deviceDetector=deviceDetector;
+	
+	if(deviceDetector.raw.browser.ie){
+		url=badLocalDevURL;
+	}
+	
+	console.log("windows:" +deviceDetector.raw.os.windows);
+	console.log("linux:" +deviceDetector.raw.os.linux);
+	console.log("chrome:" +deviceDetector.raw.browser.chrome);
+	console.log("ie:" +deviceDetector.raw.browser.ie);
+	console.log("mac:" +deviceDetector.raw.os.mac);
+	
+	
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController
 	 * true
@@ -345,7 +362,7 @@ timba.config(function($sceProvider) {
 	 */
 	$rootScope.getUserInfo = function() {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleUserInfo/' + user,
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleUserInfo/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -367,7 +384,7 @@ timba.config(function($sceProvider) {
 
 	$scope.getZuletztBebuchteAP = function() {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -419,7 +436,7 @@ timba.config(function($sceProvider, $httpProvider) {
 	 */
 	$scope.getAllAuftraege = function() {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -505,7 +522,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.getAuftrageUndArbeitspakete = function() {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		}).success(function(data) {
 			if (data.success == true) {
@@ -544,7 +561,7 @@ timba.config(function($sceProvider) {
 		console.log(buchung);
 
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
 			method : "POST",
 			data : buchung,
 		}).success(function(data) {
@@ -615,7 +632,7 @@ timba.config(function($sceProvider) {
 					$scope.buchungenAnzeigen = function() {
 						$http(
 								{
-									url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
+									url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
 											+ dateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
@@ -700,7 +717,7 @@ timba.config(function($sceProvider) {
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
 							$http({
-								url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+								url : url+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
 								method : "POST",
 								data : angular.toJson(buchung),
 							}).success(function(data) {
@@ -750,7 +767,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
 			method : "GET",
 		// headers: {
 		// 'Content-Type': application/json
@@ -822,7 +839,7 @@ timba.config(function($sceProvider) {
 		console.log(angular.toJson(arbeitspaket));
 
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
@@ -883,7 +900,7 @@ timba.config(function($sceProvider) {
 		console.log(arbeitspaket);
 		
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
@@ -943,7 +960,7 @@ timba.config(function($sceProvider) {
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -1012,7 +1029,7 @@ timba.config(function($sceProvider) {
 		console.log(angular.toJson(auftrag));
 
 		$http({
-			url : 'https://webservices-test.badenia.de:8085/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
+			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
 			data : angular.toJson(auftrag),
 		}).success(function(data) {

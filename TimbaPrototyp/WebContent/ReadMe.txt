@@ -66,3 +66,6 @@ Clickable table row fuer mitarbeiter
 
 Loading bar http 
 https://github.com/chieffancypants/angular-loading-bar
+
+User Agent: 
+http://plnkr.co/edit/urqMI1?p=preview
