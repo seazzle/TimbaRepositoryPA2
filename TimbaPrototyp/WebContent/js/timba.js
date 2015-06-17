@@ -9,11 +9,10 @@
  * in einer Variabe gehalten. <code>ng-app="timba"</code>
  */
 var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar', 'ng.deviceDetector']);
-var user = "1270";
 
-var url = 'https://webservices-test.badenia.de:8085';
-var badLocalDevURL = 'http://dbtlx09.entw.badenia.de:8086';
+var internalURL = 'http://dbtlx09.entw.badenia.de:8086';
 var externalURL ='https://webservices-test.badenia.de:8085';
+var url = 'https://webservices-test.badenia.de:8085';
 
 /**
  * Routing um die Pages zu injecten
@@ -85,6 +84,7 @@ timba.config([ '$routeProvider', function($routeProvider) {
  * prueft ob der user noch eingeloggt ist
  */
 .run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
+	
 	// keep user logged in after page refresh
 	$rootScope.globals = $cookieStore.get('globals') || {};
 	if ($rootScope.globals.currentUser) {
@@ -311,19 +311,18 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', 'deviceDetector', function($scope, $http, $rootScope, deviceDetector) {
-	
-//	$scope.deviceDetector=deviceDetector;
-	
-	if(deviceDetector.raw.browser.chrome){
-		url=badLocalDevURL;
+	/**
+	 * URL setzen ob intern oder extern
+	 */
+	originEndpoint=window.location.protocol+"//"+window.location.host;
+	if(originEndpoint==externalURL||originEndpoint==internalURL){
+		url=originEndpoint;
+	}else{
+		url=externalURL;
 	}
-	
-//	console.log("windows:" +deviceDetector.raw.os.windows);
-//	console.log("linux:" +deviceDetector.raw.os.linux);
-//	console.log("chrome:" +deviceDetector.raw.browser.chrome);
-//	console.log("ie:" +deviceDetector.raw.browser.ie);
-//	console.log("mac:" +deviceDetector.raw.os.mac);
-	
+	console.log(window.location.href);
+	console.log(window.location.protocol);
+	console.log(window.location.host);
 	
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController

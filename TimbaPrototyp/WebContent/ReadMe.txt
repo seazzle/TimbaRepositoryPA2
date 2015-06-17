@@ -69,3 +69,4 @@ https://github.com/chieffancypants/angular-loading-bar
 
 User Agent: 
 http://plnkr.co/edit/urqMI1?p=preview
+badenia.timba.exter = true
