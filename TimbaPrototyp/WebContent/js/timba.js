@@ -12,7 +12,7 @@ var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'a
 
 var internalURL = 'http://dbtlx09.entw.badenia.de:8086';
 var externalURL ='https://webservices-test.badenia.de:8085';
-var url = 'https://webservices-test.badenia.de:8085';
+var serviceURL = 'https://webservices-test.badenia.de:8085';
 
 /**
  * Routing um die Pages zu injecten
@@ -88,8 +88,7 @@ timba.config([ '$routeProvider', function($routeProvider) {
 	// keep user logged in after page refresh
 	$rootScope.globals = $cookieStore.get('globals') || {};
 	if ($rootScope.globals.currentUser) {
-		// $http.defaults.headers.common['Authorization'] =
-		// 'Basic ' + $rootScope.globals.currentUser.authdata;
+//		 $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
 		// // jshint ignore:line
 	}
 
@@ -101,71 +100,6 @@ timba.config([ '$routeProvider', function($routeProvider) {
 	});
 } ]);
 
-// create the controller and inject Angular's $scope
-timba.controller('loginController', function($scope) {
-	// create a message to display in our view
-	$scope.message = 'willkommen beim TimbaLogin';
-});
-
-timba.controller('zuletztBebuchteController', function($scope) {
-	$scope.message = 'hier siehst du deine zuletzt bebuchten Auftraege';
-});
-
-timba.controller('alleAuftraegeController', function($scope) {
-	$scope.message = 'hier siehst du alle Auftraege auf denen du buchungsberechtigt bist';
-});
-
-timba.controller('buchungenAnzeigenController', function($scope) {
-	$scope.message = 'hier siehst du deine Buchungen der letzten 30 Tage';
-});
-
-timba.controller('buchungErstellenController', function($scope) {
-	$scope.message = 'hier kannst du eine neue Buchung erstellen';
-});
-
-timba.controller('administrationController', function($scope) {
-	$scope.message = 'hier siehst du die Auftraege auf denen du eine Pflege Berechtigung besitzt';
-});
-
-timba.controller('arbeitspaketAnlegenController', function($scope) {
-	$scope.message = 'hier kannst du ein Arbeitspaket anlegen';
-});
-
-timba.controller('arbeitspaketBearbeitenController', function($scope) {
-	$scope.message = 'hier kannst du ein Arbeitspaket bearbeiten';
-});
-
-timba.controller('auftragBearbeitenController', function($scope) {
-	$scope.message = 'hier kannst du einen Auftrag bearbeiten';
-});
-
-/**
- * prueft den Service redirected auf zuletzt bebuchte
- */
-timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location', 'AuthenticationService', function($scope, $rootScope, $http, $location, AuthenticationService) {
-	/**
-	 * prueft ob es die login seite ist
-	 */
-	if ($location.path() === '/login') {
-		$rootScope.hideNavbarIcon = true;
-	}
-
-	// reset login status
-	AuthenticationService.ClearCredentials();
-
-	$scope.login = function() {
-		$scope.dataLoading = true;
-		AuthenticationService.Login($scope.username, $scope.password, function(response) {
-			if (response.success) {
-				AuthenticationService.SetCredentials($scope.username, $scope.password);
-				$location.path('/zuletztBebuchte');
-			} else {
-				$scope.error = response.message;
-				$scope.dataLoading = false;
-			}
-		});
-	};
-} ]);
 
 timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$rootScope', '$timeout', function(Base64, $http, $cookieStore, $rootScope, $timeout) {
 	var service = {};
@@ -206,20 +140,18 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 			}
 		};
 
-		// $http.defaults.headers.common['Authorization']
-		// = 'Basic ' + authdata; // jshint ignore:line
+//		 $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint
+																				// ignore:line
 		$cookieStore.put('globals', $rootScope.globals);
 	};
 
 	service.ClearCredentials = function() {
 		$rootScope.globals = {};
 		$cookieStore.remove('globals');
-		// $http.defaults.headers.common.Authorization =
-		// 'Basic ';
+//		 $http.defaults.headers.common.Authorization = 'Basic ';
 	};
 	return service;
-} ])
-
+}])
 .factory('Base64', function() {
 	/* jshint ignore:start */
 
@@ -299,9 +231,38 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 	};
 });
 
+
+
 /**
  * Hier beginnen die Funktionen der eigentlichen Pages
  */
+/**
+ * prueft den Service redirected auf zuletzt bebuchte
+ */
+timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location', 'AuthenticationService', function($scope, $rootScope, $http, $location, AuthenticationService) {
+	/**
+	 * prueft ob es die login seite ist
+	 */
+	if ($location.path() === '/login') {
+		$rootScope.hideNavbarIcon = true;
+	}
+	
+	 // reset login status
+    AuthenticationService.ClearCredentials();
+
+    $scope.login = function () {
+        $scope.dataLoading = true;
+        AuthenticationService.Login($scope.username, $scope.password, function(response) {
+            if(response.success) {
+                AuthenticationService.SetCredentials($scope.username, $scope.password);
+                $location.path('/zuletztBebuchte');
+            } else {
+                $scope.error = response.message;
+                $scope.dataLoading = false;
+            }
+        });
+    };
+} ]);
 
 /**
  * zuletzt bebuchte Arbeitspakete diese Page wird direkt nach dem Login
@@ -315,10 +276,10 @@ timba.config(function($sceProvider) {
 	 * URL setzen ob intern oder extern
 	 */
 	originEndpoint=window.location.protocol+"//"+window.location.host;
-	if(originEndpoint==externalURL||originEndpoint==internalURL){
-		url=originEndpoint;
+	if(originEndpoint==externalURL||originEndpoint==internalURL||originEndpoint=="http://dbtlx09:8086"){
+		serviceURL=originEndpoint;
 	}else{
-		url=externalURL;
+		serviceURL=externalURL; //for localhost e.g.
 	}
 	console.log(window.location.href);
 	console.log(window.location.protocol);
@@ -361,7 +322,7 @@ timba.config(function($sceProvider) {
 	 */
 	$rootScope.getUserInfo = function() {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleUserInfo/' + user,
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleUserInfo/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -370,7 +331,8 @@ timba.config(function($sceProvider) {
 
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.heuteGebucht = data.content.heuteGebucht;
+				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
+				$scope.showErrorBox = false;
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
@@ -384,7 +346,7 @@ timba.config(function($sceProvider) {
 
 	$scope.getZuletztBebuchteAP = function() {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -394,6 +356,7 @@ timba.config(function($sceProvider) {
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.auftraege = data.content;
+				$scope.showErrorBox = false;
 				if(data.content.length==0){
 					$scope.showInfoBox=true;
 				}
@@ -437,7 +400,7 @@ timba.config(function($sceProvider, $httpProvider) {
 	 */
 	$scope.getAllAuftraege = function() {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -446,6 +409,7 @@ timba.config(function($sceProvider, $httpProvider) {
 
 		}).success(function(data) {
 			if (data.success == true) {
+				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
 			} else {
 				$scope.showErrorBox = true;
@@ -524,10 +488,11 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.getAuftrageUndArbeitspakete = function() {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		}).success(function(data) {
 			if (data.success == true) {
+				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
 			} else {
 				$scope.showErrorBox = true;
@@ -555,6 +520,10 @@ timba.config(function($sceProvider) {
 	 * erstellt eine Buchung
 	 */
 	$scope.buchen = function() {
+		if(angular.isUndefined($scope.selectedArbeitspaket)){
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "Waehle ein Arbeitspaket";
+		}else{
 		var buchung = {
 			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
 			"aufwand" : parseFloat($scope.istAufwand.replace(',', '.').replace(' ', '')),
@@ -565,12 +534,13 @@ timba.config(function($sceProvider) {
 		console.log(buchung);
 
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
 			method : "POST",
 			data : buchung,
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.showSuccessBox = true;
+				$scope.showErrorBox = false;
 				$scope.successMessage="Buchung wurde erfolgreich erstellt";
 				$scope.istAufwand = "";
 				$scope.kommentar = "";
@@ -591,6 +561,7 @@ timba.config(function($sceProvider) {
 //			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
 		});
+	}
 	}
 } ]);
 
@@ -637,11 +608,12 @@ timba.config(function($sceProvider) {
 					$scope.buchungenAnzeigen = function() {
 						$http(
 								{
-									url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
+									url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
 											+ dateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
 									if (data.success == true) {
+										$scope.showErrorBox = false;
 										$scope.buchungen = data.content;
 									} else {
 										$scope.showErrorBox = true;
@@ -660,7 +632,7 @@ timba.config(function($sceProvider) {
 					$scope.sortType = 'buchungsDatum'; // set the
 					// default sort
 					// type
-					$scope.sortReverse = false; // set the default sort
+					$scope.sortReverse = true; // set the default sort
 					// order
 					$scope.searchAuftrag = ''; // set the default
 					// search/filter term
@@ -723,11 +695,12 @@ timba.config(function($sceProvider) {
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
 							$http({
-								url : url+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+								url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
 								method : "POST",
 								data : angular.toJson(buchung),
 							}).success(function(data) {
 								if (data.success == true) {
+									$scope.showErrorBox = false;
 									$rootScope.getUserInfo();
 									$scope.buchungenAnzeigen();
 									$scope.showSuccessBox = true;
@@ -774,7 +747,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
 			method : "GET",
 		// headers: {
 		// 'Content-Type': application/json
@@ -847,11 +820,12 @@ timba.config(function($sceProvider) {
 		console.log(angular.toJson(arbeitspaket));
 
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
+				$scope.showErrorBox = false;
 				$scope.showSuccessBox = true;
 				$scope.successMessage="das Arbeitspaket wurde erfolgreich angelegt";
 				$scope.kurzbeschreibung="";
@@ -909,7 +883,7 @@ timba.config(function($sceProvider) {
 		console.log(arbeitspaket);
 		
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
@@ -970,7 +944,7 @@ timba.config(function($sceProvider) {
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -1040,7 +1014,7 @@ timba.config(function($sceProvider) {
 		console.log(angular.toJson(auftrag));
 
 		$http({
-			url : url+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
+			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
 			data : angular.toJson(auftrag),
 		}).success(function(data) {
@@ -1140,7 +1114,7 @@ var now;
 var pause;
 var min = 0;
 var hour = 0;
-// edit
+
 var zeit;
 
 function startwatch() {
@@ -1256,6 +1230,3 @@ function conton() {
 /**
  * Stoppuhr Funktion ENDE
  */
-
-
-
