@@ -8,7 +8,7 @@
  * Angular modul welches in der index.html hinterlegt ist wird hier als objekt
  * in einer Variabe gehalten. <code>ng-app="timba"</code>
  */
-var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar', 'ng.deviceDetector']);
+var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar']);
 
 var internalURL = 'http://dbtlx09.entw.badenia.de:8086';
 var externalURL ='https://webservices-test.badenia.de:8085';
@@ -231,8 +231,6 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 	};
 });
 
-
-
 /**
  * Hier beginnen die Funktionen der eigentlichen Pages
  */
@@ -271,7 +269,7 @@ timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$locatio
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', 'deviceDetector', function($scope, $http, $rootScope, deviceDetector) {
+}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
 	/**
 	 * URL setzen ob intern oder extern
 	 */
@@ -281,10 +279,7 @@ timba.config(function($sceProvider) {
 	}else{
 		serviceURL=externalURL; //for localhost e.g.
 	}
-	console.log(window.location.href);
-	console.log(window.location.protocol);
-	console.log(window.location.host);
-	
+		
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController
 	 * true
@@ -1086,24 +1081,6 @@ function dateFormatter(date) {
 		mm = '0' + mm
 	}
 	return yyyy + "-" + mm + "-" + dd;
-}
-
-/**
- * @param cname
- *            cookie name
- * @returns wert des cookie
- */
-function getCookie(cname) {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for (var i = 0; i < ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0) == ' ')
-			c = c.substring(1);
-		if (c.indexOf(name) == 0)
-			return c.substring(name.length, c.length);
-	}
-	return "";
 }
 
 /**
