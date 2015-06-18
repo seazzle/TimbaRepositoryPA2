@@ -1,7 +1,7 @@
 /**
  * das JavaScript beinhaltet saemtliche funktionalitaeten welche die TimbaApp am Client ausfuehrt.
  * Genutzt wird hierfuer Angular.js, weshalb in den HTML Elementen spezielle Attribute gesetzt werden muessen.
- * Angular Attribute beginnen mit dem Prefix <cod>ng-*</code>
+ * Angular Attribute beginnen mit dem Prefix <code>ng-*</code>
  */
 
 /**
@@ -13,6 +13,13 @@ var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'a
 var internalURL = 'http://dbtlx09.entw.badenia.de:8086';
 var externalURL ='https://webservices-test.badenia.de:8085';
 var serviceURL = 'https://webservices-test.badenia.de:8085';
+
+/**
+ * aktiviert das Logging in JavaScript Konsole
+ */
+timba.config(['$logProvider', function($logProvider){
+    $logProvider.debugEnabled(true);
+}]);
 
 /**
  * Routing um die Pages zu injecten
@@ -237,7 +244,10 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 /**
  * prueft den Service redirected auf zuletzt bebuchte
  */
-timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location', 'AuthenticationService', function($scope, $rootScope, $http, $location, AuthenticationService) {
+timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location','$log', 'AuthenticationService', function($scope, $rootScope, $http, $location, $log, AuthenticationService) {
+	
+	$log.debug('You Run Debug Mode - logging is engabled');
+	
 	/**
 	 * prueft ob es die login seite ist
 	 */
@@ -269,7 +279,7 @@ timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$locatio
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	/**
 	 * URL setzen ob intern oder extern
 	 */
@@ -279,6 +289,10 @@ timba.config(function($sceProvider) {
 	}else{
 		serviceURL=externalURL; //for localhost e.g.
 	}
+	
+	$log.debug("originEndpoint: "+originEndpoint);
+	$log.debug("serviceURL: "+serviceURL);
+	
 		
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController
@@ -357,7 +371,7 @@ timba.config(function($sceProvider) {
 				}
 			} else {
 				$scope.showErrorBox = true;
-				console.log($scope.showErrorBox);
+				$log.debug("showErrorBox: "+$scope.showErrorBox);
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
 			}
 		}).error(function(data, status) {
@@ -383,7 +397,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider, $httpProvider) {
 	$sceProvider.enabled(false);
-}).controller('alleAuftraegeController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('alleAuftraegeController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 
 	/**
 	 * steuert die Sichtbarkeit der Error Box
@@ -432,7 +446,7 @@ timba.config(function($sceProvider, $httpProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('buchungErstellenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('buchungErstellenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	/**
 	 * steuert die Sichtbarkeit der Error Box
 	 */
@@ -517,7 +531,7 @@ timba.config(function($sceProvider) {
 	$scope.buchen = function() {
 		if(angular.isUndefined($scope.selectedArbeitspaket)){
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Waehle ein Arbeitspaket";
+			$scope.errorMessage = "W&auml;hle ein Arbeitspaket";
 		}else{
 		var buchung = {
 			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
@@ -526,7 +540,7 @@ timba.config(function($sceProvider) {
 			"buchungsErsteller" : user
 		}
 
-		console.log(buchung);
+		$log.debug("Buchung:\n"+buchung);
 
 		$http({
 			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
@@ -565,8 +579,8 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('buchungenAnzeigenController', ['$scope','$http','$rootScope',
-				function($scope, $http, $rootScope) {
+}).controller('buchungenAnzeigenController', ['$scope','$http','$rootScope', '$log',
+				function($scope, $http, $rootScope, $log) {
 
 	/**
 	 * steuert die Sichtbarkeit der Error Box
@@ -678,7 +692,7 @@ timba.config(function($sceProvider) {
 					 */
 					$scope.storniereBuchung = function(arbeitspaket, istAufwand, kommentar) {
 						var negativerAufwand = istAufwand * (-1);
-						console.log(negativerAufwand);
+						$log.debug(negativerAufwand);
 
 						var buchung = {
 							"arbeitsPaket" : arbeitspaket,
@@ -686,7 +700,7 @@ timba.config(function($sceProvider) {
 							"kommentar" : "Stornobuchung zu: " + kommentar,
 							"buchungsErsteller" : user
 						}
-						console.log(buchung);
+						$log.debug("StornoBuchung:\n"+buchung);
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
 							$http({
@@ -719,7 +733,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('administrationController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('administrationController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	/**
 	 * steuert die Sichtbarkeit der Error Box
 	 */
@@ -786,7 +800,7 @@ timba.config(function($sceProvider) {
 	$scope.getSuccessMessages = function(){
 		$scope.successMessage = $rootScope.rsSuccessMessage;
 		$scope.showSuccessBox = $rootScope.rsShowSuccessBox;
-		console.log($scope.showSuccessBox);
+		$log.debug($scope.showSuccessBox);
 		$rootScope.clearRootScope();
 	}
 } ]);
@@ -796,7 +810,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('arbeitspaketAnlegenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('arbeitspaketAnlegenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	$scope.showErrorBox=false;
 	$scope.showSuccessBox=false;
 	$scope.initArbeitspaketAnlegen = function() {
@@ -812,7 +826,7 @@ timba.config(function($sceProvider) {
 			"planAufwand" : $scope.planAufwand
 		}
 
-		console.log(angular.toJson(arbeitspaket));
+		$log.debug(angular.toJson(arbeitspaket));
 
 		$http({
 			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
@@ -844,7 +858,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('arbeitspaketBearbeitenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('arbeitspaketBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	$scope.statusOptions = [ {
 		name : 'Offen',
 		value : 'offen'
@@ -875,7 +889,7 @@ timba.config(function($sceProvider) {
 			"status" : $scope.selected.status
 		}
 
-		console.log(arbeitspaket);
+		$log.debug(arbeitspaket);
 		
 		$http({
 			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
@@ -883,9 +897,9 @@ timba.config(function($sceProvider) {
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geaendert";
+				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich ge&auml;ndert";
 				$rootScope.rsShowSuccessBox = true;
-				console.log($rootScope.rsShowSuccessBox);
+				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
@@ -904,7 +918,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', function($scope, $http, $rootScope) {
+}).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	$scope.showErrorBox=false;
 	
 	$scope.statusOptions = [ {
@@ -977,11 +991,11 @@ timba.config(function($sceProvider) {
 	 * buchungsberechtigten zu den buchungsberechtigten hinzu
 	 */
 	$scope.addToBuchungsberechtigte = function(mitarbeiter) {
-		console.log("angeklickter mitarbeiter: \n"+(mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n"+(mitarbeiter));
 		removeItem($scope.nichtBuchungsberechtigte, 'id', mitarbeiter.id);
-		// console.log(angular.toJson($scope.nichtBuchungsberechtigte));
+		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 		$scope.buchungsberechtigte.push(mitarbeiter);
-		console.log("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
 	}
 
 	/**
@@ -989,11 +1003,11 @@ timba.config(function($sceProvider) {
 	 * in die Menge der nicht Buchungsberechtigten hinzu
 	 */
 	$scope.removeFromBuchungsberechtige = function(mitarbeiter) {
-		console.log("angeklickter mitarbeiter: \n"+(mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n"+(mitarbeiter));
 		removeItem($scope.buchungsberechtigte, 'id', mitarbeiter.id);
-		console.log("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
 		$scope.nichtBuchungsberechtigte.push(mitarbeiter);
-		// console.log(angular.toJson($scope.nichtBuchungsberechtigte));
+		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 	}
 
 	/**
@@ -1006,7 +1020,7 @@ timba.config(function($sceProvider) {
 			"buchungsberechtigte" : ($scope.buchungsberechtigte),
 			"status" : $scope.selected.status
 		}
-		console.log(angular.toJson(auftrag));
+		$log.debug(angular.toJson(auftrag));
 
 		$http({
 			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
@@ -1016,7 +1030,7 @@ timba.config(function($sceProvider) {
 			if (data.success == true) {
 				$rootScope.rsSuccessMessage = "Auftrag "+data.content.kurzbeschreibung+" wurde bearbeitet";
 				$rootScope.rsShowSuccessBox = true;
-				console.log($rootScope.rsShowSuccessBox);
+				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
@@ -1029,16 +1043,6 @@ timba.config(function($sceProvider) {
 		});
 	}
 } ]);
-
-
-function removeNulls(obj){
-	  var isArray = obj instanceof Array;
-	  for (var k in obj){
-	    if (obj[k]===null) isArray ? obj.splice(k,1) : delete obj[k];
-	    else if (typeof obj[k]=="object") removeNulls(obj[k]);
-	  }
-	}
-
 
 /**
  * @param obj
