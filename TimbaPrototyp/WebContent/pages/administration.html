@@ -8,9 +8,23 @@
   	 <accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
+    		<!-- 
     			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
     			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
     			<span class="pull-right fa fa-plus"></span>
+    		 -->
+    		 <table>
+    		<tr>
+    			<td>
+    				<i class="pull-left fa fa-plus"></i>
+    			</td>
+    			<td>
+	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}} 
+    				<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
+    			</td>
+    		</tr>
+    		</table>
+    		 
     		</accordion-heading>
     		<p>{{auftrag.beschreibung}}</p>
     		<ul class="list-group">

@@ -13,7 +13,16 @@
 	<accordion close-others="true">
     	<accordion-group ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}<i class="pull-right fa fa-plus"></i>
+    		<table>
+    		<tr>
+    			<td>
+    				<i class="pull-left fa fa-plus"></i>
+    			</td>
+    			<td>
+	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
+    			</td>
+    		</tr>
+    		</table>
     		</accordion-heading>
     		<p>{{auftrag.beschreibung}}</p>
     		<ul class="list-group">

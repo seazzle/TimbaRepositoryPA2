@@ -79,7 +79,7 @@
 		<tbody ng-repeat="buchung in buchungen | orderBy:sortType:sortReverse | filter:searchAuftrag" data-ng-switch on="dayDataCollapse[$index]">
 			<tr class="clickableRow" title="Zum einblenden des Kommentars hier klicken" data-ng-click="selectTableRow($index, buchung.id)">
 				<td>
-				<button
+				<button ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;"
 						type="button" class="btn btn-default" aria-label="Left Align">
 						<span class="fa fa-plus" aria-hidden="true"></span>
 					</button>

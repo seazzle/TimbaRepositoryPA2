@@ -101,9 +101,12 @@
 	</div>
 	<!-- MAIN CONTENT END -->
 	
-	<footer class="footer">
-		<div ng-hide="hideNavbarIcon" class="container">
-			<div class="row">
+	<footer class="footer" ng-hide="hideNavbarIcon">
+		<div class="container">
+			<div class="row" style="padding-top:15px">
+			
+			<div>Du bist angemeldet als {{angemeldeterUser}} und hast heute {{heuteGebucht}} h gebucht.</div>
+		<!-- 
 				<div class="col-sm-4  ">
 					<div class="small center-to-left ">
 						angemeldet als: {{angemeldeterUser}}
@@ -115,10 +118,11 @@
 						heute Gebucht: {{heuteGebucht}} h
 					</div>
 				</div>
-
+			 -->	
 				<!-- 
 				<div class="col-sm-4 ">
-					<div class="small center-to-right">
+					<div class="small center-to-right" style="text-align:right">
+					Copyright
 					</div> 
 				</div>
 				 -->
