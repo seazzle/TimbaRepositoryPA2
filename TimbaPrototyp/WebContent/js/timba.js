@@ -15,7 +15,7 @@ var externalURL ='https://webservices-test.badenia.de:8085';
 var serviceURL = 'https://webservices-test.badenia.de:8085';
 
 /**
- * aktiviert das Logging in JavaScript Konsole
+ * aktiviert das Logging in der JavaScript Konsole
  */
 timba.config(['$logProvider', function($logProvider){
     $logProvider.debugEnabled(true);
@@ -81,6 +81,12 @@ timba.config([ '$routeProvider', function($routeProvider) {
 		controller : 'auftragBearbeitenController'
 	})
 
+	// route zur auftragBearbeiten page
+	.when('/reporting', {
+		templateUrl : 'pages/reporting.html',
+		controller : 'reportingController'
+	})
+	
 	// wird keine der routen gewaehlt wird zur login page verbunden
 	.otherwise({
 		redirectTo : '/login'
@@ -531,7 +537,7 @@ timba.config(function($sceProvider) {
 	$scope.buchen = function() {
 		if(angular.isUndefined($scope.selectedArbeitspaket)){
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "W&auml;hle ein Arbeitspaket";
+			$scope.errorMessage = "Waehle ein Arbeitspaket";
 		}else{
 		var buchung = {
 			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
@@ -897,7 +903,7 @@ timba.config(function($sceProvider) {
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich ge&auml;ndert";
+				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geaendert";
 				$rootScope.rsShowSuccessBox = true;
 				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
@@ -1042,6 +1048,19 @@ timba.config(function($sceProvider) {
 //			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
 		});
 	}
+} ]);
+
+
+timba.config(function($sceProvider, $httpProvider) {
+	$sceProvider.enabled(false);
+}).controller('reportingController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+
+	/**
+	 * steuert die Sichtbarkeit der Error Box
+	 */
+	$scope.showErrorBox = false;
+
+	
 } ]);
 
 /**

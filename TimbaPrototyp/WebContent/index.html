@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" href="css/font-awesome.css" />
 <link rel='stylesheet' href='css/loading-bar.min.css' type='text/css' media='all' />
+<link href="css/sticky-footer.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="css/timba.css"/>
@@ -51,7 +52,7 @@
 <script src="js/ui-bootstrap-tpls-0.13.0.js"></script>
 <script type='text/javascript' src='js/loading-bar.min.js'></script>
 
-<script src="js/timba.js"></script>
+<script src="js/timba.js" charset="UTF-8"></script>
 
 </head>
 <body ng-controller="loginController">
@@ -67,7 +68,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#zuletztBebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>Timba</a> 
+					<a class="navbar-brand" href="#zuletztBebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>TimBa</a> 
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -82,7 +83,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li ng-hide="hideNavbarIcon"><a href="#administration">Administration</a></li>
-						<li ng-hide="hideNavbarIcon"><a>heute Gebucht: {{heuteGebucht}} h</a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#reporting">Reporting</a></li>
       					<li ng-hide="hideNavbarIcon"><a ng-click="logout()" href="#login">Logout</a></li>
 					</ul>
 				</div>
@@ -91,11 +92,38 @@
 			<!-- /.container-fluid -->
 		</nav>
 	</header>
+	
 	<!-- MAIN CONTENT AND INJECTED VIEWS -->
 	<div id="main" class="container">
 		<!-- angular templating -->
 		<!-- this is where content will be injected -->
 		<div ng-view></div>
 	</div>
+	<!-- MAIN CONTENT END -->
+	
+	<footer class="footer">
+		<div ng-hide="hideNavbarIcon" class="container">
+			<div class="row">
+				<div class="col-sm-4  ">
+					<div class="small center-to-left ">
+						angemeldet als: Peter Kaisinger (0835)
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="text-center">
+						heute Gebucht: {{heuteGebucht}} h
+					</div>
+				</div>
+
+				<!-- 
+				<div class="col-sm-4 ">
+					<div class="small center-to-right">
+					</div> 
+				</div>
+				 -->
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
