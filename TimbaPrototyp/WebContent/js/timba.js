@@ -347,6 +347,7 @@ timba.config(function($sceProvider) {
 		}).success(function(data) {
 			if (data.success == true) {
 				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
+				$rootScope.angemeldeterUser = data.content.mitarbeiterName+" ("+data.content.sbNr+")";
 				$scope.showErrorBox = false;
 			} else {
 				$scope.showErrorBox = true;
