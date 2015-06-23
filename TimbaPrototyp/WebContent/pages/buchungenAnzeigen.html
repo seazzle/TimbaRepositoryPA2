@@ -68,7 +68,7 @@
         </td>
         <td>
           <a ng-click="sortType = 'aufwand'; sortReverse = !sortReverse">
-          IST
+          IST(h)
             <span ng-show="sortType == 'aufwand' && !sortReverse" class="fa fa-caret-down"></span>
             <span ng-show="sortType == 'aufwand' && sortReverse" class="fa fa-caret-up"></span>
           </a>
@@ -82,10 +82,7 @@
 				<button ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;"
 						type="button" class="btn btn-default" aria-label="Left Align">
 						<span class="fa fa-plus" aria-hidden="true"></span>
-					</button>
-				
-				
-				
+					</button>			
 				</td>
 				<td style="width:150px">{{ buchung.buchungsDatum }}</td>
 				<td>{{ buchung.auftragKurzbeschreibung }}</td>
@@ -99,7 +96,7 @@
 					</button>
 				</td>
 			</tr>
-			<tr data-ng-switch-when="true">
+			<tr data-ng-switch-when="true" ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;">
 				<td></td>
 				<td colspan=5>
 					{{buchung.kommentar}}
