@@ -610,22 +610,51 @@ timba.config(function($sceProvider) {
 						sevenDaysAgo = new Date(sevenDaysAgo);
 
 						$scope.beginnDatum = {
-							value : today,
+							value : ""+dateFormatter(today),
 						}
 						$scope.endDatum = {
-							value : sevenDaysAgo,
+							value : ""+dateFormatter(sevenDaysAgo),
 						};
-					}
+					
+					/**
+					 * datepicker
+					 */
+					$(document).ready(function() {
+						$("#endDatum").datepicker({
+							dateFormat : 'dd.mm.yy',
+							minDate: '-12M',
+				            maxDate: '+0D',
+							monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+						    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
+						    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+						});
+					});
+					
+					/**
+					 * datepicker
+					 */
+					$(document).ready(function() {
+						$("#beginnDatum").datepicker({
+							dateFormat : 'dd.mm.yy',
+							minDate: '-12M',
+				            maxDate: '+0D',
+								monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+							    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
+							    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+						});
+					});
 
+					}
 					/**
 					 * fuehrt eine erste Abfrage mit den initialwerten aus
 					 * <code>initBuchungenAnzeigen()</code> durch
 					 */
 					$scope.buchungenAnzeigen = function() {
+						$log.debug($scope.endDatum.value+" "+$scope.beginnDatum.value);
 						$http(
 								{
-									url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + dateFormatter($scope.beginnDatum.value) + '/'
-											+ dateFormatter($scope.endDatum.value) + '',
+									url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + germanDateFormatter($scope.beginnDatum.value) + '/'
+											+ germanDateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
 									if (data.success == true) {
@@ -1104,8 +1133,20 @@ function dateFormatter(date) {
 	if (mm < 10) {
 		mm = '0' + mm
 	}
-	return yyyy + "-" + mm + "-" + dd;
+	return dd+"."+mm+"."+yyyy;
 }
+
+function germanDateFormatter(stringDate){
+	var split=stringDate.split(".");
+	console.log(split);
+	yyyy=split[2];	
+	mm=split[1];
+	dd=split[0];
+	console.log(yyyy+"-"+mm+"-"+dd);
+	return yyyy+"-"+mm+"-"+dd
+}
+
+
 
 /**
  * Stoppuhr Funktion ANFANG

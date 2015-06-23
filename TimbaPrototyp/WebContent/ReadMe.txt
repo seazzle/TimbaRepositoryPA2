@@ -70,3 +70,6 @@ https://github.com/chieffancypants/angular-loading-bar
 User Agent: 
 http://plnkr.co/edit/urqMI1?p=preview
 badenia.timba.exter = true
+
+
+http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm
