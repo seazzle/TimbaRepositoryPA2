@@ -617,31 +617,37 @@ timba.config(function($sceProvider) {
 						};
 					
 					/**
-					 * datepicker
+					 * datepicker fuer IE und Firefox
 					 */
-					$(document).ready(function() {
-						$("#endDatum").datepicker({
-							dateFormat : 'dd.mm.yy',
-							minDate: '-12M',
-				            maxDate: '+0D',
-							monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-						    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
-						    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-						});
-					});
-					
-					/**
-					 * datepicker
-					 */
-					$(document).ready(function() {
-						$("#beginnDatum").datepicker({
-							dateFormat : 'dd.mm.yy',
-							minDate: '-12M',
-				            maxDate: '+0D',
+					$('#endBtn').click(function(){
+					    //alert('clcikec');
+					    $(document).ready(function(){
+					        $("#endDatum").datepicker({
+					        	dateFormat : 'dd.mm.yy',
+								minDate: '-12M',
+					            maxDate: '+0D',
 								monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
 							    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
 							    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-						});
+					        }).focus();
+					    });
+					});
+					
+					/**
+					 * datepicker  fuer IE und Firefox
+					 */
+					$('#begBtn').click(function(){
+					    //alert('clcikec');
+					    $(document).ready(function(){
+					        $("#beginnDatum").datepicker({
+					        	dateFormat : 'dd.mm.yy',
+								minDate: '-12M',
+					            maxDate: '+0D',
+									monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+								    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
+								    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
+					        }).focus();
+					    });
 					});
 
 					}
