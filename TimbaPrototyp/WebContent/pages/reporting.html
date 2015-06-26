@@ -1,11 +1,35 @@
 <meta charset="utf-8"> 
- <div class="jumbotron">
+ <div class="jumbotron" ng-init="initReporting()">
  
  	<h2>Reporting</h2>
 	<p>hier kannst du Berichte erstellen</p>
 	
 	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
- 
+		<div class="row">
+		<div class="col-md-4">
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon" id="endReportBtn" style="cursor: pointer;">
+					<span class="fa fa-calendar"></span>
+				</span>
+				<input id="endDatumReport" type="text" class="form-control" placeholder="dd.MM.yyyy" ng-model="endDatum.value" required>
+			</div>
+		</div>
+		
+		<div class="col-md-4">
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon" id="begReportBtn" style="cursor: pointer;">
+					<span class="fa fa-calendar"></span>
+				</span>
+				<input id="beginnDatumReport" name="input" type="text"
+					class="form-control" placeholder="dd.MM.yyyy"
+					ng-model="beginnDatum.value" required>
+			</div>
+		</div>
+		
+ 		<button class="btn btn-default" ng-click="runReport()">Download starten</button>
+ 	</div>
+ 	
+ 	
  </div>
  

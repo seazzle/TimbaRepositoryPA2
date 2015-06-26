@@ -8,40 +8,39 @@
  * Angular modul welches in der index.html hinterlegt ist wird hier als objekt
  * in einer Variabe gehalten. <code>ng-app="timba"</code>
  */
-var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar']);
+var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar' ]);
 
 var internalURL = 'http://dbtlx09.entw.badenia.de:8086/BadeniaRochadeZeiterfassungRESTService';
-var externalURL ='https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
+var externalURL = 'https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
 var serviceURL = 'https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
 
 /**
  * aktiviert das Logging in der JavaScript Konsole
  */
-timba.config(['$logProvider', function($logProvider){
-    $logProvider.debugEnabled(true);
-}]);
+timba.config([ '$logProvider', function($logProvider) {
+	$logProvider.debugEnabled(true);
+} ]);
 
+// timba.config(function($provide) {
+// $provide.decorator("$exceptionHandler", function($delegate) {
+// return function(exception, cause) {
+// $delegate(exception, cause);
+// alert(exception.message);
+// };
+// });
+// });
 
-//timba.config(function($provide) {
-//    $provide.decorator("$exceptionHandler", function($delegate) {
-//		return function(exception, cause) {
-//			$delegate(exception, cause);
-//            alert(exception.message);
-//		};
-//	});
-//});
-
-//FIXME
-//timba.factory('$exceptionHandler', function($injector) {
-//	  return function(exception, cause) {
-//		  var $rootScope = $injector.get("$rootScope");
-//		    exception.message += ' (caused by "' + cause + '")';
-//		    alert(exception);
-//			$rootScope.showErrorBox = true;
-//			$rootScope.errorMessage = "Client-Side Error"  + exception;
-//		    throw exception;
-//		  };
-//});
+// FIXME
+// timba.factory('$exceptionHandler', function($injector) {
+// return function(exception, cause) {
+// var $rootScope = $injector.get("$rootScope");
+// exception.message += ' (caused by "' + cause + '")';
+// alert(exception);
+// $rootScope.showErrorBox = true;
+// $rootScope.errorMessage = "Client-Side Error" + exception;
+// throw exception;
+// };
+// });
 
 /**
  * Routing um die Pages zu injecten
@@ -108,7 +107,7 @@ timba.config([ '$routeProvider', function($routeProvider) {
 		templateUrl : 'pages/reporting.html',
 		controller : 'reportingController'
 	})
-	
+
 	// wird keine der routen gewaehlt wird zur login page verbunden
 	.otherwise({
 		redirectTo : '/login'
@@ -119,11 +118,12 @@ timba.config([ '$routeProvider', function($routeProvider) {
  * prueft ob der user noch eingeloggt ist
  */
 .run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
-	
+
 	// keep user logged in after page refresh
 	$rootScope.globals = $cookieStore.get('globals') || {};
 	if ($rootScope.globals.currentUser) {
-//		 $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
+		// $http.defaults.headers.common['Authorization'] = 'Basic ' +
+		// $rootScope.globals.currentUser.authdata;
 		// // jshint ignore:line
 	}
 
@@ -134,7 +134,6 @@ timba.config([ '$routeProvider', function($routeProvider) {
 		}
 	});
 } ]);
-
 
 timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$rootScope', '$timeout', function(Base64, $http, $cookieStore, $rootScope, $timeout) {
 	var service = {};
@@ -175,19 +174,19 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 			}
 		};
 
-//		 $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint
-																				// ignore:line
+		// $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
+		// // jshint
+		// ignore:line
 		$cookieStore.put('globals', $rootScope.globals);
 	};
 
 	service.ClearCredentials = function() {
 		$rootScope.globals = {};
 		$cookieStore.remove('globals');
-//		 $http.defaults.headers.common.Authorization = 'Basic ';
+		// $http.defaults.headers.common.Authorization = 'Basic ';
 	};
 	return service;
-}])
-.factory('Base64', function() {
+} ]).factory('Base64', function() {
 	/* jshint ignore:start */
 
 	var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
@@ -272,32 +271,32 @@ timba.factory('AuthenticationService', [ 'Base64', '$http', '$cookieStore', '$ro
 /**
  * prueft den Service redirected auf zuletzt bebuchte
  */
-timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location','$log', 'AuthenticationService', function($scope, $rootScope, $http, $location, $log, AuthenticationService) {
-	
+timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$location', '$log', 'AuthenticationService', function($scope, $rootScope, $http, $location, $log, AuthenticationService) {
+
 	$log.debug('You Run Debug Mode - logging is engabled');
-	
+
 	/**
 	 * prueft ob es die login seite ist
 	 */
 	if ($location.path() === '/login') {
 		$rootScope.hideNavbarIcon = true;
 	}
-	
-	 // reset login status
-    AuthenticationService.ClearCredentials();
 
-    $scope.login = function () {
-        $scope.dataLoading = true;
-        AuthenticationService.Login($scope.username, $scope.password, function(response) {
-            if(response.success) {
-                AuthenticationService.SetCredentials($scope.username, $scope.password);
-                $location.path('/zuletztBebuchte');
-            } else {
-                $scope.error = response.message;
-                $scope.dataLoading = false;
-            }
-        });
-    };
+	// reset login status
+	AuthenticationService.ClearCredentials();
+
+	$scope.login = function() {
+		$scope.dataLoading = true;
+		AuthenticationService.Login($scope.username, $scope.password, function(response) {
+			if (response.success) {
+				AuthenticationService.SetCredentials($scope.username, $scope.password);
+				$location.path('/zuletztBebuchte');
+			} else {
+				$scope.error = response.message;
+				$scope.dataLoading = false;
+			}
+		});
+	};
 } ]);
 
 /**
@@ -311,17 +310,16 @@ timba.config(function($sceProvider) {
 	/**
 	 * URL setzen ob intern oder extern
 	 */
-	originEndpoint=window.location.protocol+"//"+window.location.host;
-	if(originEndpoint==externalURL||originEndpoint==internalURL||originEndpoint=="http://dbtlx09:8086"){
-		serviceURL=originEndpoint;
-	}else{
-		serviceURL=externalURL; //for localhost e.g.
+	originEndpoint = window.location.protocol + "//" + window.location.host;
+	if (originEndpoint == externalURL || originEndpoint == internalURL || originEndpoint == "http://dbtlx09:8086") {
+		serviceURL = originEndpoint;
+	} else {
+		serviceURL = externalURL; // for localhost e.g.
 	}
-	
-	$log.debug("originEndpoint: "+originEndpoint);
-	$log.debug("serviceURL: "+serviceURL);
-	
-		
+
+	$log.debug("originEndpoint: " + originEndpoint);
+	$log.debug("serviceURL: " + serviceURL);
+
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController
 	 * true
@@ -359,7 +357,7 @@ timba.config(function($sceProvider) {
 	 */
 	$rootScope.getUserInfo = function() {
 		$http({
-			url : serviceURL+'/zeiterfassung/ermittleUserInfo/' + user,
+			url : serviceURL + '/zeiterfassung/ermittleUserInfo/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -369,7 +367,7 @@ timba.config(function($sceProvider) {
 		}).success(function(data) {
 			if (data.success == true) {
 				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
-				$rootScope.angemeldeterUser = data.content.mitarbeiterName+" ("+data.content.sbNr+")";
+				$rootScope.angemeldeterUser = data.content.mitarbeiterName + " (" + data.content.sbNr + ")";
 				$scope.showErrorBox = false;
 			} else {
 				$scope.showErrorBox = true;
@@ -378,13 +376,14 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
 	$scope.getZuletztBebuchteAP = function() {
 		$http({
-			url : serviceURL+'/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
+			url : serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -395,18 +394,19 @@ timba.config(function($sceProvider) {
 			if (data.success == true) {
 				$scope.auftraege = data.content;
 				$scope.showErrorBox = false;
-				if(data.content.length==0){
-					$scope.showInfoBox=true;
+				if (data.content.length == 0) {
+					$scope.showInfoBox = true;
 				}
 			} else {
 				$scope.showErrorBox = true;
-				$log.debug("showErrorBox: "+$scope.showErrorBox);
+				$log.debug("showErrorBox: " + $scope.showErrorBox);
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status.getText() + " Response Data " + data.getText() || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status.getText() + "
+			// Response Data " + data.getText() || "Request failed";
 		});
 	}
 
@@ -438,7 +438,7 @@ timba.config(function($sceProvider, $httpProvider) {
 	 */
 	$scope.getAllAuftraege = function() {
 		$http({
-			url : serviceURL+'/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -456,7 +456,8 @@ timba.config(function($sceProvider, $httpProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
@@ -526,7 +527,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.getAuftrageUndArbeitspakete = function() {
 		$http({
-			url : serviceURL+'/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		}).success(function(data) {
 			if (data.success == true) {
@@ -539,8 +540,9 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
@@ -558,48 +560,49 @@ timba.config(function($sceProvider) {
 	 * erstellt eine Buchung
 	 */
 	$scope.buchen = function() {
-		if(angular.isUndefined($scope.selectedArbeitspaket)){
+		if (angular.isUndefined($scope.selectedArbeitspaket)) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "Waehle ein Arbeitspaket";
-		}else{
-		var buchung = {
-			"arbeitsPaket" : $scope.selectedArbeitspaket.name,
-			"aufwand" : parseFloat($scope.istAufwand.replace(',', '.').replace(' ', '')),
-			"kommentar" : $scope.kommentar,
-			"buchungsErsteller" : user
-		}
-
-		$log.debug("Buchung:\n"+buchung);
-
-		$http({
-			url : serviceURL+'/zeiterfassung/buchen',
-			method : "POST",
-			data : buchung,
-		}).success(function(data) {
-			if (data.success == true) {
-				$scope.showSuccessBox = true;
-				$scope.showErrorBox = false;
-				$scope.successMessage="Buchung wurde erfolgreich erstellt";
-				$scope.istAufwand = "";
-				$scope.kommentar = "";
-				$rootScope.getUserInfo();
-				
-				/**
-				 * stoppuhr zuruecksetzten
-				 */
-				document.getElementById("h").innerHTML = 0;
-				document.getElementById("m").innerHTML = 00;
-				document.getElementById("s").innerHTML = 00;
-			} else {
-				$scope.showErrorBox = true;
-				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+		} else {
+			var buchung = {
+				"arbeitsPaket" : $scope.selectedArbeitspaket.name,
+				"aufwand" : parseFloat($scope.istAufwand.replace(',', '.').replace(' ', '')),
+				"kommentar" : $scope.kommentar,
+				"buchungsErsteller" : user
 			}
-		}).error(function(data, status) {
-			$scope.showErrorBox = true;
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-		});
-	}
+
+			$log.debug("Buchung:\n" + buchung);
+
+			$http({
+				url : serviceURL + '/zeiterfassung/buchen',
+				method : "POST",
+				data : buchung,
+			}).success(function(data) {
+				if (data.success == true) {
+					$scope.showSuccessBox = true;
+					$scope.showErrorBox = false;
+					$scope.successMessage = "Buchung wurde erfolgreich erstellt";
+					$scope.istAufwand = "";
+					$scope.kommentar = "";
+					$rootScope.getUserInfo();
+
+					/**
+					 * stoppuhr zuruecksetzten
+					 */
+					document.getElementById("h").innerHTML = 0;
+					document.getElementById("m").innerHTML = 00;
+					document.getElementById("s").innerHTML = 00;
+				} else {
+					$scope.showErrorBox = true;
+					$scope.errorMessage = "Rochade Antwortet: " + data.message;
+				}
+			}).error(function(data, status) {
+				$scope.showErrorBox = true;
+				// $scope.errorMessage = "Status Code: " + status + " Response
+				// Data " + data || "Request failed";
+				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			});
+		}
 	}
 } ]);
 
@@ -608,8 +611,7 @@ timba.config(function($sceProvider) {
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('buchungenAnzeigenController', ['$scope','$http','$rootScope', '$log',
-				function($scope, $http, $rootScope, $log) {
+}).controller('buchungenAnzeigenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 
 	/**
 	 * steuert die Sichtbarkeit der Error Box
@@ -622,174 +624,174 @@ timba.config(function($sceProvider) {
 	 * ueber Error benachrichtig, erfolg zeigt das Ergebnis
 	 */
 	$scope.showSuccessBox = false;
-	
-					/**
-					 * initialiesiert die Datumsfelder
-					 */
-					$scope.initBuchungenAnzeigen = function() {
-						var today = new Date();
-						var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 7;
-						sevenDaysAgo = new Date(sevenDaysAgo);
 
-						$scope.beginnDatum = {
-							value : ""+dateFormatter(today),
-						}
-						$scope.endDatum = {
-							value : ""+dateFormatter(sevenDaysAgo),
-						};
-					
-					/**
-					 * datepicker fuer IE und Firefox
-					 */
-					$('#endBtn').click(function(){
-					    //alert('clcikec');
-					    $(document).ready(function(){
-					        $("#endDatum").datepicker({
-					        	dateFormat : 'dd.mm.yy',
-								minDate: '-12M',
-					            maxDate: '+0D',
-								monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-							    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
-							    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-					        }).focus();
-					    });
-					});
-					
-					/**
-					 * datepicker  fuer IE und Firefox
-					 */
-					$('#begBtn').click(function(){
-					    //alert('clcikec');
-					    $(document).ready(function(){
-					        $("#beginnDatum").datepicker({
-					        	dateFormat : 'dd.mm.yy',
-								minDate: '-12M',
-					            maxDate: '+0D',
-									monthNames: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
-								    dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag','Samstag'],
-								    dayNamesMin: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-					        }).focus();
-					    });
-					});
+	/**
+	 * initialiesiert die Datumsfelder
+	 */
+	$scope.initBuchungenAnzeigen = function() {
+		var today = new Date();
+		var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 7;
+		sevenDaysAgo = new Date(sevenDaysAgo);
 
-					}
-					/**
-					 * fuehrt eine erste Abfrage mit den initialwerten aus
-					 * <code>initBuchungenAnzeigen()</code> durch
-					 */
-					$scope.buchungenAnzeigen = function() {
-						$log.debug($scope.endDatum.value+" "+$scope.beginnDatum.value);
-						$http(
-								{
-									url : serviceURL+'/zeiterfassung/ermittleBuchungen/' + user + '/' + germanDateFormatter($scope.beginnDatum.value) + '/'
-											+ germanDateFormatter($scope.endDatum.value) + '',
-									method : "GET",
-								}).success(function(data) {
-									if (data.success == true) {
-										$scope.showErrorBox = false;
-										$scope.buchungen = data.content;
-									} else {
-										$scope.showErrorBox = true;
-										$scope.errorMessage = "Rochade Antwortet: " + data.message;
-									}
-								}).error(function(data, status) {
-									$scope.showErrorBox = true;
-									$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//									$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
-								});
-					}
+		$scope.beginnDatum = {
+			value : "" + dateFormatter(today),
+		}
+		$scope.endDatum = {
+			value : "" + dateFormatter(sevenDaysAgo),
+		};
 
-					/**
-					 * variablen zum sortieren und suchen in der Tabelle
-					 */
-					$scope.sortType = 'buchungsDatum'; // set the
-					// default sort
-					// type
-					$scope.sortReverse = true; // set the default sort
-					// order
-					$scope.searchAuftrag = ''; // set the default
-					// search/filter term
+		/**
+		 * datepicker fuer IE und Firefox
+		 */
+		$('#endBtn').click(function() {
+			// alert('clcikec');
+			$(document).ready(function() {
+				$("#endDatum").datepicker({
+					dateFormat : 'dd.mm.yy',
+					minDate : '-12M',
+					maxDate : '+0D',
+					monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+					dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+					dayNamesMin : [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ]
+				}).focus();
+			});
+		});
 
-					/**
-					 * Einblenden des Kommentars
-					 */
-					$scope.tableRowExpanded = false;
-					$scope.tableRowIndexExpandedCurr = "";
-					$scope.tableRowIndexExpandedPrev = "";
-					$scope.storeIdExpanded = "";
+		/**
+		 * datepicker fuer IE und Firefox
+		 */
+		$('#begBtn').click(function() {
+			// alert('clcikec');
+			$(document).ready(function() {
+				$("#beginnDatum").datepicker({
+					dateFormat : 'dd.mm.yy',
+					minDate : '-12M',
+					maxDate : '+0D',
+					monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+					dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+					dayNamesMin : [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ]
+				}).focus();
+			});
+		});
 
-					$scope.dayDataCollapseFn = function() {
-						$scope.dayDataCollapse = [];
-						for (var i = 0; i < $scope.buchungen.length; i += 1) {
-							$scope.dayDataCollapse.push(false);
-						}
-					};
+	}
+	/**
+	 * fuehrt eine erste Abfrage mit den initialwerten aus
+	 * <code>initBuchungenAnzeigen()</code> durch
+	 */
+	$scope.buchungenAnzeigen = function() {
+		$log.debug($scope.endDatum.value + " " + $scope.beginnDatum.value);
+		$http({
+			url : serviceURL + '/zeiterfassung/ermittleBuchungen/' + user + '/' + germanDateFormatter($scope.beginnDatum.value) + '/' + germanDateFormatter($scope.endDatum.value) + '',
+			method : "GET",
+		}).success(function(data) {
+			if (data.success == true) {
+				$scope.showErrorBox = false;
+				$scope.buchungen = data.content;
+			} else {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "Rochade Antwortet: " + data.message;
+			}
+		}).error(function(data, status) {
+			$scope.showErrorBox = true;
+			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
+		});
+	}
 
-					$scope.selectTableRow = function(index, storeId) {
-						if (typeof $scope.dayDataCollapse === 'undefined') {
-							$scope.dayDataCollapseFn();
-						}
-						if ($scope.tableRowExpanded === false && $scope.tableRowIndexExpandedCurr === "" && $scope.storeIdExpanded === "") {
-							$scope.tableRowIndexExpandedPrev = "";
-							$scope.tableRowExpanded = true;
-							$scope.tableRowIndexExpandedCurr = index;
-							$scope.storeIdExpanded = storeId;
-							$scope.dayDataCollapse[index] = true;
-						} else if ($scope.tableRowExpanded === true) {
-							if ($scope.tableRowIndexExpandedCurr === index && $scope.storeIdExpanded === storeId) {
-								$scope.tableRowExpanded = false;
-								$scope.tableRowIndexExpandedCurr = "";
-								$scope.storeIdExpanded = "";
-								$scope.dayDataCollapse[index] = false;
-							} else {
-								$scope.tableRowIndexExpandedPrev = $scope.tableRowIndexExpandedCurr;
-								$scope.tableRowIndexExpandedCurr = index;
-								$scope.storeIdExpanded = storeId;
-								$scope.dayDataCollapse[$scope.tableRowIndexExpandedPrev] = false;
-								$scope.dayDataCollapse[$scope.tableRowIndexExpandedCurr] = true;
-							}
-						}
-					};
+	/**
+	 * variablen zum sortieren und suchen in der Tabelle
+	 */
+	$scope.sortType = 'buchungsDatum'; // set the
+	// default sort
+	// type
+	$scope.sortReverse = true; // set the default sort
+	// order
+	$scope.searchAuftrag = ''; // set the default
+	// search/filter term
 
-					/**
-					 * legt eine Korrekturbuchung mit negativen Aufwand an
-					 */
-					$scope.storniereBuchung = function(arbeitspaket, istAufwand, kommentar) {
-						var negativerAufwand = istAufwand * (-1);
-						$log.debug(negativerAufwand);
+	/**
+	 * Einblenden des Kommentars
+	 */
+	$scope.tableRowExpanded = false;
+	$scope.tableRowIndexExpandedCurr = "";
+	$scope.tableRowIndexExpandedPrev = "";
+	$scope.storeIdExpanded = "";
 
-						var buchung = {
-							"arbeitsPaket" : arbeitspaket,
-							"aufwand" : negativerAufwand,
-							"kommentar" : "Stornobuchung zu: " + kommentar,
-							"buchungsErsteller" : user
-						}
-						$log.debug("StornoBuchung:\n"+buchung);
+	$scope.dayDataCollapseFn = function() {
+		$scope.dayDataCollapse = [];
+		for (var i = 0; i < $scope.buchungen.length; i += 1) {
+			$scope.dayDataCollapse.push(false);
+		}
+	};
 
-						if (confirm("Willst du wirklich Stornieren") == true) {
-							$http({
-								url : serviceURL+'/zeiterfassung/buchen',
-								method : "POST",
-								data : angular.toJson(buchung),
-							}).success(function(data) {
-								if (data.success == true) {
-									$scope.showErrorBox = false;
-									$rootScope.getUserInfo();
-									$scope.buchungenAnzeigen();
-									$scope.showSuccessBox = true;
-									$scope.successMessage="die Buchung wurde storniert";
-								} else {
-									$scope.showErrorBox = true;
-									$scope.errorMessage = "Rochade Antwortet: " + data.message;
-								}
-							}).error(function(data, status) {
-								$scope.showErrorBox = true;
-								$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//								$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
-							});
-						}
-					}
-				} ]);
+	$scope.selectTableRow = function(index, storeId) {
+		if (typeof $scope.dayDataCollapse === 'undefined') {
+			$scope.dayDataCollapseFn();
+		}
+		if ($scope.tableRowExpanded === false && $scope.tableRowIndexExpandedCurr === "" && $scope.storeIdExpanded === "") {
+			$scope.tableRowIndexExpandedPrev = "";
+			$scope.tableRowExpanded = true;
+			$scope.tableRowIndexExpandedCurr = index;
+			$scope.storeIdExpanded = storeId;
+			$scope.dayDataCollapse[index] = true;
+		} else if ($scope.tableRowExpanded === true) {
+			if ($scope.tableRowIndexExpandedCurr === index && $scope.storeIdExpanded === storeId) {
+				$scope.tableRowExpanded = false;
+				$scope.tableRowIndexExpandedCurr = "";
+				$scope.storeIdExpanded = "";
+				$scope.dayDataCollapse[index] = false;
+			} else {
+				$scope.tableRowIndexExpandedPrev = $scope.tableRowIndexExpandedCurr;
+				$scope.tableRowIndexExpandedCurr = index;
+				$scope.storeIdExpanded = storeId;
+				$scope.dayDataCollapse[$scope.tableRowIndexExpandedPrev] = false;
+				$scope.dayDataCollapse[$scope.tableRowIndexExpandedCurr] = true;
+			}
+		}
+	};
+
+	/**
+	 * legt eine Korrekturbuchung mit negativen Aufwand an
+	 */
+	$scope.storniereBuchung = function(arbeitspaket, istAufwand, kommentar) {
+		var negativerAufwand = istAufwand * (-1);
+		$log.debug(negativerAufwand);
+
+		var buchung = {
+			"arbeitsPaket" : arbeitspaket,
+			"aufwand" : negativerAufwand,
+			"kommentar" : "Stornobuchung zu: " + kommentar,
+			"buchungsErsteller" : user
+		}
+		$log.debug("StornoBuchung:\n" + buchung);
+
+		if (confirm("Willst du wirklich Stornieren") == true) {
+			$http({
+				url : serviceURL + '/zeiterfassung/buchen',
+				method : "POST",
+				data : angular.toJson(buchung),
+			}).success(function(data) {
+				if (data.success == true) {
+					$scope.showErrorBox = false;
+					$rootScope.getUserInfo();
+					$scope.buchungenAnzeigen();
+					$scope.showSuccessBox = true;
+					$scope.successMessage = "die Buchung wurde storniert";
+				} else {
+					$scope.showErrorBox = true;
+					$scope.errorMessage = "Rochade Antwortet: " + data.message;
+				}
+			}).error(function(data, status) {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+				// $scope.errorMessage = "Status Code: " + status + " Response
+				// Data " + data || "Request failed";
+			});
+		}
+	}
+} ]);
 
 /**
  * Steuert die Administrationsperspektiven: -AP anlegen -AP editieren -Auftrag
@@ -802,15 +804,15 @@ timba.config(function($sceProvider) {
 	 * steuert die Sichtbarkeit der Error Box
 	 */
 	$scope.showErrorBox = false;
-	
+
 	/**
 	 * steuert die Sichtbarkeit der Success Box diese wird nur aufgerufen, wenn
 	 * es sich bei der function um eine POST Methode handelt Bei GET wird nur
 	 * ueber Error benachrichtig, erfolg zeigt das Ergebnis
 	 */
 	$scope.showSuccessBox = false;
-	
-	$scope.initAdministration = function(){
+
+	$scope.initAdministration = function() {
 		$scope.getSuccessMessages();
 		$scope.ermittleAdminBerechtigteAuftraege();
 	}
@@ -820,7 +822,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
 		$http({
-			url : serviceURL+'/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
+			url : serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
 			method : "GET",
 		// headers: {
 		// 'Content-Type': application/json
@@ -835,7 +837,8 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
@@ -860,8 +863,8 @@ timba.config(function($sceProvider) {
 	$scope.openEditAuftrag = function(auftrag) {
 		$rootScope.rsAuftrag = auftrag;
 	}
-	
-	$scope.getSuccessMessages = function(){
+
+	$scope.getSuccessMessages = function() {
 		$scope.successMessage = $rootScope.rsSuccessMessage;
 		$scope.showSuccessBox = $rootScope.rsShowSuccessBox;
 		$log.debug($scope.showSuccessBox);
@@ -875,8 +878,8 @@ timba.config(function($sceProvider) {
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('arbeitspaketAnlegenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
-	$scope.showErrorBox=false;
-	$scope.showSuccessBox=false;
+	$scope.showErrorBox = false;
+	$scope.showSuccessBox = false;
 	$scope.initArbeitspaketAnlegen = function() {
 		$scope.auftrag = $rootScope.rsAuftrag;
 		$scope.auftragKurzbeschreibung = $scope.auftrag.kurzbeschreibung;
@@ -893,17 +896,17 @@ timba.config(function($sceProvider) {
 		$log.debug(angular.toJson(arbeitspaket));
 
 		$http({
-			url : serviceURL+'/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
+			url : serviceURL + '/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.showSuccessBox = true;
-				$scope.successMessage="das Arbeitspaket wurde erfolgreich angelegt";
-				$scope.kurzbeschreibung="";
-				$scope.beschreibung=""
-				$scope.planAufwand="";
+				$scope.successMessage = "das Arbeitspaket wurde erfolgreich angelegt";
+				$scope.kurzbeschreibung = "";
+				$scope.beschreibung = ""
+				$scope.planAufwand = "";
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
@@ -911,7 +914,8 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
@@ -954,14 +958,14 @@ timba.config(function($sceProvider) {
 		}
 
 		$log.debug(arbeitspaket);
-		
+
 		$http({
-			url : serviceURL+'/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
+			url : serviceURL + '/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Arbeitspaket "+data.content.kurzbeschreibung+" wurde erfolgreich geaendert";
+				$rootScope.rsSuccessMessage = "Arbeitspaket " + data.content.kurzbeschreibung + " wurde erfolgreich geaendert";
 				$rootScope.rsShowSuccessBox = true;
 				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
@@ -972,7 +976,8 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 } ]);
@@ -983,8 +988,8 @@ timba.config(function($sceProvider) {
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
-	$scope.showErrorBox=false;
-	
+	$scope.showErrorBox = false;
+
 	$scope.statusOptions = [ {
 		name : 'Offen',
 		value : 'offen'
@@ -1017,7 +1022,7 @@ timba.config(function($sceProvider) {
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
 		$http({
-			url : serviceURL+'/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
+			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -1035,7 +1040,8 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 
@@ -1055,11 +1061,11 @@ timba.config(function($sceProvider) {
 	 * buchungsberechtigten zu den buchungsberechtigten hinzu
 	 */
 	$scope.addToBuchungsberechtigte = function(mitarbeiter) {
-		$log.debug("angeklickter mitarbeiter: \n"+(mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n" + (mitarbeiter));
 		removeItem($scope.nichtBuchungsberechtigte, 'id', mitarbeiter.id);
 		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 		$scope.buchungsberechtigte.push(mitarbeiter);
-		$log.debug("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n" + ($scope.buchungsberechtigte));
 	}
 
 	/**
@@ -1067,9 +1073,9 @@ timba.config(function($sceProvider) {
 	 * in die Menge der nicht Buchungsberechtigten hinzu
 	 */
 	$scope.removeFromBuchungsberechtige = function(mitarbeiter) {
-		$log.debug("angeklickter mitarbeiter: \n"+(mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n" + (mitarbeiter));
 		removeItem($scope.buchungsberechtigte, 'id', mitarbeiter.id);
-		$log.debug("neue Buchungsberechtigte \n"+($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n" + ($scope.buchungsberechtigte));
 		$scope.nichtBuchungsberechtigte.push(mitarbeiter);
 		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 	}
@@ -1087,12 +1093,12 @@ timba.config(function($sceProvider) {
 		$log.debug(angular.toJson(auftrag));
 
 		$http({
-			url : serviceURL+'/zeiterfassung/' + $scope.name + '/edit',
+			url : serviceURL + '/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
 			data : angular.toJson(auftrag),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Auftrag "+data.content.kurzbeschreibung+" wurde bearbeitet";
+				$rootScope.rsSuccessMessage = "Auftrag " + data.content.kurzbeschreibung + " wurde bearbeitet";
 				$rootScope.rsShowSuccessBox = true;
 				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
@@ -1103,23 +1109,97 @@ timba.config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-//			$scope.errorMessage = "Status Code: " + status + " Response Data " + data || "Request failed";
+			// $scope.errorMessage = "Status Code: " + status + " Response Data
+			// " + data || "Request failed";
 		});
 	}
 } ]);
 
-
+// FIXME
 timba.config(function($sceProvider, $httpProvider) {
 	$sceProvider.enabled(false);
-}).controller('reportingController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+}).controller(
+		'reportingController',
+		[
+				'$scope',
+				'$http',
+				'$rootScope',
+				'$log',
+				function($scope, $http, $rootScope, $log) {
 
-	/**
-	 * steuert die Sichtbarkeit der Error Box
-	 */
-	$scope.showErrorBox = false;
+					/**
+					 * steuert die Sichtbarkeit der Error Box
+					 */
+					$scope.showErrorBox = false;
 
-	
-} ]);
+					/**
+					 * initialiesiert die Datumsfelder
+					 */
+					$scope.initReporting = function() {
+						var today = new Date();
+						var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 7;
+						sevenDaysAgo = new Date(sevenDaysAgo);
+
+						$scope.beginnDatum = {
+							value : "" + dateFormatter(today),
+						}
+						$scope.endDatum = {
+							value : "" + dateFormatter(sevenDaysAgo),
+						};
+
+						/**
+						 * datepicker fuer IE und Firefox
+						 */
+						$('#endReportBtn').click(function() {
+							// alert('clcikec');
+							$(document).ready(function() {
+								$("#endDatumReport").datepicker({
+									dateFormat : 'dd.mm.yy',
+									minDate : '-12M',
+									maxDate : '+0D',
+									monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+									dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+									dayNamesMin : [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ]
+								}).focus();
+							});
+						});
+
+						/**
+						 * datepicker fuer IE und Firefox
+						 */
+						$('#begReportBtn').click(function() {
+							// alert('clcikec');
+							$(document).ready(function() {
+								$("#beginnDatumReport").datepicker({
+									dateFormat : 'dd.mm.yy',
+									minDate : '-12M',
+									maxDate : '+0D',
+									monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
+									dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
+									dayNamesMin : [ 'So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa' ]
+								}).focus();
+							});
+						});
+					}
+
+					$scope.runReport = function() {
+
+						// location.href =
+						// serviceURL+"/report/aufwandNachAuftragArbeitspaket/"+user+"/"
+						// + germanDateFormatter($scope.beginnDatum.value) + "/"
+						// + germanDateFormatter($scope.endDatum.value);
+
+						 window.open(serviceURL + "/report/aufwandNachAuftragArbeitspaket/" + user + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
+								'_blank' // <- This is what makes it open in
+											// a new
+						);
+//
+//						window.open(serviceURL + "/report/aufwandNachAuftragArbeitspaket/" + user + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
+//								'_blank', 'fullscreen=yes');
+//						return false;
+					}
+
+				} ]);
 
 /**
  * @param obj
@@ -1141,8 +1221,8 @@ function removeItem(obj, prop, val) {
 		}
 	}
 	if (found) {
-//		delete obj[c];
-		obj.splice(c,1);
+		// delete obj[c];
+		obj.splice(c, 1);
 	}
 }
 
@@ -1161,24 +1241,22 @@ function dateFormatter(date) {
 	if (mm < 10) {
 		mm = '0' + mm
 	}
-	return dd+"."+mm+"."+yyyy;
+	return dd + "." + mm + "." + yyyy;
 }
 
-function germanDateFormatter(stringDate){
-	try{
-		var split=stringDate.split(".");
+function germanDateFormatter(stringDate) {
+	try {
+		var split = stringDate.split(".");
 		console.log(split);
-		yyyy=split[2];	
-		mm=split[1];
-		dd=split[0];
-		console.log(yyyy+"-"+mm+"-"+dd);
-		return yyyy+"-"+mm+"-"+dd
-	}catch(e){
+		yyyy = split[2];
+		mm = split[1];
+		dd = split[0];
+		console.log(yyyy + "-" + mm + "-" + dd);
+		return yyyy + "-" + mm + "-" + dd
+	} catch (e) {
 		throw "Fehler beim Date parsen";
 	}
 }
-
-
 
 /**
  * Stoppuhr Funktion ANFANG
