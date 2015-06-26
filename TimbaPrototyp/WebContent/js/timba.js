@@ -312,7 +312,7 @@ timba.config(function($sceProvider) {
 	 */
 	originEndpoint = window.location.protocol + "//" + window.location.host;
 	if (originEndpoint == externalURL || originEndpoint == internalURL || originEndpoint == "http://dbtlx09:8086") {
-		serviceURL = originEndpoint;
+		serviceURL = originEndpoint+'/BadeniaRochadeZeiterfassungRESTService';
 	} else {
 		serviceURL = externalURL; // for localhost e.g.
 	}
@@ -1137,7 +1137,7 @@ timba.config(function($sceProvider, $httpProvider) {
 					 */
 					$scope.initReporting = function() {
 						var today = new Date();
-						var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 7;
+						var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 10;
 						sevenDaysAgo = new Date(sevenDaysAgo);
 
 						$scope.beginnDatum = {
@@ -1181,15 +1181,15 @@ timba.config(function($sceProvider, $httpProvider) {
 							});
 						});
 					}
+					
+					
+					$scope.report = "aufwandNachAuftragArbeitspaket";
+					
+					$scope.reportingUser=user;
 
-					$scope.runReport = function() {
-
-						// location.href =
-						// serviceURL+"/report/aufwandNachAuftragArbeitspaket/"+user+"/"
-						// + germanDateFormatter($scope.beginnDatum.value) + "/"
-						// + germanDateFormatter($scope.endDatum.value);
-
-						 window.open(serviceURL + "/report/aufwandNachAuftragArbeitspaket/" + user + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
+					$scope.downloadReport = function() {
+					
+						window.open(serviceURL + "/report/"+$scope.report+"/" + $scope.reportingUser + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
 								'_blank' // <- This is what makes it open in
 											// a new
 						);

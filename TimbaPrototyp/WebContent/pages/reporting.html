@@ -6,7 +6,7 @@
 	
 	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
 
-		<div class="row">
+		<div class="row bot-buffer">
 		<div class="col-md-4">
 			<div class="input-group input-group-lg">
 				<span class="input-group-addon" id="endReportBtn" style="cursor: pointer;">
@@ -27,9 +27,21 @@
 			</div>
 		</div>
 		
- 		<button class="btn btn-default" ng-click="runReport()">Download starten</button>
- 	</div>
- 	
- 	
- </div>
+		<div class="col-md-4">
+ 		<input type="submit" class="btn btn-default" value="Download starten" ng-click="downloadReport()"/>
+  		</div>
+  	</div>
+
+	<div class="row">
+	<div class="col-md-8">
+		<select class="form-control" ng-model="report">
+			<option value="aufwandNachAuftragArbeitspaket" selected="selected">Mein Aufwand nach Auftrag und Arbeitspaket</option>
+			<option value="aufwandNachAuftragArbeitspaket">Aufwand nach Auftrag und Arbeitspaket für Mitarbeiter</option>
+		</select>
+	</div>
+	<div class="col-md-4">
+	<input ng-hide="false" class="form-control" type="text" ng-model="reportingUser" />
+	</div>
+	</div>
+</div>
  
