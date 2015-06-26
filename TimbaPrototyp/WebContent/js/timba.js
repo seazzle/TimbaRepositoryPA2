@@ -10,9 +10,9 @@
  */
 var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar']);
 
-var internalURL = 'http://dbtlx09.entw.badenia.de:8086';
-var externalURL ='https://webservices-test.badenia.de:8085';
-var serviceURL = 'https://webservices-test.badenia.de:8085';
+var internalURL = 'http://dbtlx09.entw.badenia.de:8086/BadeniaRochadeZeiterfassungRESTService';
+var externalURL ='https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
+var serviceURL = 'https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
 
 /**
  * aktiviert das Logging in der JavaScript Konsole
@@ -20,6 +20,28 @@ var serviceURL = 'https://webservices-test.badenia.de:8085';
 timba.config(['$logProvider', function($logProvider){
     $logProvider.debugEnabled(true);
 }]);
+
+
+//timba.config(function($provide) {
+//    $provide.decorator("$exceptionHandler", function($delegate) {
+//		return function(exception, cause) {
+//			$delegate(exception, cause);
+//            alert(exception.message);
+//		};
+//	});
+//});
+
+//FIXME
+//timba.factory('$exceptionHandler', function($injector) {
+//	  return function(exception, cause) {
+//		  var $rootScope = $injector.get("$rootScope");
+//		    exception.message += ' (caused by "' + cause + '")';
+//		    alert(exception);
+//			$rootScope.showErrorBox = true;
+//			$rootScope.errorMessage = "Client-Side Error"  + exception;
+//		    throw exception;
+//		  };
+//});
 
 /**
  * Routing um die Pages zu injecten
@@ -337,7 +359,7 @@ timba.config(function($sceProvider) {
 	 */
 	$rootScope.getUserInfo = function() {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleUserInfo/' + user,
+			url : serviceURL+'/zeiterfassung/ermittleUserInfo/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -362,7 +384,7 @@ timba.config(function($sceProvider) {
 
 	$scope.getZuletztBebuchteAP = function() {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
+			url : serviceURL+'/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -416,7 +438,7 @@ timba.config(function($sceProvider, $httpProvider) {
 	 */
 	$scope.getAllAuftraege = function() {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL+'/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		// params: {action: 'getAllAuftraege'}
 		// headers: {
@@ -504,7 +526,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.getAuftrageUndArbeitspakete = function() {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAuftraege/' + user,
+			url : serviceURL+'/zeiterfassung/ermittleAuftraege/' + user,
 			method : "GET",
 		}).success(function(data) {
 			if (data.success == true) {
@@ -550,7 +572,7 @@ timba.config(function($sceProvider) {
 		$log.debug("Buchung:\n"+buchung);
 
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+			url : serviceURL+'/zeiterfassung/buchen',
 			method : "POST",
 			data : buchung,
 		}).success(function(data) {
@@ -659,7 +681,7 @@ timba.config(function($sceProvider) {
 						$log.debug($scope.endDatum.value+" "+$scope.beginnDatum.value);
 						$http(
 								{
-									url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleBuchungen/' + user + '/' + germanDateFormatter($scope.beginnDatum.value) + '/'
+									url : serviceURL+'/zeiterfassung/ermittleBuchungen/' + user + '/' + germanDateFormatter($scope.beginnDatum.value) + '/'
 											+ germanDateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
@@ -746,7 +768,7 @@ timba.config(function($sceProvider) {
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
 							$http({
-								url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/buchen',
+								url : serviceURL+'/zeiterfassung/buchen',
 								method : "POST",
 								data : angular.toJson(buchung),
 							}).success(function(data) {
@@ -798,7 +820,7 @@ timba.config(function($sceProvider) {
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
+			url : serviceURL+'/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + user,
 			method : "GET",
 		// headers: {
 		// 'Content-Type': application/json
@@ -871,7 +893,7 @@ timba.config(function($sceProvider) {
 		$log.debug(angular.toJson(arbeitspaket));
 
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
+			url : serviceURL+'/zeiterfassung/' + $scope.auftrag.name + '/arbeitspaketAnlegen/',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
@@ -934,7 +956,7 @@ timba.config(function($sceProvider) {
 		$log.debug(arbeitspaket);
 		
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
+			url : serviceURL+'/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
@@ -995,7 +1017,7 @@ timba.config(function($sceProvider) {
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
+			url : serviceURL+'/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		// params: {action:
 		// 'getZuletztBebuchteAP'}
@@ -1065,7 +1087,7 @@ timba.config(function($sceProvider) {
 		$log.debug(angular.toJson(auftrag));
 
 		$http({
-			url : serviceURL+'/BadeniaRochadeRESTServices/zeiterfassung/' + $scope.name + '/edit',
+			url : serviceURL+'/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
 			data : angular.toJson(auftrag),
 		}).success(function(data) {
@@ -1143,13 +1165,17 @@ function dateFormatter(date) {
 }
 
 function germanDateFormatter(stringDate){
-	var split=stringDate.split(".");
-	console.log(split);
-	yyyy=split[2];	
-	mm=split[1];
-	dd=split[0];
-	console.log(yyyy+"-"+mm+"-"+dd);
-	return yyyy+"-"+mm+"-"+dd
+	try{
+		var split=stringDate.split(".");
+		console.log(split);
+		yyyy=split[2];	
+		mm=split[1];
+		dd=split[0];
+		console.log(yyyy+"-"+mm+"-"+dd);
+		return yyyy+"-"+mm+"-"+dd
+	}catch(e){
+		throw "Fehler beim Date parsen";
+	}
 }
 
 
