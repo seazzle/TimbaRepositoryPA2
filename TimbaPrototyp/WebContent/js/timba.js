@@ -10,9 +10,14 @@
  */
 var timba = angular.module('timba', [ 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar' ]);
 
-var internalURL = 'http://dbtlx09.entw.badenia.de:8086/BadeniaRochadeZeiterfassungRESTService';
-var externalURL = 'https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
-var serviceURL = 'https://webservices-test.badenia.de:8085/BadeniaRochadeZeiterfassungRESTService';
+var localDevEndpoint = 'http://localhost:8080';
+var externalEndpoint = 'https://webservices-test.badenia.de:8085';
+var serviceName = '/BadeniaRochadeZeiterfassungRESTService';
+
+/**
+ * der Endpunkt wird nach der Anmeldung ueberschrieben
+ */
+var serviceURL = 'https://webservices-test.badenia.de:8085'+serviceName;
 
 /**
  * aktiviert das Logging in der JavaScript Konsole
@@ -310,12 +315,12 @@ timba.config(function($sceProvider) {
 	/**
 	 * URL setzen ob intern oder extern
 	 */
-	originEndpoint = window.location.protocol + "//" + window.location.host;
-	if (originEndpoint == externalURL || originEndpoint == internalURL || originEndpoint == "http://dbtlx09:8086") {
-		serviceURL = originEndpoint+'/BadeniaRochadeZeiterfassungRESTService';
-	} else {
-		serviceURL = externalURL; // for localhost e.g.
-	}
+	originEndpoint = window.location.protocol + "//" + window.location.host; 
+    if (originEndpoint == localDevEndpoint) { 
+            serviceURL = externalEndpoint+serviceName; // for localhost e.g.
+    } else { 
+            serviceURL = originEndpoint+serviceName;                 
+    }
 
 	$log.debug("originEndpoint: " + originEndpoint);
 	$log.debug("serviceURL: " + serviceURL);
@@ -1155,7 +1160,7 @@ timba.config(function($sceProvider, $httpProvider) {
 							$(document).ready(function() {
 								$("#endDatumReport").datepicker({
 									dateFormat : 'dd.mm.yy',
-									minDate : '-12M',
+									minDate : '-36M',
 									maxDate : '+0D',
 									monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
 									dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
@@ -1172,7 +1177,7 @@ timba.config(function($sceProvider, $httpProvider) {
 							$(document).ready(function() {
 								$("#beginnDatumReport").datepicker({
 									dateFormat : 'dd.mm.yy',
-									minDate : '-12M',
+									minDate : '-36M',
 									maxDate : '+0D',
 									monthNames : [ 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ],
 									dayNames : [ 'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag' ],
