@@ -73,7 +73,7 @@
 							class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#zuletztBebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>TimBa</a> 
+					<a class="navbar-brand" href="#zuletztGebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>TimBa</a> 
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -81,7 +81,7 @@
 					id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 					<!-- ng-show="location != '/login'" -->
-						<li ng-hide="hideNavbarIcon"><a href="#zuletztBebuchte">zuletzt bebuchte Auftr&auml;ge <!-- <span class="sr-only">(current)</span>  --></a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#zuletztGebuchte">zuletzt gebuchte Arbeitspakete <!-- <span class="sr-only">(current)</span>  --></a></li>
 						<li ng-hide="hideNavbarIcon"><a href="#alleAuftraege">alle Auftr&auml;ge</a></li>
 						<li ng-hide="hideNavbarIcon"><a href="#buchungErstellen">Buchung erstellen</a></li>
 						<li ng-hide="hideNavbarIcon"><a href="#buchungenAnzeigen">Buchungen anzeigen</a></li>
@@ -110,7 +110,7 @@
 		<div class="container">
 			<div class="row" style="padding-top:15px">
 			
-			<div>Du bist angemeldet als {{angemeldeterUser}} und hast heute {{heuteGebucht}} h gebucht.</div>
+			<div>Du bist angemeldet als {{angemeldeterUser}} ({{angemeldeteSbNr}}) und hast heute {{heuteGebucht}} h gebucht.</div>
 		<!-- 
 				<div class="col-sm-4  ">
 					<div class="small center-to-left ">

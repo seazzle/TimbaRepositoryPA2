@@ -17,7 +17,7 @@ var serviceName = '/BadeniaRochadeZeiterfassungRESTService';
 /**
  * der Endpunkt wird nach der Anmeldung ueberschrieben
  */
-var serviceURL = 'https://webservices-test.badenia.de:8085'+serviceName;
+var serviceURL = 'https://webservices-test.badenia.de:8085' + serviceName;
 
 /**
  * aktiviert das Logging in der JavaScript Konsole
@@ -25,6 +25,19 @@ var serviceURL = 'https://webservices-test.badenia.de:8085'+serviceName;
 timba.config([ '$logProvider', function($logProvider) {
 	$logProvider.debugEnabled(true);
 } ]);
+
+timba.directive('autoComplete', function($timeout) {
+	return function(scope, iElement, iAttrs) {
+		iElement.autocomplete({
+			source : scope[iAttrs.uiItems],
+			select : function() {
+				$timeout(function() {
+					iElement.trigger('input');
+				}, 0);
+			}
+		});
+	};
+});
 
 // timba.config(function($provide) {
 // $provide.decorator("$exceptionHandler", function($delegate) {
@@ -59,10 +72,10 @@ timba.config([ '$routeProvider', function($routeProvider) {
 		hideMenus : true
 	})
 
-	// route zur zuletztBebuchte page
-	.when('/zuletztBebuchte', {
-		templateUrl : 'pages/zuletztBebuchte.html',
-		controller : 'zuletztBebuchteController'
+	// route zur zuletztGebuchte page
+	.when('/zuletztGebuchte', {
+		templateUrl : 'pages/zuletztGebuchte.html',
+		controller : 'zuletztGebuchteController'
 	})
 
 	// route zur alle Auftraege page
@@ -295,7 +308,7 @@ timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$locatio
 		AuthenticationService.Login($scope.username, $scope.password, function(response) {
 			if (response.success) {
 				AuthenticationService.SetCredentials($scope.username, $scope.password);
-				$location.path('/zuletztBebuchte');
+				$location.path('/zuletztGebuchte');
 			} else {
 				$scope.error = response.message;
 				$scope.dataLoading = false;
@@ -311,16 +324,16 @@ timba.controller('loginController', [ '$scope', '$rootScope', '$http', '$locatio
  */
 timba.config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('zuletztBebuchteController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+}).controller('zuletztGebuchteController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
 	/**
 	 * URL setzen ob intern oder extern
 	 */
-	originEndpoint = window.location.protocol + "//" + window.location.host; 
-    if (originEndpoint == localDevEndpoint) { 
-            serviceURL = externalEndpoint+serviceName; // for localhost e.g.
-    } else { 
-            serviceURL = originEndpoint+serviceName;                 
-    }
+	originEndpoint = window.location.protocol + "//" + window.location.host;
+	if (originEndpoint == localDevEndpoint) {
+		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
+	} else {
+		serviceURL = originEndpoint + serviceName;
+	}
 
 	$log.debug("originEndpoint: " + originEndpoint);
 	$log.debug("serviceURL: " + serviceURL);
@@ -351,8 +364,8 @@ timba.config(function($sceProvider) {
 	/**
 	 * initialiesiert die zuletzt bebuchte Page
 	 */
-	$scope.initZuletztBebucht = function() {
-		$scope.getZuletztBebuchteAP();
+	$scope.initZuletztGebucht = function() {
+		$scope.getZuletztGebuchteAP();
 		$rootScope.getUserInfo();
 	}
 
@@ -372,7 +385,8 @@ timba.config(function($sceProvider) {
 		}).success(function(data) {
 			if (data.success == true) {
 				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
-				$rootScope.angemeldeterUser = data.content.mitarbeiterName + " (" + data.content.sbNr + ")";
+				$rootScope.angemeldeterUser = data.content.mitarbeiterName;
+				$rootScope.angemeldeteSbNr = data.content.sbNr;
 				$scope.showErrorBox = false;
 			} else {
 				$scope.showErrorBox = true;
@@ -386,7 +400,7 @@ timba.config(function($sceProvider) {
 		});
 	}
 
-	$scope.getZuletztBebuchteAP = function() {
+	$scope.getZuletztGebuchteAP = function() {
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + user,
 			method : "GET",
@@ -1137,10 +1151,40 @@ timba.config(function($sceProvider, $httpProvider) {
 					 */
 					$scope.showErrorBox = false;
 
+					$scope.isGruppenLeiter = true;
+
+					$scope.ermittleReportConfig = function(auftragsName) {
+						$http({
+							url : serviceURL + '/report/reportConfig/' +user,
+							method : "GET",
+						// params: {action:
+						// 'getZuletztBebuchteAP'}
+						// headers: {
+						// 'Content-Type': application/json
+						// }
+						}).success(function(data) {
+							if (data.success == true) {
+								$scope.showErrorBox = false;
+								$scope.reportConfig = data.content;
+							} else {
+								$scope.showErrorBox = true;
+								$scope.errorMessage = "Rochade Antwortet: " + data.message;
+							}
+						}).error(function(data, status) {
+							$scope.showErrorBox = true;
+							$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+							// $scope.errorMessage = "Status Code: " + status +
+							// " Response Data
+							// " + data || "Request failed";
+						});
+					}
+
 					/**
 					 * initialiesiert die Datumsfelder
 					 */
 					$scope.initReporting = function() {
+						$scope.ermittleReportConfig();
+
 						var today = new Date();
 						var sevenDaysAgo = today - 1000 * 60 * 60 * 24 * 10;
 						sevenDaysAgo = new Date(sevenDaysAgo);
@@ -1186,24 +1230,32 @@ timba.config(function($sceProvider, $httpProvider) {
 							});
 						});
 					}
+
+					$scope.selectedReport ="aufwandNachAuftragArbeitspaket";
+					$scope.serviceCall = $scope.selectedReport;
 					
+					$scope.reportingUser = {
+						"name" : user,
+						"kurzbeschreibung" : $rootScope.angemeldeterUser
+					};
 					
-					$scope.report = "aufwandNachAuftragArbeitspaket";
+					//FIXME
+//					mitarbeiteraufwand --> mitarbeiter aendern zurueck auf mein aufwand --> falscher MA 
 					
-					$scope.reportingUser=user;
+//					$scope.changeSelect = function(){
+//						if($scope.selectedReport=="aufwandNachAuftragArbeitspaketFuerMitarbeiter"||$scope.selectedReport=="aufwandNachAuftragArbeitspaket"){
+//							$scope.serviceCall==aufwandNachAuftragArbeitspaket;
+//							
+//						}else{
+//							$scope.serviceCall="aufwandNachAuftragArbeitspaket";
+//						}
+//					}
 
 					$scope.downloadReport = function() {
-					
-						window.open(serviceURL + "/report/"+$scope.report+"/" + $scope.reportingUser + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
-								'_blank' // <- This is what makes it open in
-											// a new
+						window.open(serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/"
+								+ germanDateFormatter($scope.endDatum.value), '_blank' 
 						);
-//
-//						window.open(serviceURL + "/report/aufwandNachAuftragArbeitspaket/" + user + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value),
-//								'_blank', 'fullscreen=yes');
-//						return false;
 					}
-
 				} ]);
 
 /**
