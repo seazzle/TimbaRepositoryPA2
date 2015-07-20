@@ -1,0 +1,33 @@
+<meta charset="utf-8"> 
+<div class="jumbotron" ng-init="initZuletztGebucht()">
+	<h2>Meine zuletzt gebuchten Arbeitspakete</h2>
+	<p>hier siehst du die Arbeitspakete, auf denen du in den letzten 30 Tagen gebucht hast</p>
+	
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showInfoBox" class="alert alert-info" role="alert">
+		Lange nicht mehr gesehen ;-)<br>
+		Du hast in den letzten 30 Tage kein Arbeitspaket bebucht. <br>
+		Klicke <a href="#alleAuftraege"><strong>hier</strong></a> um alle Arbeitspakete zu sehen auf denen du buchungsberechtigt bist
+	</div>
+	
+	<accordion close-others="true">
+    	<accordion-group ng-repeat="auftrag in auftraege">
+    		<accordion-heading>
+    		<table>
+    		<tr>
+    			<td>
+    				<i class="pull-left fa fa-plus"></i>
+    			</td>
+    			<td>
+	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
+    			</td>
+    		</tr>
+    		</table>
+    		</accordion-heading>
+    		<p>{{auftrag.beschreibung}}</p>
+    		<ul class="list-group">
+				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
+			</ul>
+   		</accordion-group>
+  	</accordion>
+ </div>

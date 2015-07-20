@@ -1,0 +1,43 @@
+<meta charset="utf-8"> 
+<div class="jumbotron" ng-init="initAdministration()">
+	<h2>Administration</h2>
+	<p class="bot-buffer">hier siehst du die Auftr&auml;ge und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
+	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
+	
+  	 <accordion close-others="true">
+    	<accordion-group ng-repeat="auftrag in auftraege">
+    		<accordion-heading>
+    		<!-- 
+    			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
+    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
+    			<span class="pull-right fa fa-plus"></span>
+    		 -->
+    		 <table>
+    		<tr>
+    			<td>
+    				<i class="pull-left fa fa-plus"></i>
+    			</td>
+    			<td>
+	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}} 
+    				<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
+    			</td>
+    		</tr>
+    		</table>
+    		 
+    		</accordion-heading>
+    		<p>{{auftrag.beschreibung}}</p>
+    		<ul class="list-group">
+    			<li class="list-group-item">
+    				<a ng-click="openCreateArbeitspaket(auftrag)" href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>
+    			</li>
+				<li class="list-group-item" ng-repeat="arbeitspaket in auftrag.arbeitspakete">
+					<a ng-click="openEditArbeitspaket(arbeitspaket, auftrag)" href="#arbeitspaketBearbeiten">
+						<span class="fa fa-pencil"></span>
+						{{arbeitspaket.kurzbeschreibung}}
+					</a>
+				</li>
+			</ul>
+   		</accordion-group>
+  	</accordion>
+ </div>

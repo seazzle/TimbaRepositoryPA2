@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html ng-app="timba">
+<head>
+<title>Timba - TimeSheets Badenia</title>
+<link href="img/favicon.png" rel="icon" type="image/x-icon" /> 
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- user kann dann nicht mehr zoomen
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
+<link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.7.1/loading-bar.min.css' type='text/css' media='all' />
+ -->
+
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/font-awesome.css" />
+<link rel='stylesheet' href='css/loading-bar.min.css' type='text/css' media='all' />
+<link href="css/sticky-footer.css" rel="stylesheet">
+<link rel="stylesheet" href="css/jquery-ui.css" />
+<link rel="stylesheet" href="css/jquery-ui.min.css" />
+<link rel="stylesheet" href="css/jquery-ui.structure.css" />
+<link rel="stylesheet" href="css/jquery-ui.structure.min.css" />
+<link rel="stylesheet" href="css/jquery-ui.theme.css" />
+<link rel="stylesheet" href="css/jquery-ui.theme.min.css" />
+
+<link rel="stylesheet" href="css/timba.css"/>
+<!-- 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+
+<script src="https://rawgit.com/srfrnk/re-tree/master/re-tree.js"></script>
+<script src="https://rawgit.com/srfrnk/ng-device-detector/master/ng-device-detector.js"></script>
+<s
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.7.1/loading-bar.min.js'></script>
+ -->
+ 
+ <script src="js/jquery.min.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/angular-route.js"></script>
+<script src="js/angular-cookies.js"></script>
+
+<script src="js/re-tree.js"></script>
+<script src="js/ng-device-detector.js"></script>
+
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/ui-bootstrap-tpls.js"></script>
+<script src="js/ui-bootstrap-tpls-0.13.0.js"></script>
+<script type='text/javascript' src='js/loading-bar.min.js'></script>
+
+<script src="js/timba.js" charset="UTF-8"></script>
+
+</head>
+<body ng-controller="loginController">
+	<!-- HEADER AND NAVBAR -->
+	<header>
+		<nav class="navbar navbar-default">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button ng-hide="hideNavbarIcon" type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#zuletztGebuchte"><i class="fa fa-clock-o" style="color:#CB0000; margin-right:5px; font-size:125%"></i>TimBa</a> 
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse"
+					id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+					<!-- ng-show="location != '/login'" -->
+						<li ng-hide="hideNavbarIcon"><a href="#zuletztGebuchte">zuletzt gebuchte Arbeitspakete <!-- <span class="sr-only">(current)</span>  --></a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#alleAuftraege">alle Auftr&auml;ge</a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#buchungErstellen">Buchung erstellen</a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#buchungenAnzeigen">Buchungen anzeigen</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li ng-hide="hideNavbarIcon"><a href="#administration">Administration</a></li>
+						<li ng-hide="hideNavbarIcon"><a href="#reporting">Reporting</a></li>
+      					<li ng-hide="hideNavbarIcon"><a ng-click="logout()" href="#login">Logout</a></li>
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+	</header>
+	
+	<!-- MAIN CONTENT AND INJECTED VIEWS -->
+	<div id="main" class="container">
+		<!-- angular templating -->
+		<!-- this is where content will be injected -->
+		<div ng-view></div>
+	</div>
+	<!-- MAIN CONTENT END -->
+	
+	<footer class="footer" ng-hide="hideNavbarIcon">
+		<div class="container">
+			<div class="row" style="padding-top:15px">
+			
+			<div>Du bist angemeldet als {{angemeldeterUser}} ({{angemeldeteSbNr}}) und hast heute {{heuteGebucht}} h gebucht.</div>
+		<!-- 
+				<div class="col-sm-4  ">
+					<div class="small center-to-left ">
+						angemeldet als: {{angemeldeterUser}}
+					</div>
+				</div>
+
+				<div class="col-sm-4">
+					<div class="text-center">
+						heute Gebucht: {{heuteGebucht}} h
+					</div>
+				</div>
+			 -->	
+				<!-- 
+				<div class="col-sm-4 ">
+					<div class="small center-to-right" style="text-align:right">
+					Copyright
+					</div> 
+				</div>
+				 -->
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
