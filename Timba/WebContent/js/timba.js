@@ -1,16 +1,14 @@
 /**
- * das JavaScript beinhaltet saemtliche funktionalitaeten welche die TimbaApp am Client ausfuehrt.
- * Genutzt wird hierfuer Angular.js, weshalb in den HTML Elementen spezielle Attribute gesetzt werden muessen.
- * Angular Attribute beginnen mit dem Prefix <code>ng-*</code>
- */
-
-/**
- * Angular modul welches in der index.html hinterlegt ist wird hier als objekt
- * in einer Variabe gehalten. <code>ng-app="timba"</code>
+ * das JavaScript beinhaltet saemtliche funktionalitaeten welche die TimbaApp am
+ * Client ausfuehrt. Genutzt wird hierfuer Angular.js, weshalb in den HTML
+ * Elementen spezielle Attribute gesetzt werden muessen. Angular Attribute
+ * beginnen mit dem Prefix <code>ng-*</code>
  */
 
 'use strict';
-// declare modules
+/**
+ * die einzelnen Controller werden als Angular Module deklariert
+ */
 angular.module('Authentication', []);
 angular.module('ZuletztGebuchte', []);
 angular.module('AlleAuftraege', []);
@@ -22,16 +20,17 @@ angular.module('ArbeitspaketBearbeiten', []);
 angular.module('AuftragBearbeiten', []);
 angular.module('Reporting', []);
 
-var timba = angular.module('timba', [ 'Authentication', 'ZuletztGebuchte', 'AlleAuftraege', 'BuchungErstellen',
-                                      'BuchungenAnzeigen', 'Administration', 'ArbeitspaketAnlegen', 'ArbeitspaketBearbeiten',
+/**
+ * Angular modul welches in der index.html hinterlegt ist wird hier als objekt
+ * in einer Variabe gehalten. <code>ng-app="timba"</code>
+ */
+var timba = angular.module('timba', [ 'Authentication', 'ZuletztGebuchte', 'AlleAuftraege', 'BuchungErstellen', 'BuchungenAnzeigen', 'Administration', 'ArbeitspaketAnlegen', 'ArbeitspaketBearbeiten',
 		'AuftragBearbeiten', 'Reporting', 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar' ]);
+
 
 var localDevEndpoint = 'http://localhost:8080';
 var externalEndpoint = 'https://webservices-test.badenia.de:8085';
 var serviceName = '/BadeniaRochadeZeiterfassungRESTService';
-
-//FIXME
-var user = "1472";
 
 /**
  * der Endpunkt wird nach der Anmeldung ueberschrieben
@@ -151,17 +150,13 @@ timba.config([ '$routeProvider', function($routeProvider) {
 	});
 } ])
 
-/**
- * prueft ob der user noch eingeloggt ist
- */
 .run([ '$rootScope', '$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
-
 	// keep user logged in after page refresh
 	$rootScope.globals = $cookieStore.get('globals') || {};
 	if ($rootScope.globals.currentUser) {
 		// $http.defaults.headers.common['Authorization'] = 'Basic ' +
-		// $rootScope.globals.currentUser.authdata;
-		// // jshint ignore:line
+		// $rootScope.globals.currentUser.authdata; // jshint
+		// ignore:line
 	}
 
 	$rootScope.$on('$locationChangeStart', function(event, next, current) {
@@ -171,8 +166,3 @@ timba.config([ '$routeProvider', function($routeProvider) {
 		}
 	});
 } ]);
-
-/**
- * Hier beginnen die Funktionen der eigentlichen views
- */
-

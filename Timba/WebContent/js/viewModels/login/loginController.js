@@ -1,7 +1,6 @@
 /**
  * prueft den Service redirected auf zuletzt bebuchte
  */
-
 angular.module('Authentication')
 
 .controller('loginController', [ '$scope', '$rootScope', '$http', '$location', '$log', 'AuthenticationService', function($scope, $rootScope, $http, $location, $log, AuthenticationService) {
