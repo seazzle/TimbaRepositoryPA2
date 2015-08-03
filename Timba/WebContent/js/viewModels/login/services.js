@@ -27,6 +27,16 @@ angular.module('Authentication')
 			 * Use this for real authentication
 			 * ----------------------------------------------
 			 */
+        	/**
+        	 * URL setzen ob intern oder extern
+        	 */
+        	originEndpoint = window.location.protocol + "//" + window.location.host;
+        	if (originEndpoint == localDevEndpoint) {
+        		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
+        	} else {
+        		serviceURL = originEndpoint + serviceName;
+        	}
+
         	console.log(serviceURL, { username: "TimbaUser", password: "resuabmit" });
         	$http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode('TimbaUser' + ':' + 'resuabmit');
             $http.post(serviceURL, { username: "TimbaUser", password: "resuabmit" })
