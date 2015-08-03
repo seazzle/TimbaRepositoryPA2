@@ -10,32 +10,54 @@ angular.module('Authentication')
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
              ----------------------------------------------*/
-            $timeout(function(){
-			            	var response = {
-				success : username == password
-			};
-			$rootScope.user = username;
-			$log.debug("angemeldeter User: "+$rootScope.user);
-			if (!response.success) {
-				response.message = 'Deine Sachbearbeiternummer oder dein Passwort sind falsch';
-			}
-			callback(response);
-            }, 1000);
+//            $timeout(function(){
+//			            	var response = {
+//				success : username == password
+//			};
+//			$rootScope.user = username;
+//			$log.debug("angemeldeter User: "+$rootScope.user);
+//			if (!response.success) {
+//				response.message = 'Deine Sachbearbeiternummer oder dein Passwort sind falsch';
+//			}
+//			callback(response);
+//            }, 1000);
 
 
             /*
 			 * Use this for real authentication
 			 * ----------------------------------------------
 			 */
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+        	console.log(serviceURL, { username: "TimbaUser", password: "resuabmit" });
+        	$http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode('TimbaUser' + ':' + 'resuabmit');
+            $http.post(serviceURL, { username: "TimbaUser", password: "resuabmit" })
+                .success(function (response) {
+                	var response = {
+            				success : username == password
+            			};
+                	$rootScope.user = username;
+                	$log.debug("angemeldeter User: "+$rootScope.user);
+                    callback(response);
+                });
+        	
+//        	$http.defaults.headers.common = {"Access-Control-Request-Headers": "accept, origin, authorization"}; //you probably don't need this line.  This lets me connect to my server on a different domain
+//            $http.defaults.headers.common['Authorization'] = 'Basic ' + Base64.encode('TimbaUser' + ':' + 'resuabmit');
+            console.log(Base64.encode('TimbaUser' + ':' + 'resuabmit'));
+//            $http({method: 'GET', url: serviceURL}).
+//                    success(function(data, status, headers, config) {
+//                        $scope.pets = data;
+//                        // this callback will be called asynchronously
+//                        // when the response is available
+//                    }).
+//                    error(function(data, status, headers, config) {
+//                        alert(data+" "+ headers);
+//                        // called asynchronously if an error occurs
+//                        // or server returns response with an error status.
+//                    });
 
         };
  
         service.SetCredentials = function (username, password) {
-            var authdata = Base64.encode(username + ':' + password);
+            var authdata = Base64.encode("TimbaUser" + ':' + "resuabmit");
  
             $rootScope.globals = {
                 currentUser: {
@@ -44,14 +66,16 @@ angular.module('Authentication')
                 }
             };
  
-//            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+            console.log("authdata "+authdata);
+            console.log();
+            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
             $cookieStore.put('globals', $rootScope.globals);
         };
  
         service.ClearCredentials = function () {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
-//            $http.defaults.headers.common.Authorization = 'Basic ';
+            $http.defaults.headers.common.Authorization = 'Basic ';
         };
  
         return service;
