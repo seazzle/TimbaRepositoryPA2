@@ -30,7 +30,7 @@ angular.module('Authentication')
         	/**
         	 * URL setzen ob intern oder extern
         	 */
-        	originEndpoint = window.location.protocol + "//" + window.location.host;
+        	
         	if (originEndpoint == localDevEndpoint) {
         		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
         	} else {

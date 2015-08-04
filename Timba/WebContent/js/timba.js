@@ -31,6 +31,7 @@ var timba = angular.module('timba', [ 'Authentication', 'ZuletztGebuchte', 'Alle
 var localDevEndpoint = 'http://localhost:8080';
 var externalEndpoint = 'https://webservices-test.badenia.de:8085';
 var serviceName = '/BadeniaRochadeZeiterfassungRESTService';
+var originEndpoint = window.location.protocol + "//" + window.location.host;;
 
 /**
  * der Endpunkt wird nach der Anmeldung ueberschrieben

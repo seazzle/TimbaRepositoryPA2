@@ -6,15 +6,15 @@
 angular.module('ZuletztGebuchte').config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('zuletztGebuchteController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
-	/**
-	 * URL setzen ob intern oder extern
-	 */
-	originEndpoint = window.location.protocol + "//" + window.location.host;
-	if (originEndpoint == localDevEndpoint) {
-		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
-	} else {
-		serviceURL = originEndpoint + serviceName;
-	}
+//	/**
+//	 * URL setzen ob intern oder extern
+//	 */
+//	originEndpoint = window.location.protocol + "//" + window.location.host;
+//	if (originEndpoint == localDevEndpoint) {
+//		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
+//	} else {
+//		serviceURL = originEndpoint + serviceName;
+//	}
 
 	$log.debug("originEndpoint: " + originEndpoint);
 	$log.debug("serviceURL: " + serviceURL);
