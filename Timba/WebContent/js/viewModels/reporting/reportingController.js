@@ -121,7 +121,38 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 					// }
 
 					$scope.downloadReport = function() {
-						window.open(serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/"
-								+ germanDateFormatter($scope.endDatum.value), '_blank');
+						
+						$http.get(serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/"
+								+ germanDateFormatter($scope.endDatum.value), {responseType: 'arraybuffer'})
+					       .success(function (data) {
+					           var file = new Blob([data], {type: 'application/pdf'});
+					           var fileURL = URL.createObjectURL(file);
+					           window.open(fileURL);
+					    });
+						
+						
+						
+//						$http({
+//							url : serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/"
+//							+ germanDateFormatter($scope.endDatum.value),
+//							method : "GET",
+//						}).success(function(data) {
+////							if (data.success == true) {
+//								$scope.showErrorBox = false;
+////								$scope.reportConfig = data.content;
+//								   var file = new Blob([data], {type: 'application/pdf'});
+//						           var fileURL = URL.createObjectURL(file);
+//						           window.open(fileURL);
+////							} else {
+////								$scope.showErrorBox = true;
+////								$scope.errorMessage = "Rochade Antwortet: " + data.message;
+////							}
+//						}).error(function(data, status) {
+//							$scope.showErrorBox = true;
+//							$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+//						});
+						
+//						window.open(serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/"
+//								+ germanDateFormatter($scope.endDatum.value), '_blank');
 					}
 				} ]);
