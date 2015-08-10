@@ -37,7 +37,7 @@
 			<div class="col-md-8">
 				<select class="form-control" ng-model="selectedReport" >
 					<option value="aufwandNachAuftragArbeitspaket" selected="selected">Aufwand nach Auftrag und Arbeitspaket für SBNr</option>
-					<option value="aufwandNachSbNrfuerAuftrag" selected="selected">Aufwand nach SBNr für Auftrag</option>
+					<option ng-hide="!reportConfig.auftraege.length" value="aufwandNachSbNrfuerAuftrag" selected="selected">Aufwand nach SBNr für Auftrag</option>
 				</select>
 			</div>
 
@@ -47,9 +47,7 @@
 					typeahead="user as (user.kurzbeschreibung + ' (' +user.name+')' ) for user in reportConfig.mitarbeiter | filter:$viewValue" />
 					
 				<select class="form-control" ng-show="selectedReport=='aufwandNachSbNrfuerAuftrag'">
-					<option>auftrag1</option>
-					<option>auftrag2</option>
-					<option>auftrag3</option>
+					<option ng-repeat="auftrag in reportConfig.auftraege">{{auftrag.kurzbeschreibung}}</option>
 				</select>
 			</div>
 		</div>
