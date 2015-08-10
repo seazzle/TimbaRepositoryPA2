@@ -19,14 +19,14 @@
     				<i class="pull-left fa fa-plus"></i>
     			</td>
     			<td>
-	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}} 
+	    			{{auftrag.kurzbeschreibung}} ({{auftrag.name}})
     				<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
     			</td>
     		</tr>
     		</table>
     		 
     		</accordion-heading>
-    		<p>{{auftrag.beschreibung}}</p>
+    		<!-- <p>{{auftrag.beschreibung}}</p>-->
     		<ul class="list-group">
     			<li class="list-group-item">
     				<a ng-click="openCreateArbeitspaket(auftrag)" href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>

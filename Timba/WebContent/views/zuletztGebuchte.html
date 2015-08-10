@@ -20,12 +20,12 @@
     				<i class="pull-left fa fa-plus"></i>
     			</td>
     			<td>
-	    			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
+	    			{{auftrag.kurzbeschreibung}} ({{auftrag.name}})
     			</td>
     		</tr>
     		</table>
     		</accordion-heading>
-    		<p>{{auftrag.beschreibung}}</p>
+    		<!-- <p>{{auftrag.beschreibung}}</p> -->
     		<ul class="list-group">
 				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
 			</ul>
