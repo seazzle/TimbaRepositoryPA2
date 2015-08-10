@@ -4,8 +4,8 @@
 	<h2>Buchung erstellen</h2>
 	<p class="bot-buffer">hier kannst du eine neue Zeit-Buchung auf Projekte oder Auftrag erstellen</p>
 	
-	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
-	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer" role="alert">{{successMessage}}</div>
 
 	<!-- ng-init holt die Projekte und deren AP fuer die dropDownliste -->
 	<form class="form-horizontal" name="buchungErstellenFormular">
@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="arbeitspakete" class="col-sm-3 control-label">Arbeitspakete</label>
+			<label for="arbeitspakete" class="col-sm-3 control-label">Arbeitspaket</label>
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
 					class="form-control" name="arbeitspaket"
@@ -38,7 +38,7 @@
 			<div class="col-sm-8">
 				<div class="input-group">
 					<input ng-model="istAufwand" type="text" class="form-control" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
-						placeholder="IstAufwand in Stunden" required> <span
+						placeholder="IST-Aufwand in Stunden" required> <span
 						class="input-group-btn">
 						<button class="btn btn-default" type="button" data-toggle="modal"
 							data-target="#stoppuhrModal">Stop deine Zeit</button>

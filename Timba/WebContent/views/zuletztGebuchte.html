@@ -1,10 +1,10 @@
 <meta charset="utf-8"> 
 <div class="jumbotron" ng-init="initZuletztGebucht()">
 	<h2>Meine zuletzt gebuchten Arbeitspakete</h2>
-	<p>hier siehst du die Arbeitspakete, auf denen du in den letzten 30 Tagen gebucht hast</p>
+	<p class="bot-buffer">hier siehst du die Arbeitspakete, auf denen du in den letzten 30 Tagen gebucht hast</p>
 	
-	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
-	<div ng-show="showInfoBox" class="alert alert-info" role="alert">
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
+	<div ng-show="showInfoBox" class="alert alert-info bot-buffer" role="alert">
 		<img alt="cryinBaby" src="img/cryinBaby.jpg"/><br>
 		Lange nicht mehr gesehen ;-)<br>
 		Du hast in den letzten 30 Tage kein Arbeitspaket bebucht. <br>
@@ -12,9 +12,9 @@
 	</div>
 	
 	<accordion close-others="true">
-    	<accordion-group ng-repeat="auftrag in auftraege">
+    	<accordion-group class="timba-accordion" ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    		<table>
+    		<table class="timba-accordion-heading">
     		<tr>
     			<td>
     				<i class="pull-left fa fa-plus"></i>
@@ -26,9 +26,16 @@
     		</table>
     		</accordion-heading>
     		<!-- <p>{{auftrag.beschreibung}}</p> -->
-    		<ul class="list-group">
+    		<div ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="timba-accordion-list">
+	    		<a ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">
+	    			{{arbeitspaket.kurzbeschreibung}}
+	    		</a>
+    		</div>
+    		<!--  
+    		<ul class="list-group"">
 				<li ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="list-group-item"><a  ng-click="openBuchungErstellen(arbeitspaket, auftrag)" href="#buchungErstellen">{{arbeitspaket.kurzbeschreibung}}</a></li>
 			</ul>
+			-->
    		</accordion-group>
   	</accordion>
  </div>

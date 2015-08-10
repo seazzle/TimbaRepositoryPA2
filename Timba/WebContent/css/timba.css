@@ -1,12 +1,15 @@
 @CHARSET "utf-8";
 
-.top-buffer { margin-top:20px; }
+.top-buffer {
+	margin-top: 20px;
+}
 
-.bot-buffer { margin-bottom :20px; }
+.bot-buffer {
+	margin-bottom: 20px;
+}
 
-.mitarbeiter-table{
-	height: 400px !important;
-    overflow: scroll;
+.timba-table {
+	font-size: 18px;
 }
 /*
 .btn-primary { 
@@ -14,3 +17,25 @@
     border-color: #b00202; 
 } 
 */
+.timba-accordion-heading {
+	font-size: 21px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.timba-accordion-list {
+	padding-right: 10px;
+	font-size: 18px;
+	padding-left: 23px;
+	border-color: rgb(221, 221, 221);
+	border-style: solid;
+	border-width: 1px;
+	margin-bottom: -1px;
+	margin-left: 7px;
+	color: #d50000;
+}
+
+.timba-accordion {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}

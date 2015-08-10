@@ -2,7 +2,7 @@
 <div class="jumbotron" ng-init="initAuftragBearbeiten()">
 	<h2>Auftrag bearbeiten</h2>
 	<p class="bot-buffer">{{message}}</p>
-	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
 
 	<form class="form-horizontal">
 
@@ -17,7 +17,7 @@
 			<label class="col-sm-3 control-label">Auftrags-Name</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
-					placeholder="Auftrag-Name" ng-model="kurzbeschreibung">
+					placeholder="Auftrag-Name" ng-model="kurzbeschreibung" readonly>
 			</div>
 		</div>
 		

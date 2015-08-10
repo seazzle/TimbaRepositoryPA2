@@ -1,11 +1,11 @@
 <meta charset="utf-8"> 
 <div class="jumbotron" ng-init="initBuchungenAnzeigen()">
 	<h2>Meine Buchungen</h2>
-	<p>
+	<p class="bot-buffer">
 		hier siehst du deine Buchungen im angegebenen Zeitraum
 	</p>
-	<div ng-show="showErrorBox" class="alert alert-danger" role="alert">{{errorMessage}}</div>
-	<div ng-show="showSuccessBox" class="alert alert-success" role="alert">{{successMessage}}</div>
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer" role="alert">{{successMessage}}</div>
 	
 	<div class="row">
 		<div class="col-md-4">
@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<table class="table table-bordered table-striped" ng-init="buchungenAnzeigen()">
+	<table class="table table-bordered table-striped timba-table" ng-init="buchungenAnzeigen()">
     <thead>
       <tr>
       	<td></td>
@@ -91,7 +91,7 @@
 				<td style="width:150px">{{ buchung.buchungsDatum }}</td>
 				<td>{{ buchung.auftragKurzbeschreibung }}</td>
 				<td>{{ buchung.arbeitsPaketKurzbeschreibung }}</td>
-				<td style="text-align: right; padding-right:5px">{{buchung.aufwand}} h</td>
+				<td style="text-align: right; padding-right: 20px">{{buchung.aufwand}}</td>
 				<td>
 					<button
 						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)"
