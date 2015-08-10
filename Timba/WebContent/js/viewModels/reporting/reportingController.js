@@ -2,7 +2,6 @@
  * 
  */
 
-// FIXME
 angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 	$sceProvider.enabled(false);
 }).controller(
