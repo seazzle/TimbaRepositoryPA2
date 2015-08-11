@@ -6,18 +6,6 @@
 angular.module('ZuletztGebuchte').config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('zuletztGebuchteController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
-//	/**
-//	 * URL setzen ob intern oder extern
-//	 */
-//	originEndpoint = window.location.protocol + "//" + window.location.host;
-//	if (originEndpoint == localDevEndpoint) {
-//		serviceURL = externalEndpoint + serviceName; // for localhost e.g.
-//	} else {
-//		serviceURL = originEndpoint + serviceName;
-//	}
-
-	$log.debug("originEndpoint: " + originEndpoint);
-	$log.debug("serviceURL: " + serviceURL);
 
 	/**
 	 * steuert die Sichtbarkeit des Navigationsmenues nur beim LoginController
@@ -58,11 +46,6 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user,
 			method : "GET",
-		// params: {action: 'getAllAuftraege'}
-		// headers: {
-		// 'Content-Type': application/json
-		// },
-
 		}).success(function(data) {
 			if (data.success == true) {
 				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
@@ -76,8 +59,6 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 
@@ -85,11 +66,6 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user,
 			method : "GET",
-		// params: {action:
-		// 'getZuletztBebuchteAP'}
-		// headers: {
-		// 'Content-Type': application/json
-		// }
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.auftraege = data.content;
@@ -105,8 +81,6 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status.getText() + "
-			// Response Data " + data.getText() || "Request failed";
 		});
 	}
 

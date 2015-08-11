@@ -16,13 +16,14 @@ angular.module('Authentication')
         	} else {
         		serviceURL = originEndpoint + serviceName;
         	}
-        	$log.debug("Service URL: "+serviceURL)
+        	$log.debug("Service URL: "+serviceURL);
+        	$log.debug("Origin Endpoint: "+ originEndpoint);
 
         	/**
         	 * setzen des Authentifizierungsheaders
         	 */
         	$http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode('TimbaUser' + ':' + 'resuabmit');
-        	$log.debug("Gateway User clear: "+{ username: "TimbaUser", password: "resuabmit" })
+        	$log.debug("Gateway User clear: "+{ username: "TimbaUser", password: "resuabmit" });
         	$log.debug("Gateway User encoded:"+Base64.encode('TimbaUser' + ':' + 'resuabmit'));
 
         	/**
