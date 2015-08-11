@@ -8,7 +8,7 @@ angular.module('Authentication')
 	$log.debug('You Run Debug Mode - logging is engabled');
 
 	/**
-	 * prueft ob es die login seite ist
+	 * prueft ob es die login seite ist und versteckt Navbar und Footer
 	 */
 	if ($location.path() === '/login') {
 		$rootScope.hideNavbarIcon = true;
