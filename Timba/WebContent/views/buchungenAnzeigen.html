@@ -84,7 +84,7 @@
 			<tr class="clickableRow" title="Zum einblenden des Kommentars hier klicken" data-ng-click="selectTableRow($index, buchung.id)">
 				<td>
 				<button ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;"
-						type="button" class="btn btn-default" aria-label="Left Align">
+						type="button" class="btn btn-default timba-table-btn" aria-label="Left Align">
 						<span class="fa fa-plus" aria-hidden="true"></span>
 					</button>			
 				</td>
@@ -95,7 +95,7 @@
 				<td>
 					<button
 						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)"
-						type="button" class="btn btn-default" aria-label="Left Align">
+						type="button" class="btn btn-default timba-table-btn" aria-label="Left Align">
 						<span class="fa fa-trash-o" aria-hidden="true"></span>
 					</button>
 				</td>

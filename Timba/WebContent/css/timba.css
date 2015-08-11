@@ -10,7 +10,19 @@
 
 .timba-table {
 	font-size: 18px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-left: 4px;
+	padding-right: 4px;
 }
+
+.timba-table-btn{
+	padding-top: 4px;
+	padding-bottom: 3px;
+	padding-right: 9px;
+	padding-left: 9px;
+}
+
 /*
 .btn-primary { 
     background-color: #b00202; 
