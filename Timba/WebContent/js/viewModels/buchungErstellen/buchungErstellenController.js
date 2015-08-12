@@ -71,7 +71,7 @@ angular.module('BuchungErstellen')
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Beim Ermitteln der Projekte / Auftraege und ihrer Arbeitspakete ist ein Fehler aufgetreten";
 		});
 	}
 
@@ -90,9 +90,9 @@ angular.module('BuchungErstellen')
 	 */
 	$scope.buchen = function() {
 		$log.debug("buchen: ");
-		if (angular.isUndefined($scope.selectedArbeitspaket)) {
+		if (angular.isUndefined($scope.selectedArbeitspaket)||angular.isUndefined($scope.selectedAuftrag)) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Waehle ein Arbeitspaket";
+			$scope.errorMessage = "Waehle einen Auftrag und ein Arbeitspaket";
 		} else {
 			var buchung = {
 				"arbeitsPaket" : $scope.selectedArbeitspaket.name,
@@ -127,7 +127,7 @@ angular.module('BuchungErstellen')
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
-				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+				$scope.errorMessage = "Beim Anlegen der Buchung ist ein Fehler aufgetreten";
 			});
 		}
 	}
