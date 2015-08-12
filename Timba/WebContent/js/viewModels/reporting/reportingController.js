@@ -31,7 +31,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "beim Laden der ReportConfig ist ein Fehler aufgetreten";
 		});
 	}
 
@@ -110,7 +110,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				window.open(fileURL);
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
-				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+				$scope.errorMessage = "beim Download des Mitarbeiterberichts ist ein Fehler aufgetreten";
 			});
 		}
 		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){
@@ -126,7 +126,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				window.open(fileURL);
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
-				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+				$scope.errorMessage = "beim Download des Auftrag- / Projektberichts ist ein Fehler aufgetreten";
 			});
 		}
 	}
