@@ -27,17 +27,18 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<input type="submit" ng-disabled="reportingUser.name == undefined || reportingUser.name.length < 4" ng-click="downloadReport()"
-					class="btn btn-default" value="Download starten" /> <span ng-show="selectedReport=='aufwandNachAuftragArbeitspaket'">für
-					{{reportingUser.name}}</span>
+				<input type="submit" ng-disabled="reportingUser.name == undefined || reportingUser.name.length < 4" ng-click="downloadReport()" class="btn btn-default" value="Download starten" />
+				 <span ng-show="selectedReport=='aufwandNachAuftragArbeitspaket'">
+					für {{reportingUser.name}}
+				</span>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="col-md-8">
 				<select class="form-control" ng-model="selectedReport" >
-					<option value="aufwandNachAuftragArbeitspaket" selected="selected">Aufwand nach Auftrag und Arbeitspaket für SBNr</option>
-					<option ng-show="reportConfig.auftraege.length>0" value="aufwandNachSbNrfuerAuftrag">Aufwand nach SBNr für Auftrag</option>
+					<option value="aufwandNachAuftragArbeitspaket" selected="selected">Aufwand nach Projekt / Auftrag und Arbeitspaket für einen Mitarbeiter</option>
+					<option ng-if="reportConfig.auftraege.length>0" value="aufwandNachAuftragMitarbeiter">Aufwand nach Arbeitspaket und Mitarbeiter für ein Projekt / Auftrag</option>
 				</select>
 			</div>
 
@@ -46,8 +47,8 @@
 					required="required" class="form-control" ng-model="reportingUser"
 					typeahead="user as (user.kurzbeschreibung + ' (' +user.name+')' ) for user in reportConfig.mitarbeiter | filter:$viewValue" />
 					
-				<select class="form-control" ng-show="selectedReport=='aufwandNachSbNrfuerAuftrag'">
-					<option ng-repeat="auftrag in reportConfig.auftraege">{{auftrag.kurzbeschreibung}}</option>
+				<select class="form-control" ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in reportConfig.auftraege" ng-model="selectedAuftrag" ng-show="selectedReport=='aufwandNachAuftragMitarbeiter'&&reportConfig.auftraege.length>0">
+				<!--  <option ng-repeat="auftrag in reportConfig.auftraege">{{auftrag.kurzbeschreibung}} {{auftrag.name}}</option>-->	
 				</select>
 			</div>
 		</div>

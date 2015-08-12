@@ -45,6 +45,9 @@ timba.config([ '$logProvider', function($logProvider) {
 	$logProvider.debugEnabled(true);
 } ]);
 
+/**
+ * autocomplete input box
+ */
 timba.directive('autoComplete', function($timeout) {
 	return function(scope, iElement, iAttrs) {
 		iElement.autocomplete({
@@ -58,6 +61,10 @@ timba.directive('autoComplete', function($timeout) {
 	};
 });
 
+/**
+ * header fuer alle GET-Anfragen um caching zu unterbinden
+ * Nur im IE relevant
+ */
 timba.config(['$httpProvider', function($httpProvider) {
     //initialize get if not there
     if (!$httpProvider.defaults.headers.get) {
@@ -71,26 +78,7 @@ timba.config(['$httpProvider', function($httpProvider) {
 
 
 
-// timba.config(function($provide) {
-// $provide.decorator("$exceptionHandler", function($delegate) {
-// return function(exception, cause) {
-// $delegate(exception, cause);
-// alert(exception.message);
-// };
-// });
-// });
 
-// FIXME
-// timba.factory('$exceptionHandler', function($injector) {
-// return function(exception, cause) {
-// var $rootScope = $injector.get("$rootScope");
-// exception.message += ' (caused by "' + cause + '")';
-// alert(exception);
-// $rootScope.showErrorBox = true;
-// $rootScope.errorMessage = "Client-Side Error" + exception;
-// throw exception;
-// };
-// });
 
 /**
  * Routing um die views zu injecten

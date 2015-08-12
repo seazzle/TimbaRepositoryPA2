@@ -22,6 +22,9 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.reportConfig = data.content;
+				if($scope.reportConfig.auftraege.length>0){
+					$scope.selectedAuftrag=$scope.reportConfig.auftraege[0];
+				}
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
@@ -86,6 +89,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 
 	$scope.selectedReport = "aufwandNachAuftragArbeitspaket";
 	$scope.serviceCall = $scope.selectedReport;
+	
 
 	$scope.reportingUser = {
 		"name" : $rootScope.user,
@@ -93,15 +97,37 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 	};
 
 	$scope.downloadReport = function() {
-		$log.debug("downloadReport: "+serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
-		$http.get(serviceURL + "/report/" + $scope.serviceCall + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value), {
-			responseType : 'arraybuffer'
-		}).success(function(data) {
-			var file = new Blob([ data ], {
-				type : 'application/pdf'
+		if($scope.selectedReport=='aufwandNachAuftragArbeitspaket'){
+			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
+			$log.debug("downloadReport: "+serviceURL + "/report/" + "aufwandNachAuftragArbeitspaket" + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
+			$http.get(serviceURL + "/report/" + "aufwandNachAuftragArbeitspaket" + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value), {
+				responseType : 'arraybuffer'
+			}).success(function(data) {
+				$log.debug("erfolgreich?"+data);
+				var file = new Blob([ data ], {
+				});
+				var fileURL = URL.createObjectURL(file);
+				window.open(fileURL);
+			}).error(function(data, status) {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
 			});
-			var fileURL = URL.createObjectURL(file);
-			window.open(fileURL);
-		});
+		}
+		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){
+			$log.debug($scope.selectedReport);
+			$log.debug(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
+			$http.get(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value), {
+				responseType : 'arraybuffer'
+			}).success(function(data) {
+				var file = new Blob([ data ], {
+					type : 'application/pdf'
+				});
+				var fileURL = URL.createObjectURL(file);
+				window.open(fileURL);
+			}).error(function(data, status) {
+				$scope.showErrorBox = true;
+				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			});
+		}
 	}
 } ]);
