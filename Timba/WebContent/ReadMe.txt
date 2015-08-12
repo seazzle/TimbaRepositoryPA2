@@ -73,3 +73,6 @@ badenia.timba.exter = true
 
 
 http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-stacktrace-js.htm
+
+Caching GET requests:
+http://www.visualstudiogeeks.com/blog/angularjs/mvc/ie/angularjs-and-ie9/

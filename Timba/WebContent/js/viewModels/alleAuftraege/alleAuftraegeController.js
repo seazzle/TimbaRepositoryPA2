@@ -16,6 +16,7 @@ angular.module('AlleAuftraege').config(function($sceProvider, $httpProvider) {
 	 * diese Funktion ruft den Rochade Service um alle Auftraege zu bekommen
 	 */
 	$scope.getAllAuftraege = function() {
+		$log.debug("getAllAuftraege: "+serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",

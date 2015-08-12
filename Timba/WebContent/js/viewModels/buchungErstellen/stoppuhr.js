@@ -99,12 +99,16 @@ function cont() {
 }
 
 function newstart() {
-	reset();
+	clearTimeout(timer);
+	document.getElementById("s").firstChild.nodeValue = "00";
+	document.getElementById("m").firstChild.nodeValue = "00";
+	document.getElementById("h").firstChild.nodeValue = "0";
+	min = 0;
+	hour = 0;
 	startwatch();
 }
 
 function reset(){
-	clearTimeout(timer);
 	document.getElementById("s").firstChild.nodeValue = "00";
 	document.getElementById("m").firstChild.nodeValue = "00";
 	document.getElementById("h").firstChild.nodeValue = "0";

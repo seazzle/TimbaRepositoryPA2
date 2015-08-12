@@ -43,6 +43,7 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 	 * Informationen entaehlt e.g. die Anzahl der heute gebuchten Stunden
 	 */
 	$rootScope.getUserInfo = function() {
+		$log.debug("getUserInfo: "+serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user,
 			method : "GET",
@@ -63,6 +64,7 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 	}
 
 	$scope.getZuletztGebuchteAP = function() {
+		$log.debug("getZuletztGebuchteAP: "+serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user,
 			method : "GET",

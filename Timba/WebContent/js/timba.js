@@ -58,6 +58,20 @@ timba.directive('autoComplete', function($timeout) {
 	};
 });
 
+timba.config(['$httpProvider', function($httpProvider) {
+    //initialize get if not there
+    if (!$httpProvider.defaults.headers.get) {
+        $httpProvider.defaults.headers.get = {};    
+    }    
+    //disable IE ajax request caching
+    //TODO einkommentieren nach Gateway umstellung
+    $httpProvider.defaults.headers.get['If-Modified-Since'] = 'Mon, 26 Jul 1997 05:00:00 GMT';
+    $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
+    $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
+}]);
+
+
+
 // timba.config(function($provide) {
 // $provide.decorator("$exceptionHandler", function($delegate) {
 // return function(exception, cause) {
@@ -155,8 +169,8 @@ timba.config([ '$routeProvider', function($routeProvider) {
 	// keep user logged in after page refresh
 	$rootScope.globals = $cookieStore.get('globals') || {};
 	if ($rootScope.globals.currentUser) {
-		// $http.defaults.headers.common['Authorization'] = 'Basic ' +
-		// $rootScope.globals.currentUser.authdata; // jshint
+		 $http.defaults.headers.common['Authorization'] = 'Basic ' +
+		 $rootScope.globals.currentUser.authdata; // jshint
 		// ignore:line
 	}
 

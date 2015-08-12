@@ -57,6 +57,7 @@ angular.module('BuchungErstellen')
 	 * vorschlagswerte anzuzeigen
 	 */
 	$scope.getAuftrageUndArbeitspakete = function() {
+		$log.debug("getAuftragUndArbeitspakete: "+serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
@@ -88,6 +89,7 @@ angular.module('BuchungErstellen')
 	 * erstellt eine Buchung
 	 */
 	$scope.buchen = function() {
+		$log.debug("buchen: ");
 		if (angular.isUndefined($scope.selectedArbeitspaket)) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "Waehle ein Arbeitspaket";
@@ -99,8 +101,15 @@ angular.module('BuchungErstellen')
 				"buchungsErsteller" : $rootScope.user
 			}
 
-			$log.debug("Buchung:\n" + buchung);
+			$log.debug("buchung={\n"+
+					"arbeitsPaket:" + $scope.selectedArbeitspaket.name,+"\n"+
+					"aufwand:" + parseFloat($scope.istAufwand.replace(',', '.').replace(' ', ''))+"\n"+
+					"kommentar:" + $scope.kommentar,+"\n"+
+					"buchungsErsteller:" + $rootScope.user+"\n"+
+					"}"
+				);
 
+			$log.debug("POST: "+serviceURL + '/zeiterfassung/buchen');
 			$http({
 				url : serviceURL + '/zeiterfassung/buchen',
 				method : "POST",
@@ -128,4 +137,4 @@ angular.module('BuchungErstellen')
 			});
 		}
 	}
-} ]);
+}]);
