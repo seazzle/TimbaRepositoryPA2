@@ -17,6 +17,10 @@ hier werden speziell für Timba benoetigte Style-Informationen hinterlegt
 	margin-bottom: 20px;
 }
 
+.timba-jumbotron {
+	padding-top: 18px;
+}
+
 .timba-table {
 	font-size: 18px;
 	padding-top: 4px;
