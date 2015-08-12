@@ -29,18 +29,21 @@ angular.module('Authentication')
         	/**
         	 * Authentifizierung am Gateway
         	 */
+        	
         	$http.post(serviceURL, { username: "TimbaUser", password: "resuabmit" })
                 .success(function (response) {
                 	var response = {
             				success : username == password
             			};
+                	if (!response.success) {
+        				response.message = 'Deine Sachbearbeiternummer oder dein Passwort sind falsch';
+        			}
                 	$rootScope.user = username;
                 	$log.debug("angemeldeter User: "+$rootScope.user);
                     callback(response);
                 });
-
         };
- 
+        
         service.SetCredentials = function (username, password) {
             var authdata = Base64.encode("TimbaUser" + ':' + "resuabmit");
  
