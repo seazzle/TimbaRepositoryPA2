@@ -27,6 +27,18 @@ hier werden speziell für Timba benoetigte Style-Informationen hinterlegt
 	padding-left: 9px;
 }
 
+.timba-form-horizontal{
+	padding-top: 4px;
+	font-size: 21px;
+	line-height: 1.6;
+}
+
+.timba-label{
+	padding-top: 4px;
+	text-align: right;
+	margin-bottom: 7px;
+}
+
 /*
 .btn-primary { 
     background-color: #b00202; 
