@@ -97,7 +97,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 							}
 						}).error(function(data, status) {
 							$scope.showErrorBox = true;
-							$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+							$scope.errorMessage = "Fehler beim Anzeigen der Buchung";
 						});
 					}
 
@@ -169,6 +169,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 						$log.debug("buchung: "+angular.toJson(buchung));
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
+							$log.debug("stornieren: "+serviceURL + '/zeiterfassung/buchen');
 							$http({
 								url : serviceURL + '/zeiterfassung/buchen',
 								method : "POST",
@@ -186,7 +187,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 								}
 							}).error(function(data, status) {
 								$scope.showErrorBox = true;
-								$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+								$scope.errorMessage = "Fehler beim Stornieren der Buchung";
 							});
 						}
 					}

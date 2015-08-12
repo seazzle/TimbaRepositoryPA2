@@ -39,6 +39,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	$scope.searchMitarbeiter = ''; // set the default search/filter term
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
+		$log("ermittleMitarbeiterUndOrga: "+serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/');
 		$http({
 			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
@@ -52,7 +53,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Fehler beim Ermitteln der Mitarbeiter- und Organisationsstruktur";
 		});
 	}
 
@@ -117,7 +118,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Fehler beim Speichern des Auftrages / Projektes";
 		});
 	}
 } ]);

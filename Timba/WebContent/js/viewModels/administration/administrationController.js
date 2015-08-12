@@ -41,7 +41,7 @@ angular.module('Administration').config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Fehler beim ermitteln der admin-berechtigten Auftraege";
 		});
 	}
 

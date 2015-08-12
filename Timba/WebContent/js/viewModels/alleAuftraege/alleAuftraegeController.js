@@ -30,7 +30,7 @@ angular.module('AlleAuftraege').config(function($sceProvider, $httpProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Fehler beim Ermitteln der buchungsberechtigten Auftraege";
 		});
 	}
 

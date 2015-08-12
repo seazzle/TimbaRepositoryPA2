@@ -42,9 +42,7 @@ angular.module('ArbeitspaketAnlegen').config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
+			$scope.errorMessage = "Fehler beim Anlegen des Arbeitspaketes";
 		});
 	}
 

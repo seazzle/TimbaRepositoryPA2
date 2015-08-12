@@ -53,7 +53,7 @@ angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Fehler beim Speichern des Arbeitspaketes";
 		});
 	}
 } ]);
