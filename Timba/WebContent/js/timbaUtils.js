@@ -48,11 +48,9 @@ function dateFormatter(date) {
 function germanDateFormatter(stringDate) {
 	try {
 		var split = stringDate.split(".");
-		console.log(split);
 		yyyy = split[2];
 		mm = split[1];
 		dd = split[0];
-		console.log(yyyy + "-" + mm + "-" + dd);
 		return yyyy + "-" + mm + "-" + dd
 	} catch (e) {
 		throw "Fehler beim Date parsen";
