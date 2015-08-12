@@ -1,6 +1,3 @@
-/**
- * Stoppuhr Funktion ANFANG
- */
 var then;
 var now;
 var pause;
@@ -112,6 +109,12 @@ function reset(){
 	document.getElementById("s").firstChild.nodeValue = "00";
 	document.getElementById("m").firstChild.nodeValue = "00";
 	document.getElementById("h").firstChild.nodeValue = "0";
+	document.getElementById("a1").style.display = "inline";
+	document.getElementById("a2").style.display = "none";
+	document.getElementById("a3").style.display = "none";
+	document.getElementById("a4").style.display = "none";
+	document.getElementById("a5").style.display = "none";
+	document.getElementById("zeit").innerHTML = "";
 	min = 0;
 	hour = 0;
 }
@@ -126,7 +129,3 @@ function conton() {
 		hour--;
 	startnow();
 }
-
-/**
- * Stoppuhr Funktion ENDE
- */

@@ -37,7 +37,7 @@
 			<div class="col-md-8">
 				<select class="form-control" ng-model="selectedReport" >
 					<option value="aufwandNachAuftragArbeitspaket" selected="selected">Aufwand nach Auftrag und Arbeitspaket für SBNr</option>
-					<option ng-hide="!reportConfig.auftraege.length" value="aufwandNachSbNrfuerAuftrag" selected="selected">Aufwand nach SBNr für Auftrag</option>
+					<option ng-show="reportConfig.auftraege.length>0" value="aufwandNachSbNrfuerAuftrag">Aufwand nach SBNr für Auftrag</option>
 				</select>
 			</div>
 

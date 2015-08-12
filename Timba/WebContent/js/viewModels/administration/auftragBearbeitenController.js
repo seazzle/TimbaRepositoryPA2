@@ -42,11 +42,6 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		$http({
 			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
-		// params: {action:
-		// 'getZuletztBebuchteAP'}
-		// headers: {
-		// 'Content-Type': application/json
-		// }
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.showErrorBox = false;
@@ -58,8 +53,6 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 
@@ -79,11 +72,10 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	 * buchungsberechtigten zu den buchungsberechtigten hinzu
 	 */
 	$scope.addToBuchungsberechtigte = function(mitarbeiter) {
-		$log.debug("angeklickter mitarbeiter: \n" + (mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n" + (angular.toJson(mitarbeiter)));
 		removeItem($scope.nichtBuchungsberechtigte, 'id', mitarbeiter.id);
-		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 		$scope.buchungsberechtigte.push(mitarbeiter);
-		$log.debug("neue Buchungsberechtigte \n" + ($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n" + angular.toJson($scope.buchungsberechtigte));
 	}
 
 	/**
@@ -91,11 +83,10 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	 * in die Menge der nicht Buchungsberechtigten hinzu
 	 */
 	$scope.removeFromBuchungsberechtige = function(mitarbeiter) {
-		$log.debug("angeklickter mitarbeiter: \n" + (mitarbeiter));
+		$log.debug("angeklickter mitarbeiter: \n" + (angular.toJson(mitarbeiter)));
 		removeItem($scope.buchungsberechtigte, 'id', mitarbeiter.id);
-		$log.debug("neue Buchungsberechtigte \n" + ($scope.buchungsberechtigte));
+		$log.debug("neue Buchungsberechtigte \n" + (angular.toJson($scope.buchungsberechtigte)));
 		$scope.nichtBuchungsberechtigte.push(mitarbeiter);
-		// $log.debug(angular.toJson($scope.nichtBuchungsberechtigte));
 	}
 
 	/**
@@ -110,6 +101,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		}
 		$log.debug(angular.toJson(auftrag));
 
+		$log.debug("POST: "+serviceURL + '/zeiterfassung/' + $scope.name + '/edit');
 		$http({
 			url : serviceURL + '/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
@@ -118,7 +110,6 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 			if (data.success == true) {
 				$rootScope.rsSuccessMessage = "Auftrag " + data.content.kurzbeschreibung + " wurde bearbeitet";
 				$rootScope.rsShowSuccessBox = true;
-				$log.debug($rootScope.rsShowSuccessBox);
 				location.href = "#administration";
 			} else {
 				$scope.showErrorBox = true;
@@ -127,8 +118,6 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 } ]);

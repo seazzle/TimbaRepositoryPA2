@@ -28,12 +28,10 @@ angular.module('Administration').config(function($sceProvider) {
 	 * ermittelt Auftraege auf denen der User ein bearbeitungsrecht hat
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
+		$log.debug("ermittleAdminBerechtigteAuftraege: "+serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user,
 			method : "GET",
-		// headers: {
-		// 'Content-Type': application/json
-		// }
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.auftraege = data.content;
@@ -44,8 +42,6 @@ angular.module('Administration').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 

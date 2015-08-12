@@ -6,6 +6,7 @@
 angular.module('ArbeitspaketAnlegen').config(function($sceProvider) {
 	$sceProvider.enabled(false);
 }).controller('arbeitspaketAnlegenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+	$log.debug("ArbeitspaketAnlegen: ");
 	$scope.showErrorBox = false;
 	$scope.showSuccessBox = false;
 	$scope.initArbeitspaketAnlegen = function() {

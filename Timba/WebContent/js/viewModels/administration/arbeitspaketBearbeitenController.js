@@ -35,7 +35,7 @@ angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 			"status" : $scope.selected.status
 		}
 
-		$log.debug(arbeitspaket);
+		$log.debug(angular.toJson(arbeitspaket));
 
 		$http({
 			url : serviceURL + '/zeiterfassung/' + $scope.auftrag.name + '/' + $scope.arbeitspaket.name + '/edit',
@@ -54,8 +54,6 @@ angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 } ]);

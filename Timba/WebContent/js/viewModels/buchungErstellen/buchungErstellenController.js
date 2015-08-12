@@ -101,13 +101,7 @@ angular.module('BuchungErstellen')
 				"buchungsErsteller" : $rootScope.user
 			}
 
-			$log.debug("buchung={\n"+
-					"arbeitsPaket:" + $scope.selectedArbeitspaket.name,+"\n"+
-					"aufwand:" + parseFloat($scope.istAufwand.replace(',', '.').replace(' ', ''))+"\n"+
-					"kommentar:" + $scope.kommentar,+"\n"+
-					"buchungsErsteller:" + $rootScope.user+"\n"+
-					"}"
-				);
+			$log.debug("buchung: "+angular.toJson(buchung));
 
 			$log.debug("POST: "+serviceURL + '/zeiterfassung/buchen');
 			$http({
