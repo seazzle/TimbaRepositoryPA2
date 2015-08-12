@@ -9,7 +9,7 @@
 
 	<!-- ng-init holt die Projekte und deren AP fuer die dropDownliste -->
 	<form class="form-horizontal" name="buchungErstellenFormular">
-		<div class="form-group">
+		<div class="form-group row">
 			<label for="auftraege" class="col-sm-3 control-label">Auftrag</label>
 			<div class="col-sm-8">
 				<select id="auftraege" class="form-control"
@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group row">
 			<label for="arbeitspakete" class="col-sm-3 control-label">Arbeitspaket</label>
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
@@ -33,7 +33,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group row">
 			<label for="istAufwand" class="col-sm-3 control-label">IST-Aufwand</label>
 			<div class="col-sm-8">
 				<div class="input-group">
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group row">
 			<label for="kommentar" class="col-sm-3 control-label">Kommentar</label>
 			<div class="col-sm-8">
 				<textarea ng-model="kommentar" class="form-control" rows="3"
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
 				<button ng-disabled="buchungErstellenFormular.$invalid" id="buchenButton" ng-click="buchen()"
 					type="submit" class="btn btn-default">Buchen</button>

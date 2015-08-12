@@ -71,9 +71,6 @@ angular.module('BuchungErstellen')
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 
@@ -120,17 +117,13 @@ angular.module('BuchungErstellen')
 					/**
 					 * stoppuhr zuruecksetzten
 					 */
-//					document.getElementById("h").innerHTML = 0;
-//					document.getElementById("m").innerHTML = 00;
-//					document.getElementById("s").innerHTML = 00;
+					reset();
 				} else {
 					$scope.showErrorBox = true;
 					$scope.errorMessage = "Rochade Antwortet: " + data.message;
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
-				// $scope.errorMessage = "Status Code: " + status + " Response
-				// Data " + data || "Request failed";
 				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
 			});
 		}

@@ -38,7 +38,6 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 		 * datepicker fuer IE und Firefox
 		 */
 		$('#endBtn').click(function() {
-			// alert('clcikec');
 			$(document).ready(function() {
 				$("#endDatum").datepicker({
 					dateFormat : 'dd.mm.yy',
@@ -55,7 +54,6 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 		 * datepicker fuer IE und Firefox
 		 */
 		$('#begBtn').click(function() {
-			// alert('clcikec');
 			$(document).ready(function() {
 				$("#beginnDatum").datepicker({
 					dateFormat : 'dd.mm.yy',
@@ -89,8 +87,6 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 
@@ -180,8 +176,6 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-				// $scope.errorMessage = "Status Code: " + status + " Response
-				// Data " + data || "Request failed";
 			});
 		}
 	}

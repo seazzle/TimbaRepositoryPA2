@@ -19,7 +19,10 @@
     				<i class="pull-left fa fa-plus"></i>
     			</td>
     			<td>
-	    			{{auftrag.kurzbeschreibung}} ({{auftrag.name}})
+	    			{{auftrag.kurzbeschreibung}}
+	    			<!-- 
+	    			 ({{auftrag.name}})
+	    			  -->
     				<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
     			</td>
     		</tr>

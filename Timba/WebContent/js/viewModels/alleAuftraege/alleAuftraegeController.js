@@ -19,11 +19,6 @@ angular.module('AlleAuftraege').config(function($sceProvider, $httpProvider) {
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
-		// params: {action: 'getAllAuftraege'}
-		// headers: {
-		// 'Content-Type': application/json
-		// },
-
 		}).success(function(data) {
 			if (data.success == true) {
 				$scope.showErrorBox = false;
@@ -35,8 +30,6 @@ angular.module('AlleAuftraege').config(function($sceProvider, $httpProvider) {
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
 			$scope.errorMessage = "bei der Anfrage ist ein Fehler aufgetreten";
-			// $scope.errorMessage = "Status Code: " + status + " Response Data
-			// " + data || "Request failed";
 		});
 	}
 
