@@ -92,7 +92,7 @@ angular.module('BuchungErstellen')
 		$log.debug("buchen: ");
 		if (angular.isUndefined($scope.selectedArbeitspaket)||angular.isUndefined($scope.selectedAuftrag)) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Waehle einen Auftrag und ein Arbeitspaket";
+			$scope.errorMessage = "Waehle einen Auftrag und / oder ein Arbeitspaket";
 		} else {
 			var buchung = {
 				"arbeitsPaket" : $scope.selectedArbeitspaket.name,
