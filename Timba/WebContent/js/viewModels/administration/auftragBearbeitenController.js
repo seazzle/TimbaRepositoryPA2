@@ -39,7 +39,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	$scope.searchMitarbeiter = ''; // set the default search/filter term
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
-		$log("ermittleMitarbeiterUndOrga: "+serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/');
+		$log.debug("ermittleMitarbeiterUndOrga: "+serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/');
 		$http({
 			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
