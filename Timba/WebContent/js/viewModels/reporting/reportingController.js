@@ -100,30 +100,46 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 		if($scope.selectedReport=='aufwandNachAuftragArbeitspaket'){
 			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
 			$log.debug("downloadReport: "+serviceURL + "/report/" + "aufwandNachAuftragArbeitspaket" + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
+			
 			$http.get(serviceURL + "/report/" + "aufwandNachAuftragArbeitspaket" + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value), {
 				responseType : 'arraybuffer'
 			}).success(function(data) {
-				$log.debug("erfolgreich?"+data);
+				$log.debug("der Aufruf war erfolgreich");
 				var file = new Blob([ data ], {
+					type : 'application/pdf'
 				});
-				var fileURL = URL.createObjectURL(file);
-				window.open(fileURL);
+				
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+				    window.navigator.msSaveOrOpenBlob(file);
+				}
+				else {
+				    var objectUrl = URL.createObjectURL(file);
+				    window.open(objectUrl);
+				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "beim Download des Mitarbeiterberichts ist ein Fehler aufgetreten";
 			});
 		}
 		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){
-			$log.debug($scope.selectedReport);
+			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
 			$log.debug(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
+			
 			$http.get(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value), {
 				responseType : 'arraybuffer'
 			}).success(function(data) {
+				$log.debug("der Aufruf war erfolgreich");
 				var file = new Blob([ data ], {
 					type : 'application/pdf'
 				});
-				var fileURL = URL.createObjectURL(file);
-				window.open(fileURL);
+				
+				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+				    window.navigator.msSaveOrOpenBlob(file);
+				}
+				else {
+				    var objectUrl = URL.createObjectURL(file);
+				    window.open(objectUrl);
+				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "beim Download des Auftrag- / Projektberichts ist ein Fehler aufgetreten";
