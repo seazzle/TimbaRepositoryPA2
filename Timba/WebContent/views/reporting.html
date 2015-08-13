@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div class="col-md-4">
-				<input type="submit" ng-disabled="reportingUser.name == undefined || reportingUser.name.length < 4" ng-click="downloadReport()" class="btn btn-default" value="Download starten" />
+				<input type="submit" ng-disabled="(selectedReport=='aufwandNachAuftragArbeitspaket' && (reportingUser.name == undefined || reportingUser.name.length < 4))" ng-click="downloadReport()" class="btn btn-default" value="Download starten" />
 				 <span ng-show="selectedReport=='aufwandNachAuftragArbeitspaket'">
 					für {{reportingUser.name}}
 				</span>
