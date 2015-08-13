@@ -7,14 +7,14 @@
 	<form class="form-horizontal">
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label">Auftrags-Nummer</label>
+			<label class="col-sm-3 timba-label">Auftrags-Nummer</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="name" type="text" ng-model="name" readonly>
 			</div>
 		</div>
 
 		<div class="form-group">
-			<label class="col-sm-3 control-label">Auftrags-Name</label>
+			<label class="col-sm-3 timba-label">Auftrags-Name</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
 					placeholder="Auftrag-Name" ng-model="kurzbeschreibung" readonly>
@@ -22,7 +22,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-3 control-label">Auftrags-Typ</label>
+			<label class="col-sm-3 timba-label">Auftrags-Typ</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
 					placeholder="Typ" ng-model="type" readonly>
@@ -30,7 +30,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-3 control-label">PLAN Beginn</label>
+			<label class="col-sm-3 timba-label">PLAN Beginn</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="planBeginn" type="text"
 					placeholder="Plan-Beginn" ng-model="planBeginn" readonly>
@@ -38,7 +38,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-3 control-label">PLAN Ende</label>
+			<label class="col-sm-3 timba-label">PLAN Ende</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="planEnde" type="text"
 					placeholder="Plan-Ende" ng-model="planEnde" readonly>
@@ -46,7 +46,7 @@
 		</div>
 
 		<div class="form-group">
-			<label for="beschreibung" class="col-sm-3 control-label">Beschreibung</label>
+			<label for="beschreibung" class="col-sm-3 timba-label">Beschreibung</label>
 			<div class="col-sm-8">
 				<textarea ng-model="beschreibung" class="form-control" rows="3"
 					placeholder="Auftrag-Beschreibung"></textarea>
@@ -54,7 +54,7 @@
 		</div>
 		
 		<div class="form-group">
-			<label for="status" class="col-sm-3 control-label">Status</label>
+			<label for="status" class="col-sm-3 timba-label">Status</label>
 			<div class="col-sm-8">
 				<select id="auftragStatus" class="form-control"
 					 name="auftragStatus" ng-model='selected.status' required ng-options='option.value as option.name for option in statusOptions'>
