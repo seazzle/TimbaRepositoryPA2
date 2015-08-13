@@ -105,22 +105,33 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				responseType : 'arraybuffer'
 			}).success(function(data) {
 				$log.debug("der Aufruf war erfolgreich");
+				
+				var a = document.createElement("a");
+			    document.body.appendChild(a);
+			    a.style = "display: none";
+				
 				var file = new Blob([ data ], {
 					type : 'application/pdf'
 				});
 				
 				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-				    window.navigator.msSaveOrOpenBlob(file);
+				    window.navigator.msSaveOrOpenBlob(file, "Bericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
 				}
 				else {
 				    var objectUrl = URL.createObjectURL(file);
-				    window.open(objectUrl);
+				    
+				    a.href = objectUrl;
+			        a.download = ("Bericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
+			        a.click();
+				    
+			        window.URL.revokeObjectURL(objectUrl);
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "beim Download des Mitarbeiterberichts ist ein Fehler aufgetreten";
 			});
 		}
+		
 		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){
 			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
 			$log.debug(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
@@ -129,16 +140,26 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				responseType : 'arraybuffer'
 			}).success(function(data) {
 				$log.debug("der Aufruf war erfolgreich");
+				
+				var a = document.createElement("a");
+			    document.body.appendChild(a);
+			    a.style = "display: none";
+				
 				var file = new Blob([ data ], {
 					type : 'application/pdf'
 				});
 				
 				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-				    window.navigator.msSaveOrOpenBlob(file);
+				    window.navigator.msSaveOrOpenBlob(file, "Bericht-"+$scope.selectedAuftrag.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
 				}
 				else {
 				    var objectUrl = URL.createObjectURL(file);
-				    window.open(objectUrl);
+				    
+				    a.href = objectUrl;
+			        a.download = "Bericht-"+$scope.selectedAuftrag.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf";
+			        a.click();
+				    
+			        window.URL.revokeObjectURL(objectUrl);
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
