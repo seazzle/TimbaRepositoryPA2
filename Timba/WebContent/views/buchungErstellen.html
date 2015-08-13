@@ -15,7 +15,7 @@
 				<select id="auftraege" class="form-control"
 					ng-model="selectedAuftrag" name="auftrag"
 					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege" required">
-					<option id="chooseAuftrag" style="display: none" value="">w&auml;hle
+					<option id="chooseAuftrag" style="display: none" ng-if="selectedAuftragt!=''" value="">w&auml;hle
 						einen Auftrag</option>
 				</select>
 			</div>
@@ -28,7 +28,7 @@
 					class="form-control" name="arbeitspaket"
 					ng-model="selectedArbeitspaket"
 					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete" required">
-					<option id="chooseArbeitspaket" style="display: none" value="">w&auml;hle
+					<option id="chooseArbeitspaket" style="display: none" ng-if="selectedArbeitspaket!=''" value="">w&auml;hle
 						einen Arbeitspaket</option>
 				</select>
 			</div>
