@@ -1,7 +1,6 @@
 /**
- * 
+ * Controller fuer Reporting Funktionen
  */
-
 angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 	$sceProvider.enabled(false);
 }).controller('reportingController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
@@ -13,6 +12,10 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 
 	$scope.isGruppenLeiter = true;
 
+	/**
+	 * ermittelt die Konfiguration fuer das Reporting
+	 * diese binhaltet welche Berichte erlaubt werden fuer den User sowie die Daten die fuer die Berichte benoetigt werden
+	 */
 	$scope.ermittleReportConfig = function(auftragsName) {
 		$log.debug("ermittleReportConfig:"+serviceURL + '/report/reportConfig/' + $rootScope.user);
 		$http({
@@ -87,16 +90,30 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 		});
 	}
 
+	/**
+	 * initiale Auswahl welcher Report verfuegbar ist
+	 * Mitarbeiterbericht fuer den User ist immer verfuegbar
+	 */
 	$scope.selectedReport = "aufwandNachAuftragArbeitspaket";
 	$scope.serviceCall = $scope.selectedReport;
 	
 
+	/*
+	 * User fuer den der Bericht ausgefuehrt wird.
+	 * Nicht immer gleich der angemeldete User --> Gruppenleitung.
+	 */
 	$scope.reportingUser = {
 		"name" : $rootScope.user,
 		"kurzbeschreibung" : $rootScope.angemeldeterUser
 	};
 
+	/**
+	 * Downloaded den ausgewaehlten Report abhaengig von <code>selectedReport</code>
+	 */
 	$scope.downloadReport = function() {
+		/*
+		 * download fuer den Mitarbeiterbericht
+		 */
 		if($scope.selectedReport=='aufwandNachAuftragArbeitspaket'){
 			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
 			$log.debug("downloadReport: "+serviceURL + "/report/" + "aufwandNachAuftragArbeitspaket" + "/" + $scope.reportingUser.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
@@ -115,13 +132,13 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				});
 				
 				if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-				    window.navigator.msSaveOrOpenBlob(file, "Bericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
+				    window.navigator.msSaveOrOpenBlob(file, "Mitarbeiterbericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
 				}
 				else {
 				    var objectUrl = URL.createObjectURL(file);
 				    
 				    a.href = objectUrl;
-			        a.download = ("Bericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
+			        a.download = ("Mitarbeiterbericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
 			        a.click();
 				    
 			        window.URL.revokeObjectURL(objectUrl);
@@ -132,6 +149,9 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 			});
 		}
 		
+		/*
+		 * Download fuer den Auftragsbericht
+		 */
 		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){
 			$log.debug("ausgewaehlter Bericht: "+$scope.selectedReport);
 			$log.debug(serviceURL + "/report/" + "aufwandNachAuftragMitarbeiter" + "/" + $scope.selectedAuftrag.name + "/" + germanDateFormatter($scope.beginnDatum.value) + "/" + germanDateFormatter($scope.endDatum.value));
