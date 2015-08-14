@@ -17,6 +17,9 @@ angular.module('Authentication')
 	// reset login status
 	AuthenticationService.ClearCredentials();
 
+	/**
+	 * login function ruft den Service und behandelt Erfolgs- und Misserfolgsfall
+	 */
 	$scope.login = function() {
 		$scope.dataLoading = true;
 		AuthenticationService.Login($scope.username, $scope.password, function(response) {

@@ -105,6 +105,9 @@ function newstart() {
 	startwatch();
 }
 
+/**
+ * stoppuhr zuruecksetzten
+ */
 function reset(){
 	document.getElementById("s").firstChild.nodeValue = "00";
 	document.getElementById("m").firstChild.nodeValue = "00";

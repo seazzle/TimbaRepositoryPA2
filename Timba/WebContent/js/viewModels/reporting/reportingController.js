@@ -98,7 +98,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 	$scope.serviceCall = $scope.selectedReport;
 	
 
-	/*
+	/**
 	 * User fuer den der Bericht ausgefuehrt wird.
 	 * Nicht immer gleich der angemeldete User --> Gruppenleitung.
 	 */
@@ -111,7 +111,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 	 * Downloaded den ausgewaehlten Report abhaengig von <code>selectedReport</code>
 	 */
 	$scope.downloadReport = function() {
-		/*
+		/**
 		 * download fuer den Mitarbeiterbericht
 		 */
 		if($scope.selectedReport=='aufwandNachAuftragArbeitspaket'){
@@ -149,7 +149,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 			});
 		}
 		
-		/*
+		/**
 		 * Download fuer den Auftragsbericht
 		 */
 		if($scope.selectedReport=='aufwandNachAuftragMitarbeiter'){

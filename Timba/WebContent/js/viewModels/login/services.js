@@ -28,11 +28,13 @@ angular.module('Authentication')
 		/**
 		 * Authentifizierung am Gateway
 		 */
-
 		$http.post(serviceURL, {
 			username : "TimbaUser",
 			password : "resuabmit"
 		}).success(function(response) {
+			/**
+			 * ueberschreiben des response Objektes fuer den TimbaUser
+			 */
 			var response = {
 				success : username == password
 			};
@@ -55,12 +57,14 @@ angular.module('Authentication')
 			}
 		};
 
-		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint
-																				// ignore:line
+		$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; 
 
 		$cookieStore.put('globals', $rootScope.globals);
 	};
 
+	/**
+	 * setzt die Authentifizierungsinformation zurueck
+	 */
 	service.ClearCredentials = function() {
 		$rootScope.globals = {};
 		$cookieStore.remove('globals');
@@ -70,6 +74,9 @@ angular.module('Authentication')
 	return service;
 } ])
 
+/**
+ * Base64 Encoder
+ */
 .factory('Base64', function() {
 	/* jshint ignore:start */
 

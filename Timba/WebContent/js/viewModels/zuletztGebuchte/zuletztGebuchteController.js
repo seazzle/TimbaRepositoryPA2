@@ -63,6 +63,9 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		});
 	}
 
+	/**
+	 * laedt die zuletzt gebuchten Arbeitspakete vom Service und speichert das JSON in <code>$scope.auftraege</code>
+	 */
 	$scope.getZuletztGebuchteAP = function() {
 		$log.debug("getZuletztGebuchteAP: "+serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user);
 		$http({

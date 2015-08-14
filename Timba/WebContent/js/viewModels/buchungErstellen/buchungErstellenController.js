@@ -117,9 +117,6 @@ angular.module('BuchungErstellen')
 					$scope.kommentar = "";
 					$rootScope.getUserInfo();
 
-					/**
-					 * stoppuhr zuruecksetzten
-					 */
 					reset();
 				} else {
 					$scope.showErrorBox = true;

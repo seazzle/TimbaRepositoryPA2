@@ -166,10 +166,10 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 							"kommentar" : "Stornobuchung zu: " + kommentar,
 							"buchungsErsteller" : $rootScope.user
 						}
-						$log.debug("buchung: "+angular.toJson(buchung));
+						$log.debug("buchung: " + angular.toJson(buchung));
 
 						if (confirm("Willst du wirklich Stornieren") == true) {
-							$log.debug("stornieren: "+serviceURL + '/zeiterfassung/buchen');
+							$log.debug("stornieren: " + serviceURL + '/zeiterfassung/buchen');
 							$http({
 								url : serviceURL + '/zeiterfassung/buchen',
 								method : "POST",
