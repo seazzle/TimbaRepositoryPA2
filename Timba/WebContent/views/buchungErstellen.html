@@ -57,7 +57,7 @@
 
 		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
-				<button ng-disabled="buchungErstellenFormular.$invalid" id="buchenButton" ng-click="buchen()"
+				<button ng-disabled="buchungErstellenFormular.$invalid || selectedAuftrag==undefined || selectedArbeitspaket ==undefined" id="buchenButton" ng-click="buchen()"
 					type="submit" class="btn btn-default">Buchen</button>
 			</div>
 		</div>
