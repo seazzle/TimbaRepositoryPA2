@@ -130,28 +130,13 @@
 	<footer class="footer" ng-hide="hideNavbarIcon">
 		<div class="container">
 			<div class="row" style="padding-top:15px">
-			
-			<div>Du bist angemeldet als {{angemeldeterUser}} ({{angemeldeteSbNr}}) und hast heute {{heuteGebucht}} h gebucht.</div>
-		<!-- 
-				<div class="col-sm-4  ">
-					<div class="small center-to-left ">
-						angemeldet als: {{angemeldeterUser}}
-					</div>
-				</div>
-
-				<div class="col-sm-4">
-					<div class="text-center">
-						heute Gebucht: {{heuteGebucht}} h
-					</div>
-				</div>
-			 -->	
-				<!-- 
-				<div class="col-sm-4 ">
-					<div class="small center-to-right" style="text-align:right">
-					Copyright
-					</div> 
-				</div>
-				 -->
+				Du bist angemeldet als {{angemeldeterUser}} ({{angemeldeteSbNr}}) und hast heute 
+				<span ng-style="heuteGebucht==0 && {'color': 'red'} ||
+								heuteGebucht>0 && heuteGebucht<=8 && {'color': 'green'} ||
+								heuteGebucht>8 && heuteGebucht<=10 && {'color': 'orange'} ||
+								heuteGebucht>10 && {'color': 'red'}"
+				>{{heuteGebucht}} h</span>
+				 gebucht.
 			</div>
 		</div>
 	</footer>
