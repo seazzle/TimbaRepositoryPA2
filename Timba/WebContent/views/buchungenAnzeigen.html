@@ -81,7 +81,7 @@
       </tr>
     </thead>
 		<tbody ng-repeat="buchung in buchungen | orderBy:sortType:sortReverse | filter:searchAuftrag" data-ng-switch on="dayDataCollapse[$index]">
-			<tr class="clickableRow" title="Zum einblenden des Kommentars hier klicken" data-ng-click="selectTableRow($index, buchung.id)">
+			<tr class="clickableRow" data-ng-click="selectTableRow($index, buchung.id)">
 				<td>
 				<button ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;"
 						type="button" class="btn btn-default timba-table-btn" aria-label="Left Align">
@@ -96,7 +96,7 @@
 					<button
 						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)"
 						type="button" class="btn btn-default timba-table-btn" aria-label="Left Align">
-						<span class="fa fa-trash-o" aria-hidden="true"></span>
+						<span class="fa fa-trash-o" aria-hidden="true" ng-disabled="buchung.open"></span>
 					</button>
 				</td>
 			</tr>
