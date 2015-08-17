@@ -168,7 +168,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 						}
 						$log.debug("buchung: " + angular.toJson(buchung));
 
-						if (confirm("Willst du wirklich Stornieren") == true) {
+						if (confirm("Willst du die Buchung wirklich Stornieren") == true) {
 							$log.debug("stornieren: " + serviceURL + '/zeiterfassung/buchen');
 							$http({
 								url : serviceURL + '/zeiterfassung/buchen',
