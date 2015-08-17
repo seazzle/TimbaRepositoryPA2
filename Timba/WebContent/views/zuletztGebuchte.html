@@ -14,7 +14,7 @@
 	<accordion close-others="true">
     	<accordion-group class="timba-accordion" ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    		<table class="timba-accordion-heading">
+    		<table class="timba-accordion-heading" ng-style="auftrag.type=='WARTUNGSAUFTRAG' && {'color': '#428bca'}">
     		<tr>
     			<td>
     				<i class="pull-left fa fa-plus"></i>
