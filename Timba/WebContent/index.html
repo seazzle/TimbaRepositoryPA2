@@ -135,7 +135,7 @@
 		<div class="container">
 			<div class="row" style="padding-top:15px">
 				Du bist angemeldet als {{angemeldeterUser}} ({{angemeldeteSbNr}}) und hast heute 
-				<span ng-style="heuteGebucht==0 && {'color': 'red'} ||
+				<span ng-style="heuteGebucht<=0 && {'color': 'red'} ||
 								heuteGebucht>0 && heuteGebucht<=8 && {'color': 'green'} ||
 								heuteGebucht>8 && heuteGebucht<=10 && {'color': 'orange'} ||
 								heuteGebucht>10 && {'color': 'red'}"
