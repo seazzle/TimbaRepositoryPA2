@@ -25,7 +25,7 @@ angular.module('Reporting', []);
  * in einer Variabe gehalten. <code>ng-app="timba"</code>
  */
 var timba = angular.module('timba', [ 'Authentication', 'ZuletztGebuchte', 'AlleAuftraege', 'BuchungErstellen', 'BuchungenAnzeigen', 'Administration', 'ArbeitspaketAnlegen', 'ArbeitspaketBearbeiten',
-		'AuftragBearbeiten', 'Reporting', 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar' ]);
+		'AuftragBearbeiten', 'Reporting', 'ngRoute', 'ngCookies', 'ui.bootstrap', 'angular-loading-bar', 'ScriptExceptionHandler']);
 
 
 var localDevEndpoint = 'http://localhost:8080';
@@ -75,10 +75,6 @@ timba.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }]);
-
-
-
-
 
 /**
  * Routing um die views zu injecten
