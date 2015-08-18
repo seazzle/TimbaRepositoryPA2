@@ -24,13 +24,14 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		$scope.name = $rootScope.rsAuftrag.name;
 		$scope.kurzbeschreibung = $rootScope.rsAuftrag.kurzbeschreibung;
 		$scope.beschreibung = $rootScope.rsAuftrag.beschreibung;
-		$scope.planBeginn = $rootScope.rsAuftrag.planBeginn
-		$scope.planEnde = $rootScope.rsAuftrag.planEnde
+		$scope.planBeginn = rochadeDateFormatter($rootScope.rsAuftrag.planBeginn);
+		$scope.planEnde = rochadeDateFormatter($rootScope.rsAuftrag.planEnde);
 		$scope.buchungsberechtigte = $rootScope.rsAuftrag.buchungsberechtigte;
 		$scope.ermittleMitarbeiterUndOrga($rootScope.rsAuftrag.name);
+		$scope.type = $rootScope.rsAuftrag.type;
 		$rootScope.clearRootScope();
 	}
-
+	
 	/**
 	 * variablen zum sortieren und suchen in der Tabelle
 	 */

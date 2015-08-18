@@ -53,6 +53,18 @@ function germanDateFormatter(stringDate) {
 		dd = split[0];
 		return yyyy + "-" + mm + "-" + dd
 	} catch (e) {
-		throw "Fehler beim Date parsen";
+		throw "Fehler beim Date parsen germanDateFormatter";
+	}
+}
+
+
+function rochadeDateFormatter(stringDate){
+	try{
+		var year=stringDate.substring(0, 4);
+		var month=stringDate.substring(4,6);
+		var day=stringDate.substring(6,8);
+		return day+"."+month+"."+year;
+	}catch(e){
+		throw "Fehler beim Date parsen - RochadeDateFormatter";
 	}
 }
