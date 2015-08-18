@@ -97,7 +97,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 							}
 						}).error(function(data, status) {
 							$scope.showErrorBox = true;
-							$scope.errorMessage = "Fehler beim Anzeigen der Buchung";
+							$scope.errorMessage = "Fehler beim Anzeigen der Buchungen";
 						});
 					}
 
