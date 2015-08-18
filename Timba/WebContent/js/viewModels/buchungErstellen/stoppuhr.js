@@ -40,15 +40,6 @@ function go() {
 		document.getElementById("m").firstChild.nodeValue = "0" + document.getElementById("m").firstChild.nodeValue;
 	document.getElementById("h").firstChild.nodeValue = hour;
 
-
-	document.getElementById("sVorne").firstChild.nodeValue = sec;
-	if (document.getElementById("sVorne").firstChild.nodeValue.length < 2)
-		document.getElementById("sVorne").firstChild.nodeValue = "0" + document.getElementById("sVorne").firstChild.nodeValue;
-	document.getElementById("mVorne").firstChild.nodeValue = min;
-	if (document.getElementById("mVorne").firstChild.nodeValue.length < 2)
-		document.getElementById("mVorne").firstChild.nodeValue = "0" + document.getElementById("mVorne").firstChild.nodeValue;
-	document.getElementById("hVorne").firstChild.nodeValue = hour;	
-	
 	startnow();
 }
 
@@ -111,9 +102,6 @@ function newstart() {
 	document.getElementById("m").firstChild.nodeValue = "00";
 	document.getElementById("h").firstChild.nodeValue = "0";
 	
-	document.getElementById("sVorne").firstChild.nodeValue = "00";
-	document.getElementById("mVorne").firstChild.nodeValue = "00";
-	document.getElementById("hVorne").firstChild.nodeValue = "0";
 	min = 0;
 	hour = 0;
 	startwatch();
@@ -126,10 +114,6 @@ function reset(){
 	document.getElementById("s").firstChild.nodeValue = "00";
 	document.getElementById("m").firstChild.nodeValue = "00";
 	document.getElementById("h").firstChild.nodeValue = "0";
-	
-	document.getElementById("sVorne").firstChild.nodeValue = "00";
-	document.getElementById("mVorne").firstChild.nodeValue = "00";
-	document.getElementById("hVorne").firstChild.nodeValue = "0";
 	
 	document.getElementById("a1").style.display = "inline";
 	document.getElementById("a2").style.display = "none";
