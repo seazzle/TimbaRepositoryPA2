@@ -53,6 +53,10 @@ hier werden speziell für Timba benoetigte Style-Informationen hinterlegt
 	margin-bottom: 5px;
 }
 
+.timba-input-group-btn{
+	margin-left: 10px;
+}
+
 .timba-accordion-list {
 	padding-right: 10px;
 	font-size: 18px;
@@ -63,7 +67,6 @@ hier werden speziell für Timba benoetigte Style-Informationen hinterlegt
 	margin-bottom: -1px;
 	margin-left: 35px;
 	margin-right: 10px;
-	color: #d50000;
 }
 
 .timba-accordion {
@@ -73,4 +76,21 @@ hier werden speziell für Timba benoetigte Style-Informationen hinterlegt
 
 .timba-navbar-buffer{
 	padding-top: 3px;
+}
+
+.timba-info{
+	padding-left: 15px;
+	font-size: 15px;
+}
+
+/**
+ueberschreiben der Bootstrap UI Klasse WORKAROUND
+**/
+.panel-heading {
+    padding: 0;
+}
+
+.panel-heading-custom{
+	padding: 10px 15px;
+	background-color: #e3e3e3;
 }
