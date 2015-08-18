@@ -90,16 +90,17 @@
 				</td>
 				<td style="width:150px">{{ buchung.buchungsDatum }}</td>
 				<td>{{ buchung.auftragKurzbeschreibung }}</td>
-				<td>{{ buchung.arbeitsPaketKurzbeschreibung }}</td>
+				<td>{{ buchung.arbeitsPaketKurzbeschreibung }} {{buchung.open}}</td>
 				<td style="text-align: right; padding-right: 20px">{{buchung.aufwand}}</td>
 				<td>
 					<button
-						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)"
+						ng-click="storniereBuchung(buchung.arbeitsPaket, buchung.aufwand, buchung.kommentar)" ng-hide="!buchung.open"
 						type="button" class="btn btn-default timba-table-btn" aria-label="Left Align">
-						<span class="fa fa-trash-o" aria-hidden="true" ng-disabled="buchung.open"></span>
+						<span class="fa fa-trash-o" aria-hidden="true" ></span>
 					</button>
 				</td>
 			</tr>
+			
 			<tr data-ng-switch-when="true" ng-hide="buchung.kommentar==null||buchung.kommentar==&quot;&quot;">
 				<td></td>
 				<td colspan=5>
