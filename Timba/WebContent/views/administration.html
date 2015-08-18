@@ -1,44 +1,46 @@
-<meta charset="utf-8"> 
+<meta charset="utf-8">
 <div class="jumbotron timba-jumbotron" ng-init="initAdministration()">
 	<h2>Administration</h2>
-	<p class="bot-buffer">hier siehst du die Auftr&auml;ge und die Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
-	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
-	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer" role="alert">{{successMessage}}</div>
-	
-  	 <accordion close-others="true">
-    	<accordion-group class="timba-accordion" ng-repeat="auftrag in auftraege">
-    		<accordion-heading>
-    		<!-- 
+	<p class="bot-buffer">hier siehst du die Auftr&auml;ge und die
+		Arbeitspakete auf denen du Pflege-Rechte besitzt</p>
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer"
+		role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer"
+		role="alert">{{successMessage}}</div>
+
+	<accordion close-others="true"> <accordion-group
+		class="timba-accordion" ng-repeat="auftrag in auftraege">
+	<accordion-heading>
+	<div class="panel-heading-custom"
+		ng-style="auftrag.type=='WARTUNGSAUFTRAG' && {'background-color': '#c0c0c0'}">
+		<!-- 
     			<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
     			{{auftrag.name}} - {{auftrag.kurzbeschreibung}}
     			<span class="pull-right fa fa-plus"></span>
     		 -->
-    		 <table class="timba-accordion-heading">
-    		<tr>
-    			<td>
-    				<i class="pull-left fa fa-plus"></i>
-    			</td>
-    			<td>
-	    			{{auftrag.kurzbeschreibung}}
-	    			<!-- 
+		<table class="timba-accordion-heading">
+			<tr>
+				<td><i class="pull-left fa fa-plus"></i></td>
+				<td>{{auftrag.kurzbeschreibung}} <!-- 
 	    			 ({{auftrag.name}})
-	    			  -->
-    				<a ng-click="openEditAuftrag(auftrag)" ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span class="fa fa-pencil"></span></a>
-    			</td>
-    		</tr>
-    		</table>
-    		 
-    		</accordion-heading>
-    		<!-- <p>{{auftrag.beschreibung}}</p>-->
-			<div class="timba-accordion-list">
-				<a ng-click="openCreateArbeitspaket(auftrag)" href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>
-			</div>
-			<div  ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="timba-accordion-list">
-	    		<a ng-click="openEditArbeitspaket(arbeitspaket, auftrag)" href="#arbeitspaketBearbeiten">
-						<span class="fa fa-pencil"></span>
-						{{arbeitspaket.kurzbeschreibung}}
-	    		</a>
-    		</div>
-   		</accordion-group>
-  	</accordion>
- </div>
+	    			  --> <a ng-click="openEditAuftrag(auftrag)"
+					ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span
+						class="fa fa-pencil"></span></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	</accordion-heading> <!-- <p>{{auftrag.beschreibung}}</p>-->
+	<div class="timba-accordion-list">
+		<a ng-click="openCreateArbeitspaket(auftrag)"
+			href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>
+	</div>
+	<div ng-repeat="arbeitspaket in auftrag.arbeitspakete"
+		class="timba-accordion-list">
+		<a ng-click="openEditArbeitspaket(arbeitspaket, auftrag)"
+			href="#arbeitspaketBearbeiten"> <span class="fa fa-pencil"></span>
+			{{arbeitspaket.kurzbeschreibung}}
+		</a>
+	</div>
+	</accordion-group> </accordion>
+</div>

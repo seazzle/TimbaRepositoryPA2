@@ -3,32 +3,37 @@
 <div class="jumbotron timba-jumbotron" ng-init="initBuchungErstellen()">
 	<h2>Buchung erstellen</h2>
 	<p class="bot-buffer">hier kannst du deine Zeit erfassen</p>
-	
-	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
-	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer" role="alert">{{successMessage}}</div>
+
+	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer"
+		role="alert">{{errorMessage}}</div>
+	<div ng-show="showSuccessBox" class="alert alert-success bot-buffer"
+		role="alert">{{successMessage}}</div>
 
 	<!-- ng-init holt die Projekte und deren AP fuer die dropDownliste -->
-	<form class="form-horizontal timba-form-horizontal" name="buchungErstellenFormular">
+	<form class="form-horizontal timba-form-horizontal"
+		name="buchungErstellenFormular">
 		<div class="form-group row">
 			<label for="auftraege" class="col-sm-3 timba-label">Auftrag</label>
 			<div class="col-sm-8">
 				<select id="auftraege" class="form-control"
 					ng-model="selectedAuftrag" name="auftrag"
-					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege" required">
-					<option id="chooseAuftrag" style="display: none" ng-if="selectedAuftrag==undefined" value="">w&auml;hle
+					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege"required">
+					<option id="chooseAuftrag" style="display: none"
+						ng-if="selectedAuftrag==undefined" value="">w&auml;hle
 						einen Auftrag</option>
 				</select>
 			</div>
 		</div>
-		
+
 		<div class="form-group row">
 			<label for="arbeitspakete" class="col-sm-3 timba-label">Arbeitspaket</label>
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
 					class="form-control" name="arbeitspaket"
 					ng-model="selectedArbeitspaket"
-					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete" required">
-					<option id="chooseArbeitspaket" style="display: none" ng-if="selectedArbeitspaket==undefined" value="">w&auml;hle
+					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete"required">
+					<option id="chooseArbeitspaket" style="display: none"
+						ng-if="selectedArbeitspaket==undefined" value="">w&auml;hle
 						einen Arbeitspaket</option>
 				</select>
 			</div>
@@ -37,11 +42,13 @@
 			<label for="istAufwand" class="col-sm-3 control-label timba-label">IST-Aufwand</label>
 			<div class="col-sm-8">
 				<div class="input-group">
-					<input ng-model="istAufwand" type="text" class="form-control" pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
+					<input ng-model="istAufwand" type="text" class="form-control"
+						pattern="[0-9]+([\.|,][0-9]+)?" step="0.01"
 						placeholder="IST-Aufwand in Stunden" required> <span
 						class="input-group-btn">
-						<button class="btn btn-default" type="button" data-toggle="modal"
-							data-target="#stoppuhrModal">Stop deine Zeit</button>
+						<button class="btn btn-default timba-input-group-btn"
+							type="button" data-toggle="modal" data-target="#stoppuhrModal">Stop
+							deine Zeit</button>
 					</span>
 				</div>
 			</div>
@@ -57,8 +64,10 @@
 
 		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
-				<button ng-disabled="buchungErstellenFormular.$invalid || selectedAuftrag==undefined || selectedArbeitspaket ==undefined" id="buchenButton" ng-click="buchen()"
-					type="submit" class="btn btn-default">Buchen</button>
+				<button
+					ng-disabled="buchungErstellenFormular.$invalid || selectedAuftrag==undefined || selectedArbeitspaket ==undefined"
+					id="buchenButton" ng-click="buchen()" type="submit"
+					class="btn btn-default">Buchen</button>
 			</div>
 		</div>
 	</form>
@@ -95,10 +104,11 @@
 							<div id="zeit" class="form-control-static"></div>
 						</div>
 					</div>
-					<div>
-						<small>*Die Stoppuhr l&auml;uft auch trotz schliessen des
-							Modals weiter. Beim Neuladen der Seite gehen die Daten jedoch
-							verloren. </small>
+					<div class="timba-info">
+						<strong>Bitte beachten: </strong>Die Stoppuhr l&auml;uft trotz
+						schließen des Pop-ups weiter. Beim Neuladen der Seite gehen die
+						Daten jedoch technisch bedingt verloren. Außerdem werden keine
+						Stunden unter einer Minute (= 0,02 Stunden) angezeigt.
 					</div>
 				</div>
 

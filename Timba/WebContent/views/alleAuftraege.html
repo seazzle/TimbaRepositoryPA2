@@ -9,7 +9,8 @@
   	<accordion close-others="true">
     	<accordion-group class="timba-accordion" ng-repeat="auftrag in auftraege">
     		<accordion-heading>
-    			<table class="timba-accordion-heading" ng-style="auftrag.type=='WARTUNGSAUFTRAG' && {'color': '#428bca'}">
+    		<div class="panel-heading-custom" ng-style="auftrag.type=='WARTUNGSAUFTRAG' && {'background-color': '#c0c0c0'}">
+    			<table class="timba-accordion-heading">
     		<tr>
     			<td>
     				<i class="pull-left fa fa-plus"></i>
@@ -22,6 +23,7 @@
     			</td>
     		</tr>
     		</table>
+    		</div>
     		</accordion-heading>
     		<!-- <p>{{auftrag.beschreibung}}</p> -->
     		<div ng-repeat="arbeitspaket in auftrag.arbeitspakete" class="timba-accordion-list">
