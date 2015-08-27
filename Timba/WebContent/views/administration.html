@@ -21,16 +21,22 @@
 		<table class="timba-accordion-heading">
 			<tr>
 				<td><i class="pull-left fa fa-plus"></i></td>
-				<td>{{auftrag.kurzbeschreibung}} <!-- 
+				<td>{{auftrag.kurzbeschreibung}} 
+				
+				<!-- 
 	    			 ({{auftrag.name}})
-	    			  --> <a ng-click="openEditAuftrag(auftrag)"
+	    			  <a ng-click="openEditAuftrag(auftrag)"
 					ng-show="auftrag.editPermission" href="#auftragBearbeiten"><span
-						class="fa fa-pencil"></span></a>
+						class="fa fa-pencil"></span></a> -->
 				</td>
 			</tr>
 		</table>
 	</div>
 	</accordion-heading> <!-- <p>{{auftrag.beschreibung}}</p>-->
+	<div class="timba-accordion-list">
+		<a ng-click="openEditAuftrag(auftrag)"
+					ng-show="auftrag.editPermission" href="#auftragBearbeiten">...Auftrag bearbeiten</a>
+	</div>
 	<div class="timba-accordion-list">
 		<a ng-click="openCreateArbeitspaket(auftrag)"
 			href="#arbeitspaketAnlegen">...neues Arbeitspaket</a>
