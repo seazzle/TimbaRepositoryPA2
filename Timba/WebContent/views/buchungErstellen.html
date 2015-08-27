@@ -13,7 +13,7 @@
 	<form class="form-horizontal timba-form-horizontal"
 		name="buchungErstellenFormular">
 		<div class="form-group row">
-			<label for="auftraege" class="col-sm-3 timba-label">Auftrag</label>
+			<label for="auftraege" class="col-sm-3 timba-label">Auftrag*</label>
 			<div class="col-sm-8">
 				<select id="auftraege" class="form-control"
 					ng-model="selectedAuftrag" name="auftrag"
@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="form-group row">
-			<label for="arbeitspakete" class="col-sm-3 timba-label">Arbeitspaket</label>
+			<label for="arbeitspakete" class="col-sm-3 timba-label">Arbeitspaket*</label>
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
 					class="form-control" name="arbeitspaket"
@@ -39,7 +39,7 @@
 			</div>
 		</div>
 		<div class="form-group row">
-			<label for="istAufwand" class="col-sm-3 control-label timba-label">IST-Aufwand</label>
+			<label for="istAufwand" class="col-sm-3 control-label timba-label">IST-Aufwand*</label>
 			<div class="col-sm-8">
 				<div class="input-group">
 					<input ng-model="istAufwand" type="text" class="form-control"
