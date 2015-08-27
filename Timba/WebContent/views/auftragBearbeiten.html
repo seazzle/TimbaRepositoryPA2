@@ -6,55 +6,55 @@
 
 	<form class="form-horizontal">
 
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Auftrags-Nummer</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Auftrags-Nummer</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="name" type="text" ng-model="name" readonly>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Auftrags-Name</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Auftrags-Name</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
 					placeholder="Auftrag-Name" ng-model="kurzbeschreibung" readonly>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Auftrags-Typ</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Auftrags-Typ</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
 					placeholder="Typ" ng-model="type" readonly>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">PLAN Beginn</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">PLAN Beginn</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="planBeginn" type="text"
 					placeholder="Plan-Beginn" ng-model="planBeginn" readonly>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">PLAN Ende</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">PLAN Ende</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="planEnde" type="text"
 					placeholder="Plan-Ende" ng-model="planEnde" readonly>
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="beschreibung" class="col-sm-3 timba-label">Beschreibung</label>
+		<div class="form-group row">
+			<label for="beschreibung" class="col-sm-3 control-label timba-label">Beschreibung</label>
 			<div class="col-sm-8">
 				<textarea ng-model="beschreibung" class="form-control" rows="3"
 					placeholder="Auftrag-Beschreibung"></textarea>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label for="status" class="col-sm-3 timba-label">Status</label>
+		<div class="form-group row">
+			<label for="status" class="col-sm-3 control-label timba-label">Status</label>
 			<div class="col-sm-8">
 				<select id="auftragStatus" class="form-control"
 					 name="auftragStatus" ng-model='selected.status' required ng-options='option.value as option.name for option in statusOptions'>
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
 				<button type="button" class="btn btn-default" data-toggle="modal"
 					data-target=".bs-example-modal-lg">Mitarbeiter oder
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
 				<button ng-click="editAuftrag()" type="submit" class="btn btn-primary">Auftrag
 					bearbeiten</button>

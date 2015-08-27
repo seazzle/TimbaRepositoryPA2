@@ -5,46 +5,46 @@
 	<div ng-show="showErrorBox" class="alert alert-danger bot-buffer" role="alert">{{errorMessage}}</div>
 
 	<form class="form-horizontal">
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Auftrag</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Auftrag</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="name" type="text" ng-model="auftrag.kurzbeschreibung" readonly>
 			</div>
 		</div>
 	
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Arbeitspaket-Nummer</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Arbeitspaket-Nummer</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="name" type="text" ng-model="name" readonly>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">Arbeitspaket-Name</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">Arbeitspaket-Name</label>
 			<div class="col-sm-8">
 				<input class="form-control" id="kurzbeschreibung" type="text"
 					placeholder="Auftrag-Name" ng-model="kurzbeschreibung" readonly >
 			</div>
 		</div>
 
-		<div class="form-group">
-			<label for="beschreibung" class="col-sm-3 timba-label">Beschreibung</label>
+		<div class="form-group row">
+			<label for="beschreibung" class="col-sm-3 control-label timba-label">Beschreibung</label>
 			<div class="col-sm-8">
 				<textarea ng-model="beschreibung" class="form-control" rows="3"
 					placeholder="Arbeitspaket-Beschreibung"></textarea>
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label class="col-sm-3 timba-label">PLAN-Aufwand</label>
+		<div class="form-group row">
+			<label class="col-sm-3 control-label timba-label">PLAN-Aufwand</label>
 			<div class="col-sm-8">
 				<input pattern="\d+" class="form-control" id="planAufwand"
 					type="text" placeholder="PLAN Aufwand in Stunden" ng-model="planAufwand">
 			</div>
 		</div>
 		
-		<div class="form-group">
-			<label for="status" class="col-sm-3 timba-label">Status</label>
+		<div class="form-group row">
+			<label for="status" class="col-sm-3 control-label timba-label">Status</label>
 			<div class="col-sm-8">
 				<select id="arbeitspaketStatus" class="form-control"
 					 name="arbeitspaketStatus" ng-model='selected.status' required ng-options='option.value as option.name for option in statusOptions'>
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 		
-		<div class="form-group">
+		<div class="form-group row">
 			<div class="col-sm-offset-3 col-sm-8">
 				<button ng-click="arbeitspaketBearbeiten()" type="submit" class="btn btn-primary">Arbeitspaket bearbeiten</button>
 			</div>
