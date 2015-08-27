@@ -94,3 +94,11 @@ ueberschreiben der Bootstrap UI Klasse WORKAROUND
 	padding: 10px 15px;
 	background-color: #e3e3e3;
 }
+
+/**
+	@Overwrite
+**/
+
+.alert{
+	padding: 10px;
+}
