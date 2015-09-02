@@ -22,6 +22,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 			url : serviceURL + '/report/reportConfig/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.reportConfig = data.content;
