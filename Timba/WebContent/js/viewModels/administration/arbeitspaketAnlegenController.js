@@ -29,7 +29,7 @@ angular.module('ArbeitspaketAnlegen').config(function($sceProvider) {
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
-			$log.debug("Arbeitspaket anlegen Antwort: "+angular.toJson(data.content));
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.showSuccessBox = true;

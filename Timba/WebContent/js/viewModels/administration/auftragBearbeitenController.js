@@ -45,6 +45,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.nichtBuchungsberechtigte = data.content;
