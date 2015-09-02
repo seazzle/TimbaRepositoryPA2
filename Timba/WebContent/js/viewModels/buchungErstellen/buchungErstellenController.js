@@ -66,6 +66,7 @@ angular.module('BuchungErstellen')
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
@@ -113,6 +114,7 @@ angular.module('BuchungErstellen')
 				method : "POST",
 				data : buchung,
 			}).success(function(data) {
+				$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 				if (data.success == true) {
 					$scope.showSuccessBox = true;
 					$scope.showErrorBox = false;
