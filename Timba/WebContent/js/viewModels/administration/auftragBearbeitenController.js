@@ -110,6 +110,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 			data : angular.toJson(auftrag),
 		}).success(function(data) {
 			if (data.success == true) {
+				$log.debug("Auftrag bearbeiten Antwort: "+angular.toJson(data.content));
 				$rootScope.rsSuccessMessage = "Auftrag " + data.content.kurzbeschreibung + " wurde bearbeitet";
 				$rootScope.rsShowSuccessBox = true;
 				location.href = "#administration";

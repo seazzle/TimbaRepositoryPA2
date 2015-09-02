@@ -28,11 +28,12 @@ angular.module('Administration').config(function($sceProvider) {
 	 * ermittelt Auftraege auf denen der User ein bearbeitungsrecht hat
 	 */
 	$scope.ermittleAdminBerechtigteAuftraege = function() {
-		$log.debug("ermittleAdminBerechtigteAuftraege: "+serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user);
+		$log.debug("ermittleAdminBerechtigteAuftraege: " + serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user);
 		$http({
 			url : serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("ermittleAdminBerechtigteAuftraege: " + angular.toJson($scope.data.content));
 			if (data.success == true) {
 				$scope.auftraege = data.content;
 			} else {
@@ -74,3 +75,4 @@ angular.module('Administration').config(function($sceProvider) {
 		$rootScope.clearRootScope();
 	}
 } ]);
+
