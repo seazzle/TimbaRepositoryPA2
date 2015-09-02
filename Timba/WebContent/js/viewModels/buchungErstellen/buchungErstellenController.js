@@ -31,7 +31,10 @@ angular.module('BuchungErstellen')
 			 * kein auftrag im dropdown vor selektiert werden
 			 */
 		} else {
+			$log.debug("selectedAuftrag:" +angular.fromJson($scope.selectedAuftrag));
+			$log.debug("rsAuftrag: "+angular.toJson($rootScope.rsAuftrag))
 			$scope.selectedAuftrag = $rootScope.rsAuftrag;
+			$log.debug("selectedAuftrag:" +angular.toJson($scope.selectedAuftrag));
 			/**
 			 * optischer workaround --> selected Auftrag ist vorausgewaehlt wird
 			 * jedoch in der DropDownListe nicht richtig vorausgewaehlt inner
@@ -39,9 +42,10 @@ angular.module('BuchungErstellen')
 			 * 
 			 * BEGIN Workaround
 			 */
-			var jsonAuftrag = angular.fromJson($scope.selectedAuftrag);
-			var chooseAuftragOption = document.getElementById("chooseAuftrag");
-			chooseAuftragOption.innerHTML = jsonAuftrag.kurzbeschreibung;
+//			var jsonAuftrag = angular.fromJson($scope.selectedAuftrag);
+//			$log.debug("selectedAuftrag"+$scope.selectedAuftrag);
+//			var chooseAuftragOption = document.getElementById("chooseAuftrag");
+//			chooseAuftragOption.innerHTML = jsonAuftrag.kurzbeschreibung;
 			/**
 			 * END Workaround
 			 */
