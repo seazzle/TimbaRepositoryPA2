@@ -88,6 +88,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 											+ germanDateFormatter($scope.endDatum.value) + '',
 									method : "GET",
 								}).success(function(data) {
+									$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 							if (data.success == true) {
 								$scope.showErrorBox = false;
 								$scope.buchungen = data.content;
@@ -175,6 +176,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 								method : "POST",
 								data : angular.toJson(buchung),
 							}).success(function(data) {
+								$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 								if (data.success == true) {
 									$scope.showErrorBox = false;
 									$rootScope.getUserInfo();
