@@ -59,12 +59,14 @@ function germanDateFormatter(stringDate) {
 
 
 function rochadeDateFormatter(stringDate){
-	try{
-		var year=stringDate.substring(0, 4);
-		var month=stringDate.substring(4,6);
-		var day=stringDate.substring(6,8);
-		return day+"."+month+"."+year;
-	}catch(e){
-		throw "Fehler beim Date parsen - RochadeDateFormatter";
+	if(!stringDate==='undefined'||!stringDate==null||!stringDate==""){
+		try{
+			var year=stringDate.substring(0, 4);
+			var month=stringDate.substring(4,6);
+			var day=stringDate.substring(6,8);
+			return day+"."+month+"."+year;
+		}catch(e){
+			throw "Fehler beim Date parsen - RochadeDateFormatter";
+		}
 	}
 }
