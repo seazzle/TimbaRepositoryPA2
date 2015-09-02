@@ -48,6 +48,7 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 			url : serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$rootScope.heuteGebucht = kaufm(data.content.heuteGebucht);
 				$rootScope.angemeldeterUser = data.content.mitarbeiterName;
@@ -72,6 +73,7 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 			url : serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
+			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.auftraege = data.content;
 				$scope.showErrorBox = false;
