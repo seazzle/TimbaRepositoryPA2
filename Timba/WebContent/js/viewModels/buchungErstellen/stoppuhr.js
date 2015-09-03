@@ -52,7 +52,7 @@ function stop() {
 	
 	var stunden = document.getElementById("h").innerHTML;
 	var minuten = document.getElementById("m").innerHTML;
-	var industrieMinute = (stunden + (minuten / 60));
+	var industrieMinute = ((stunden*1) + (minuten / 60));
 	industrieMinute = kaufm(industrieMinute);
 
 	document.getElementById("zeit").innerHTML = industrieMinute;
