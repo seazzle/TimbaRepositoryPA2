@@ -16,8 +16,7 @@
 			<label for="auftraege" class="col-sm-3 timba-label">Auftrag*</label>
 			<div class="col-sm-8">
 				<select id="auftraege" class="form-control"
-					 name="auftrag"
-					ng-options="auftragKurzbeschreibung.kurzbeschreibung for auftragKurzbeschreibung in auftraege" ng-model="selectedAuftrag">
+					ng-options="auftrag.kurzbeschreibung for auftrag in auftraege" ng-model="selectedAuftrag">
 					<option value="" style="display: none" id="chooseAuftrag"
 						>w&auml;hle
 						einen Auftrag</option>
@@ -30,9 +29,8 @@
 			<label for="arbeitspakete" class="col-sm-3 timba-label">Arbeitspaket*</label>
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
-					class="form-control" name="arbeitspaket"
-					ng-model="selectedArbeitspaket"
-					ng-options="arbeitspaketKurbeschreibung.kurzbeschreibung for arbeitspaketKurbeschreibung in selectedAuftrag.arbeitspakete"required">
+					class="form-control" ng-model="selectedArbeitspaket"
+					ng-options="arbeitspaket.kurzbeschreibung for arbeitspaket in selectedAuftrag.arbeitspakete"required">
 					<option id="chooseArbeitspaket" ng-if="selectedArbeitspaket==undefined"
 						 value="">w&auml;hle
 						einen Arbeitspaket</option>
