@@ -42,7 +42,6 @@ angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 			method : "POST",
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
-			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$rootScope.rsSuccessMessage = "Arbeitspaket " + data.content.kurzbeschreibung + " wurde erfolgreich geaendert";
 				$rootScope.rsShowSuccessBox = true;

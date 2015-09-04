@@ -33,7 +33,6 @@ angular.module('Administration').config(function($sceProvider) {
 			url : serviceURL + '/zeiterfassung/ermittleAdminBerechtigteAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
-			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.auftraege = data.content;
 			} else {

@@ -25,16 +25,11 @@ angular.module('BuchungErstellen')
 	 */
 	$scope.initBuchungErstellen = function() {
 		$scope.getAuftrageUndArbeitspakete();
-		if (angular.isUndefined($rootScope.rsAuftrag)) {
-			/**
-			 * die funktion wurde nicht ueber eine andere Page gerufen es muss
-			 * kein auftrag im dropdown vor selektiert werden
-			 */
-		} else {
-			$log.debug("selectedAuftrag:" +angular.fromJson($scope.selectedAuftrag));
+		
+		if (!angular.isUndefined($rootScope.rsAuftrag)) {
 			$log.debug("rsAuftrag: "+angular.toJson($rootScope.rsAuftrag))
 			$scope.selectedAuftrag = $rootScope.rsAuftrag;
-			$log.debug("selectedAuftrag:" +angular.toJson($scope.selectedAuftrag));
+			
 			/**
 			 * optischer workaround --> selected Auftrag ist vorausgewaehlt wird
 			 * jedoch in der DropDownListe nicht richtig vorausgewaehlt inner
@@ -42,19 +37,18 @@ angular.module('BuchungErstellen')
 			 * 
 			 * BEGIN Workaround
 			 */
-//			var jsonAuftrag = angular.fromJson($scope.selectedAuftrag);
-//			$log.debug("selectedAuftrag"+$scope.selectedAuftrag);
-//			var chooseAuftragOption = document.getElementById("chooseAuftrag");
-//			chooseAuftragOption.innerHTML = jsonAuftrag.kurzbeschreibung;
+			var chooseAuftragOption = document.getElementById("chooseAuftrag");
+			chooseAuftragOption.innerHTML = $scope.selectedAuftrag.kurzbeschreibung;
+			$log.debug(chooseAuftragOption.innerHTML);
 			/**
 			 * END Workaround
 			 */
-
+			
 			$scope.selectedArbeitspaket = $rootScope.rsArbeitspaket;
 			$rootScope.clearRootScope();
 		}
 	}
-
+	
 	/**
 	 * fordert alle Auftraege und Arbeitspakete an auf denen der User
 	 * buchungsberechtigt ist um sie ihm im Dropdown als verbindliche
@@ -66,7 +60,7 @@ angular.module('BuchungErstellen')
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
-			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
+//			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
@@ -81,7 +75,7 @@ angular.module('BuchungErstellen')
 	}
 
 	/**
-	 * binding vom Inputfeld Industrie Stunde bei der Stopuhr zum IST Aufwand
+	 * binding vom Inputfeld Industrie Stunde bei der Stopuhr zum IST Aufwand 
 	 */
 	$scope.updateISTAufwand = function() {
 		var industrieMinute = document.getElementById("zeit").innerHTML;

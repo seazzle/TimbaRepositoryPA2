@@ -21,7 +21,6 @@ angular.module('AlleAuftraege').config(function($sceProvider, $httpProvider) {
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
-			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
