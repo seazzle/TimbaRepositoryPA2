@@ -30,7 +30,7 @@
 			<div class="col-sm-8">
 				<select id="arbeitspakete" ng-disabled="!selectedAuftrag"
 					class="form-control" ng-model="selectedArbeitspaket"
-					ng-options="arbeitspaket.kurzbeschreibung for arbeitspaket in selectedAuftrag.arbeitspakete"required">
+					ng-options="arbeitspaket.kurzbeschreibung for arbeitspaket in selectedAuftrag.arbeitspakete" required>
 					<option id="chooseArbeitspaket" ng-if="selectedArbeitspaket==undefined"
 						 value="">w&auml;hle
 						einen Arbeitspaket</option>
