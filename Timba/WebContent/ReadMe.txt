@@ -76,3 +76,7 @@ http://www.bennadel.com/blog/2542-logging-client-side-errors-with-angularjs-and-
 
 Caching GET requests:
 http://www.visualstudiogeeks.com/blog/angularjs/mvc/ie/angularjs-and-ie9/
+
+Testen:
+
+

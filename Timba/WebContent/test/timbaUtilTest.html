@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+<script src="../js/timbaUtils.js" charset="UTF-8"></script>
+</head>
+<body>
+</body>
+<script type="text/javascript">
+	//how it works
+	describe('How Testing JS Works', function() {
+		//the 'spec' in the describe block describes a logical group of tests
+		it('without a test body --> pending spec');
+		it('with a test body: 1 + 1 should equal 2', function() {
+			expect(1 + 1).toBe(2);
+			/**
+			expect(true).toBe(true);
+			expect(false).not.toBe(true);
+			   expect(1).toEqual(1);
+			  expect('foo').toEqual('foo');
+				expect('foo').not.toEqual('bar');
+				expect( function(){ parser.parse(raw); } ).toThrow(new Error("Parsing is not possible"));
+			 **/
+		});
+	});
+	describe('RochadeDateFormatterTest', function() {
+		it('RochadeDate in format yyyyMMddhhmmss should return format dd.MM.yyyy', function() {
+			expect(rochadeDateFormatter("20150301101233")).toEqual("01.03.2015");
+			expect(rochadeDateFormatter("20130810091022")).toEqual("10.08.2013");
+		});
+		it('RochadeDate in format yyyyMMddhh should return format dd.MM.yyyy', function() {
+			expect(rochadeDateFormatter("20150301")).toEqual("01.03.2015");
+			expect(rochadeDateFormatter("20130810")).toEqual("10.08.2013");
+		});
+	});
+
+	describe('GermanDateFormatterTest', function() {
+		it('German Date in format dd.MM.yyy should return format yyyy-MM-dd', function() {
+			expect(germanDateFormatter("20.03.2015")).toEqual("2015-03-20");
+		});
+	});
+
+	describe('DateFormatterTest', function() {
+		testDate = new Date(2015, 09, 07);
+		it('date Object formatted to german date format dd.MM.yyyy', function() {
+			expect(dateFormatter(testDate)).toEqual(("07.10.2015"));
+		});
+	});
+
+	describe('removeItemTest', function() {
+		testData = [ {
+			"kurzbeschreibung" : "Constantin Krüger",
+			"name" : "1472",
+			"id" : 6418
+		}, {
+			"kurzbeschreibung" : "Alexander Schleif",
+			"name" : "0839",
+			"id" : 18007
+		}, {
+			"kurzbeschreibung" : "Peter Kaisinger",
+			"name" : "0835",
+			"id" : 18623
+		}, {
+			"kurzbeschreibung" : "Holger Mößner",
+			"name" : "0015",
+			"id" : 17587
+		} ]
+		
+		expectation = [ {
+			"kurzbeschreibung" : "Constantin Krüger",
+			"name" : "1472",
+			"id" : 6418
+		}, {
+			"kurzbeschreibung" : "Alexander Schleif",
+			"name" : "0839",
+			"id" : 18007
+		}, {
+			"kurzbeschreibung" : "Holger Mößner",
+			"name" : "0015",
+			"id" : 17587
+		} ]
+
+		removeItem(testData, "id", 18623);
+		
+		it('removes an object from the jsonArray', function() {
+			expect(testData).toEqual(expectation);
+		});
+	});
+</script>
+</html>
