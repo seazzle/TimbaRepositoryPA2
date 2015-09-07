@@ -140,8 +140,11 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				    a.href = objectUrl;
 			        a.download = ("Mitarbeiterbericht-"+$scope.reportingUser.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf");
 			        a.click();
-				    
-			        window.URL.revokeObjectURL(objectUrl);
+			        setTimeout(function(){
+			            document.body.removeChild(a);
+			            window.URL.revokeObjectURL(objectUrl);  
+			        }, 100);  
+//			        window.URL.revokeObjectURL(objectUrl);
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
@@ -178,8 +181,11 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 				    a.href = objectUrl;
 			        a.download = "Bericht-"+$scope.selectedAuftrag.name + "-" + germanDateFormatter($scope.beginnDatum.value) + "-" + germanDateFormatter($scope.endDatum.value)+".pdf";
 			        a.click();
-				    
-			        window.URL.revokeObjectURL(objectUrl);
+			        setTimeout(function(){
+			            document.body.removeChild(a);
+			            window.URL.revokeObjectURL(objectUrl);  
+			        }, 100);
+//			        window.URL.revokeObjectURL(objectUrl);
 				}
 			}).error(function(data, status) {
 				$scope.showErrorBox = true;
