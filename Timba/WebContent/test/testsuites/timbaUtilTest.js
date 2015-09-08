@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-<link rel="stylesheet" type="text/css"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
-<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
-<script src="../js/timbaUtils.js" charset="UTF-8"></script>
-</head>
-<body>
-</body>
-<script type="text/javascript">
-	//how it works
-	describe('How Testing JS Works', function() {
-		//the 'spec' in the describe block describes a logical group of tests
-		it('without a test body --> pending spec');
-		it('with a test body: 1 + 1 should equal 2', function() {
-			expect(1 + 1).toBe(2);
-			/**
-			expect(true).toBe(true);
-			expect(false).not.toBe(true);
-			   expect(1).toEqual(1);
-			  expect('foo').toEqual('foo');
-				expect('foo').not.toEqual('bar');
-				expect( function(){ parser.parse(raw); } ).toThrow(new Error("Parsing is not possible"));
-			 **/
-		});
-	});
+/**
+ * 
+ */
 	describe('RochadeDateFormatterTest', function() {
 		it('RochadeDate in format yyyyMMddhhmmss should return format dd.MM.yyyy', function() {
 			expect(rochadeDateFormatter("20150301101233")).toEqual("01.03.2015");
@@ -56,7 +27,7 @@
 
 	describe('removeItemTest', function() {
 		testData = [ {
-			"kurzbeschreibung" : "Constantin Krüger",
+			"kurzbeschreibung" : "Constantin KrÃ¼ger",
 			"name" : "1472",
 			"id" : 6418
 		}, {
@@ -68,13 +39,13 @@
 			"name" : "0835",
 			"id" : 18623
 		}, {
-			"kurzbeschreibung" : "Holger Mößner",
+			"kurzbeschreibung" : "Holger MÃ¶ÃŸner",
 			"name" : "0015",
 			"id" : 17587
 		} ]
 		
 		expectation = [ {
-			"kurzbeschreibung" : "Constantin Krüger",
+			"kurzbeschreibung" : "Constantin KrÃ¼ger",
 			"name" : "1472",
 			"id" : 6418
 		}, {
@@ -82,7 +53,7 @@
 			"name" : "0839",
 			"id" : 18007
 		}, {
-			"kurzbeschreibung" : "Holger Mößner",
+			"kurzbeschreibung" : "Holger MÃ¶ÃŸner",
 			"name" : "0015",
 			"id" : 17587
 		} ]
@@ -93,5 +64,3 @@
 			expect(testData).toEqual(expectation);
 		});
 	});
-</script>
-</html>

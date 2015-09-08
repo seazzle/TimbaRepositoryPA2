@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Jasmine References -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+
+<!-- Angular and Angular Mock references -->
+<script type="text/javascript"
+	src="https://code.angularjs.org/1.4.0-rc.2/angular.min.js"></script>
+<script type="text/javascript"
+	src="https://code.angularjs.org/1.4.0-rc.2/angular-mocks.js"></script>
+
+<!-- zu testendes Modul -->
+<script
+	src="../js/viewModels/zuletztGebuchte/zuletztGebuchteController.js"></script>
+</head>
+<body></body>
+<script type="text/javascript">
+	angular.module('calculatorApp', []).controller('CalculatorController', function CalculatorController($scope) {
+		$scope.sum = function() {
+			$scope.z = $scope.x + $scope.y;
+		};
+	});
+
+	/* Test Code */
+	describe('Controller: zuletztGebuchte', function() {
+		beforeEach(module('ZuletztGebuchte'));
+		
+		var $scope, $rootScope, $http, $log;
+		
+		 beforeEach(inject(function(_$rootScope_, _$controller_, $httpBackend){
+		        $rootScope = _$rootScope_;
+		        $scope = $rootScope.$new();
+		        $controller = _$controller_;
+
+		        $controller('zuletztGebuchteController', {'$scope': $scope, '$http': $http, '$rootScope' : $rootScope, '$log': $log});
+		    }));
+		
+		
+		
+		
+		
+		
+		
+
+		describe('clearing rootScope', function() {
+			it('rootScope should be undefined', function() {
+
+				var controller = $controller('zuletztGebuchteController', {
+					$scope : $scope,
+					$rootScope : $rootScope,
+					$http : $http,
+					$log : $log
+				});
+
+				$rootScope.rsAuftrag = "auftrag";
+				$rootScope.rsArbeitspaket = "arbeitspaket";
+				$rootScope.rsSuccessMessage = true;
+				$rootScope.rsShowSuccessBox = false;
+
+				//function call
+				$rootScope.clearRootScope();
+				
+				//expect($rootScope.rsAuftrag).toBeUndefined();
+			});
+		});
+	});
+</script>
+</html>
