@@ -78,3 +78,9 @@ function getById(arr, id) {
         }
     }
 }
+
+function getArbeitspaketeById(arr, id){
+	for (var d = 0, len = arr.length; d < len; d += 1){
+		arr[d].arbeitspakete
+	}
+}

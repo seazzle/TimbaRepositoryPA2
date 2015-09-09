@@ -41,10 +41,12 @@ angular.module('BuchungErstellen')
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
+				$log.debug("alleAuftraege: \n"+angular.toJson($scope.auftraege));
+				
 				if (!angular.isUndefined($rootScope.rsAuftrag)) {
 					$scope.selectedAuftrag = getById($scope.auftraege, $rootScope.rsAuftrag.id);
 					
-					$log.debug("auf"+angular.toJson($scope.auftraege));
+					$log.debug("selectedAuftrag: "+angular.toJson($scope.selectedAuftrag));
 					
 					$scope.selectedArbeitspaket = getById($scope.selectedAuftrag.arbeitspakete, $rootScope.rsArbeitspaket.id);
 
