@@ -42,8 +42,12 @@ angular.module('BuchungErstellen')
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
 				if (!angular.isUndefined($rootScope.rsAuftrag)) {
-					$scope.selectedAuftrag= getById($scope.auftraege, $rootScope.rsAuftrag.id);
-					$scope.selectedArbeitspaket = $rootScope.rsArbeitspaket;
+					$scope.selectedAuftrag = getById($scope.auftraege, $rootScope.rsAuftrag.id);
+					
+					$log.debug("auf"+angular.toJson($scope.auftraege));
+					
+					$scope.selectedArbeitspaket = getById($scope.selectedAuftrag.arbeitspakete, $rootScope.rsArbeitspaket.id);
+
 					$rootScope.clearRootScope();
 				}
 			} else {
