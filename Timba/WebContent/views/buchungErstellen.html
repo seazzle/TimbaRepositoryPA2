@@ -17,13 +17,12 @@
 			<div class="col-sm-8">
 				<select id="auftraege" class="form-control"
 					ng-options="auftrag.kurzbeschreibung for auftrag in auftraege" ng-model="selectedAuftrag">
-					<option value="" style="display: none" id="chooseAuftrag"
+					<option ng-if="selectedAuftrag==undefined" value="" style="display: none" id="chooseAuftrag"
 						>w&auml;hle
 						einen Auftrag</option>
 				</select>
 			</div>
 		</div>
-		<!-- ng-if="selectedAuftrag==undefined" -->
 
 		<div class="form-group row">
 			<label for="arbeitspakete" class="col-sm-3 timba-label">Arbeitspaket*</label>

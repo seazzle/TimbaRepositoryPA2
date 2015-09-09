@@ -70,3 +70,11 @@ function rochadeDateFormatter(stringDate){
 		}
 	}
 }
+
+function getById(arr, id) {
+    for (var d = 0, len = arr.length; d < len; d += 1) {
+        if (arr[d].id === id) {
+            return arr[d];
+        }
+    }
+}

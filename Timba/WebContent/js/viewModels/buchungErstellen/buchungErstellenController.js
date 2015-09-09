@@ -7,7 +7,7 @@ angular.module('BuchungErstellen')
 
 .config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('buchungErstellenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+}).controller('buchungErstellenController', [ '$scope', '$http', '$rootScope', '$log', '$filter', '$timeout', function($scope, $http, $rootScope, $log, $filter, $timeout) {
 	/**
 	 * steuert die Sichtbarkeit der Error Box
 	 */
@@ -25,28 +25,6 @@ angular.module('BuchungErstellen')
 	 */
 	$scope.initBuchungErstellen = function() {
 		$scope.getAuftrageUndArbeitspakete();
-		
-		if (!angular.isUndefined($rootScope.rsAuftrag)) {
-			$log.debug("rsAuftrag: "+angular.toJson($rootScope.rsAuftrag))
-			$scope.selectedAuftrag = $rootScope.rsAuftrag;
-			
-			/**
-			 * optischer workaround --> selected Auftrag ist vorausgewaehlt wird
-			 * jedoch in der DropDownListe nicht richtig vorausgewaehlt inner
-			 * HTML des chooseAuftrag Elements wird ausgetauscht nur optisch
-			 * 
-			 * BEGIN Workaround
-			 */
-			var chooseAuftragOption = document.getElementById("chooseAuftrag");
-			chooseAuftragOption.innerHTML = $scope.selectedAuftrag.kurzbeschreibung;
-			$log.debug(chooseAuftragOption.innerHTML);
-			/**
-			 * END Workaround
-			 */
-			
-			$scope.selectedArbeitspaket = $rootScope.rsArbeitspaket;
-			$rootScope.clearRootScope();
-		}
 	}
 	
 	/**
@@ -60,10 +38,14 @@ angular.module('BuchungErstellen')
 			url : serviceURL + '/zeiterfassung/ermittleAuftraege/' + $rootScope.user,
 			method : "GET",
 		}).success(function(data) {
-//			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.auftraege = data.content;
+				if (!angular.isUndefined($rootScope.rsAuftrag)) {
+					$scope.selectedAuftrag= getById($scope.auftraege, $rootScope.rsAuftrag.id);
+					$scope.selectedArbeitspaket = $rootScope.rsArbeitspaket;
+					$rootScope.clearRootScope();
+				}
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
