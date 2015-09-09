@@ -5,7 +5,7 @@
  */
 angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+}).controller('auftragBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', '$location', function($scope, $http, $rootScope, $log, $location) {
 	$scope.showErrorBox = false;
 
 	$scope.statusOptions = [ {
@@ -31,7 +31,7 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		$scope.type = $rootScope.rsAuftrag.type;
 		$rootScope.clearRootScope();
 	}
-	
+
 	/**
 	 * variablen zum sortieren und suchen in der Tabelle
 	 */
@@ -40,12 +40,11 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 	$scope.searchMitarbeiter = ''; // set the default search/filter term
 
 	$scope.ermittleMitarbeiterUndOrga = function(auftragsName) {
-		$log.debug("ermittleMitarbeiterUndOrga: "+serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/');
+		$log.debug("ermittleMitarbeiterUndOrga: " + serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/');
 		$http({
 			url : serviceURL + '/zeiterfassung/' + auftragsName + '/ermittleMitarbeiterUndOrga/',
 			method : "GET",
 		}).success(function(data) {
-			$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.nichtBuchungsberechtigte = data.content;
@@ -104,17 +103,17 @@ angular.module('AuftragBearbeiten').config(function($sceProvider) {
 		}
 		$log.debug(angular.toJson(auftrag));
 
-		$log.debug("POST: "+serviceURL + '/zeiterfassung/' + $scope.name + '/edit');
+		$log.debug("POST: " + serviceURL + '/zeiterfassung/' + $scope.name + '/edit');
 		$http({
 			url : serviceURL + '/zeiterfassung/' + $scope.name + '/edit',
 			method : "POST",
 			data : angular.toJson(auftrag),
 		}).success(function(data) {
 			if (data.success == true) {
-				$log.debug("Auftrag bearbeiten Antwort: "+angular.toJson(data.content));
+				$log.debug("Auftrag bearbeiten Antwort: " + angular.toJson(data.content));
 				$rootScope.rsSuccessMessage = "Auftrag " + data.content.kurzbeschreibung + " wurde bearbeitet";
 				$rootScope.rsShowSuccessBox = true;
-				location.href = "#administration";
+				$location.path('/administration');
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;

@@ -70,7 +70,6 @@ angular.module('Administration').config(function($sceProvider) {
 	$scope.getSuccessMessages = function() {
 		$scope.successMessage = $rootScope.rsSuccessMessage;
 		$scope.showSuccessBox = $rootScope.rsShowSuccessBox;
-		$log.debug($scope.showSuccessBox);
 		$rootScope.clearRootScope();
 	}
 } ]);
