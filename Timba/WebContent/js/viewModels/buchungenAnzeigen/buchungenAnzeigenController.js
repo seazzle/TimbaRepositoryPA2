@@ -180,7 +180,7 @@ angular.module('BuchungenAnzeigen').config(function($sceProvider) {
 									$rootScope.getUserInfo();
 									$scope.buchungenAnzeigen();
 									$scope.showSuccessBox = true;
-									$scope.successMessage = "die Buchung wurde storniert";
+									$scope.successMessage = "Die Buchung wurde storniert";
 								} else {
 									$scope.showErrorBox = true;
 									$scope.errorMessage = "Rochade Antwortet: " + data.message;

@@ -32,7 +32,7 @@ angular.module('ArbeitspaketAnlegen').config(function($sceProvider) {
 			if (data.success == true) {
 				$scope.showErrorBox = false;
 				$scope.showSuccessBox = true;
-				$scope.successMessage = "das Arbeitspaket " +data.content.kurzbeschreibung+ " wurde erfolgreich angelegt";
+				$scope.successMessage = "Das Arbeitspaket " +data.content.kurzbeschreibung+ " wurde erfolgreich angelegt";
 				$scope.kurzbeschreibung = "";
 				$scope.beschreibung = ""
 				$scope.planAufwand = "";

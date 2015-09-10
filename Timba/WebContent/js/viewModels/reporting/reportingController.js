@@ -168,7 +168,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 										}
 									}).error(function(data, status) {
 								$scope.showErrorBox = true;
-								$scope.errorMessage = "beim Download des Mitarbeiterberichts ist ein Fehler aufgetreten";
+								$scope.errorMessage = "Beim Download des Mitarbeiterberichts ist ein Fehler aufgetreten";
 							});
 						}
 
@@ -218,7 +218,7 @@ angular.module('Reporting').config(function($sceProvider, $httpProvider) {
 										}
 									}).error(function(data, status) {
 								$scope.showErrorBox = true;
-								$scope.errorMessage = "beim Download des Auftrag- / Projektberichts ist ein Fehler aufgetreten";
+								$scope.errorMessage = "Beim Download des Auftrag- / Projektberichts ist ein Fehler aufgetreten";
 							});
 						}
 					}
