@@ -45,6 +45,10 @@ function dateFormatter(date) {
 	return dd + "." + mm + "." + yyyy;
 }
 
+/**
+ * @param stringDate im Format dd.MM.yyyy
+ * @returns {String} im Format yyyy-MM-dd
+ */
 function germanDateFormatter(stringDate) {
 	try {
 		var split = stringDate.split(".");
@@ -57,7 +61,10 @@ function germanDateFormatter(stringDate) {
 	}
 }
 
-
+/**
+ * @param stringDate im Format yyyyMMddhhmmss
+ * @returns {String} im Format dd.MM.yyyy
+ */
 function rochadeDateFormatter(stringDate){
 	if(!stringDate==='undefined'||!stringDate==null||!stringDate==""){
 		try{
@@ -71,16 +78,15 @@ function rochadeDateFormatter(stringDate){
 	}
 }
 
+/**
+ * @param arr array of Objects
+ * @param id id value of a single Object
+ * @returns the Object where the id matches
+ */
 function getById(arr, id) {
     for (var d = 0, len = arr.length; d < len; d += 1) {
         if (arr[d].id === id) {
             return arr[d];
         }
     }
-}
-
-function getArbeitspaketeById(arr, id){
-	for (var d = 0, len = arr.length; d < len; d += 1){
-		arr[d].arbeitspakete
-	}
 }

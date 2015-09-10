@@ -1,5 +1,5 @@
 /**
- * 
+ * tests timbaUtils function
  */
 	describe('RochadeDateFormatterTest', function() {
 		it('RochadeDate in format yyyyMMddhhmmss should return format dd.MM.yyyy', function() {
@@ -63,4 +63,34 @@
 		it('removes an object from the jsonArray', function() {
 			expect(testData).toEqual(expectation);
 		});
+	});
+	
+	describe('getByIdTest', function() {
+		it('Array of Objects which returns a single Object by its ID', function() {
+			testData = [ {
+				"kurzbeschreibung" : "Constantin Krüger",
+				"name" : "1472",
+				"id" : 6418
+			}, {
+				"kurzbeschreibung" : "Alexander Schleif",
+				"name" : "0839",
+				"id" : 18007
+			}, {
+				"kurzbeschreibung" : "Peter Kaisinger",
+				"name" : "0835",
+				"id" : 18623
+			}, {
+				"kurzbeschreibung" : "Holger Mößner",
+				"name" : "0015",
+				"id" : 17587
+			} ]
+			
+			
+			var objectByID=getById(testData, 18623);
+			
+			expect(objectByID.id).toEqual(18623);
+			expect(objectByID.name).toEqual("0835");
+			expect(objectByID.kurzbeschreibung).toEqual("Peter Kaisinger");
+		});
+
 	});

@@ -43,6 +43,9 @@ angular.module('BuchungErstellen')
 				$scope.auftraege = data.content;
 				$log.debug("alleAuftraege: \n"+angular.toJson($scope.auftraege));
 				
+				/**
+				 * preselection
+				 */
 				if (!angular.isUndefined($rootScope.rsAuftrag)) {
 					$scope.selectedAuftrag = getById($scope.auftraege, $rootScope.rsAuftrag.id);
 					
