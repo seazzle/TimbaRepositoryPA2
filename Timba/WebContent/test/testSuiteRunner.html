@@ -1,6 +1,82 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<link rel="stylesheet" href="../css/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/font-awesome.css" />
+<link rel='stylesheet' href='../css/loading-bar.min.css' type='text/css' media='all' />
+<link href="../css/sticky-footer.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/jquery-ui.css" />
+<link rel="stylesheet" href="../css/jquery-ui.min.css" />
+<link rel="stylesheet" href="../css/jquery-ui.structure.css" />
+<link rel="stylesheet" href="../css/jquery-ui.structure.min.css" />
+<link rel="stylesheet" href="../css/jquery-ui.theme.css" />
+<link rel="stylesheet" href="../css/jquery-ui.theme.min.css" />
+
+<!-- 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-cookies.js"></script>
+
+<script src="https://rawgit.com/srfrnk/re-tree/master/re-tree.js"></script>
+<script src="https://rawgit.com/srfrnk/ng-device-detector/master/ng-device-detector.js"></script>
+<s
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
+<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
+<script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.7.1/loading-bar.min.js'></script>
+ -->
+ 
+ <script src="../js/libs/jquery.min.js"></script>
+<script src="../js/libs/angular.js"></script>
+<script src="../js/libs/angular-route.js"></script>
+<script src="../js/libs/angular-cookies.js"></script>
+
+<script src="../js/libs/re-tree.js"></script>
+<script src="../js/libs/ng-device-detector.js"></script>
+
+<script src="../js/libs/jquery-ui.min.js"></script>
+<script src="../js/libs/jquery-ui.js"></script>
+<script src="../js/libs/bootstrap.min.js"></script>
+<script src="../js/libs/ui-bootstrap-tpls.js"></script>
+<script src="../js/libs/ui-bootstrap-tpls-0.13.0.js"></script>
+<script type='text/javascript' src='../js/libs/loading-bar.min.js'></script>
+
+<script src="../js/timba.js" charset="UTF-8"></script>
+<script src="../js/timbaUtils.js" charset="UTF-8"></script>
+
+<script src="../js/viewModels/login/loginController.js"></script>
+<script src="../js/viewModels/login/services.js"></script>
+
+<script src="../js/viewModels/zuletztGebuchte/zuletztGebuchteController.js"></script>
+
+<script src="../js/viewModels/alleAuftraege/alleAuftraegeController.js"></script>
+
+<script src="../js/viewModels/buchungErstellen/buchungErstellenController.js"></script>
+<script src="../js/viewModels/buchungErstellen/stoppuhr.js"></script>
+
+<script src="../js/viewModels/buchungenAnzeigen/buchungenAnzeigenController.js"></script>
+
+<script src="../js/viewModels/administration/administrationController.js"></script>
+<script src="../js/viewModels/administration/arbeitspaketAnlegenController.js"></script>
+<script src="../js/viewModels/administration/arbeitspaketBearbeitenController.js"></script>
+<script src="../js/viewModels/administration/auftragBearbeitenController.js"></script>
+
+<script src="../js/viewModels/reporting/reportingController.js"></script>
+
+
+<script src="../js/ScriptExceptionHandler.js"></script>
+
+
+<link rel="stylesheet" href="../css/timba.css"/>
+
+
+
+
+
 <!-- Testframework -->
 <link rel="stylesheet" type="text/css"
 	href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
@@ -25,7 +101,8 @@
  -->
 <script
 	src="../js/viewModels/zuletztGebuchte/zuletztGebuchteController.js"></script>
-
+<script
+	src="../js/timba.js"></script>
 
 </head>
 <body>
@@ -33,5 +110,6 @@
 <!-- include the Testsuites here -->
 <script type="text/javascript" src="testsuites/howToTest.js"></script>
 <script type="text/javascript" src="testsuites/timbaUtilTest.js"></script>
+<script type="text/javascript" src="testsuites/timbaTest.js"></script>
 <script type="text/javascript" src="testsuites/zuletztGebuchteTest.js"></script>
 </html>

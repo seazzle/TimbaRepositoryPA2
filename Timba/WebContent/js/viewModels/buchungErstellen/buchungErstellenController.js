@@ -61,7 +61,7 @@ angular.module('BuchungErstellen')
 			}
 		}).error(function(data, status) {
 			$scope.showErrorBox = true;
-			$scope.errorMessage = "Beim Ermitteln der Projekte / Auftraege und ihrer Arbeitspakete ist ein Fehler aufgetreten";
+			$scope.errorMessage = "Beim Ermitteln der Projekte / Aufträge und ihrer Arbeitspakete ist ein Fehler aufgetreten";
 		});
 	}
 

@@ -4,7 +4,7 @@
  */
 angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 	$sceProvider.enabled(false);
-}).controller('arbeitspaketBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', function($scope, $http, $rootScope, $log) {
+}).controller('arbeitspaketBearbeitenController', [ '$scope', '$http', '$rootScope', '$log', '$location', function($scope, $http, $rootScope, $log, $location) {
 	$scope.statusOptions = [ {
 		name : 'Offen',
 		value : 'offen'
@@ -43,10 +43,10 @@ angular.module('ArbeitspaketBearbeiten').config(function($sceProvider) {
 			data : angular.toJson(arbeitspaket),
 		}).success(function(data) {
 			if (data.success == true) {
-				$rootScope.rsSuccessMessage = "Arbeitspaket " + data.content.kurzbeschreibung + " wurde erfolgreich geaendert";
+				$rootScope.rsSuccessMessage = "Arbeitspaket " + data.content.kurzbeschreibung + " wurde erfolgreich geändert";
 				$rootScope.rsShowSuccessBox = true;
 				$log.debug($rootScope.rsShowSuccessBox);
-				location.href = "#administration";
+				$location.path('/administration');
 			} else {
 				$scope.showErrorBox = true;
 				$scope.errorMessage = "Rochade Antwortet: " + data.message;
