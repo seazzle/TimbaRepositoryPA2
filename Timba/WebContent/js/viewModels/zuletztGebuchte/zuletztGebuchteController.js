@@ -96,4 +96,10 @@ angular.module('ZuletztGebuchte').config(function($sceProvider) {
 		$rootScope.rsAuftrag = auftrag;
 		$rootScope.rsArbeitspaket = arbeitspaket;
 	}
+	
+	$scope.getSuccessMessages = function() {
+		$scope.successMessage = $rootScope.rsSuccessMessage;
+		$scope.showSuccessBox = $rootScope.rsShowSuccessBox;
+		$rootScope.clearRootScope();
+	}
 } ]);

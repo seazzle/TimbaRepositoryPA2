@@ -101,14 +101,18 @@ angular.module('BuchungErstellen')
 			}).success(function(data) {
 				$log.debug("Antwort-Objekt: "+angular.toJson(data.content));
 				if (data.success == true) {
-					$scope.showSuccessBox = true;
-					$scope.showErrorBox = false;
-					$scope.successMessage = "Buchung wurde erfolgreich erstellt";
-					$scope.istAufwand = "";
-					$scope.kommentar = "";
-					$rootScope.getUserInfo();
+					$rootScope.rsSuccessMessage = "Auf das Arbeitspaket "+$scope.selectedArbeitspaket "+ wurden erfolgreich "+parseFloat($scope.istAufwand.replace(',', '.').replace(' ', ''))+" gebucht.";
+					$rootScope.rsShowSuccessBox = true;
 
-					reset();
+					$location.path('/zuletztGebuchte');
+					//					$scope.showSuccessBox = true;
+//					$scope.showErrorBox = false;
+//					$scope.successMessage = "Buchung wurde erfolgreich erstellt";
+//					$scope.istAufwand = "";
+//					$scope.kommentar = "";
+//					$rootScope.getUserInfo();
+//
+//					reset();
 				} else {
 					$scope.showErrorBox = true;
 					$scope.errorMessage = "Rochade Antwortet: " + data.message;
