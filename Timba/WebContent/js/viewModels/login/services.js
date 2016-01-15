@@ -11,7 +11,7 @@ angular.module('Authentication')
 		 */
 		if (originEndpoint == localDevEndpoint) {
 			serviceURL = externalEndpoint + serviceName; // for localhost
-															// e.g.
+														 // e.g.
 		} else {
 			serviceURL = originEndpoint + serviceName;
 		}
@@ -21,34 +21,37 @@ angular.module('Authentication')
 		/**
 		 * setzen des Authentifizierungsheaders
 		 */
-		$http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode('TimbaUser' + ':' + 'resuabmit');
+		$http.defaults.headers.common.Authorization = 'Basic ' + Base64.encode(username + ':' + password);
 		$log.debug("Gateway User clear:  username: TimbaUser, password: resuabmit");
 		$log.debug("Gateway User encoded:" + Base64.encode('TimbaUser' + ':' + 'resuabmit'));
 
 		/**
 		 * Authentifizierung am Gateway
 		 */
-		$http.post(serviceURL, {
-			username : "TimbaUser",
-			password : "resuabmit"
+		$http.post(serviceURL, {			
+			username : username,
+			password : password
 		}).success(function(response) {
 			/**
-			 * ueberschreiben des response Objektes fuer den TimbaUser
+			 * ueberschreiben des response Objektes
 			 */
 			var response = {
-				success : username == password
-			};
-			if (!response.success) {
-				response.message = 'Deine Sachbearbeiternummer oder dein Passwort sind falsch';
-			}
+				success : true
+			 };			
 			$rootScope.user = username;
 			$log.debug("angemeldeter User: " + $rootScope.user);
+			callback(response);
+		}).error(function(data, status) {
+			var response = {
+				success : false,
+				message : "Username / Password ist falsch."
+			 };			
 			callback(response);
 		});
 	};
 
 	service.SetCredentials = function(username, password) {
-		var authdata = Base64.encode("TimbaUser" + ':' + "resuabmit");
+		var authdata = Base64.encode(username + ':' + password);
 
 		$rootScope.globals = {
 			currentUser : {

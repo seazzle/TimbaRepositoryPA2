@@ -37,7 +37,7 @@
 describe('Controller: zuletztGebuchteControllerTest', function() {
 	var $scope, $http, $rootScope, $log, ctrl;
 
-	beforeEach(module('ZuletztGebuchte'))
+	beforeEach(module('ZuletztGebuchte'));
 	
     beforeEach(inject(function($controller, _$rootScope_, $injector, _$log_) {
     	
@@ -52,12 +52,15 @@ describe('Controller: zuletztGebuchteControllerTest', function() {
         	$rootScope: $rootScope,
         	$log: $log,
         });
-        $http.when('GET', serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user).respond("an order form");
-
     }));
 
+	
     it("gets the list from the api and assigns it to scope", function() {
-    	$http.expectGET('tactical/api/listOrderForms');
-      expect(scope.orderFormList).toMatch("an order form");
+    	
+    	var data = "hello world";
+    	
+    	$http.when('GET', serviceURL + '/zeiterfassung/ermittleUserInfo/' + $rootScope.user).respond(200, data);
+    	$http.expectGET(serviceURL + '/zeiterfassung/ermittleMeineLetztenBebuchtenArbeitspakete/' + $rootScope.user);
+      expect(data).toMatch("hello world");
     });
 });
